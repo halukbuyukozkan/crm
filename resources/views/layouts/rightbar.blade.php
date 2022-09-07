@@ -106,8 +106,11 @@
                                 <li><a href="{{ route('dashboard') }}">test</a></li>
                             </ul>
                         </li>
-                        <li>
-                            <a href="#" ><i class="ri-settings-2-fill"></i>System</a>
+                        <li class="scroll dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="ri-settings-2-fill"></i>System</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{{ route('admin.role.index') }}">Roles</a></li>
+                            </ul>
                         </li>
                     </ul>
                 </div>
