@@ -60,19 +60,17 @@
                     <div class="infobar">
                         <ul class="list-inline mb-0">
                             <li class="list-inline-item">
-                                <div class="settingbar">
-                                    <a href="javascript:void(0)" id="infobar-settings-open" class="infobar-icon"><i class="ri-settings-line"></i></a>
-                                </div>
-                            </li>
-                            <li class="list-inline-item">
                                 <div class="profilebar">
                                     <div class="dropdown">
-                                      <a class="dropdown-toggle" href="#" role="button" id="profilelink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="assets/images/users/profile.svg" class="img-fluid" alt="profile"><span class="live-icon">John D</span></a>
+                                      <a class="dropdown-toggle" href="#" role="button" id="profilelink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="assets/images/users/profile.svg" class="img-fluid" alt="profile"><span class="live-icon">{{ Auth::user()->name}}</span></a>
                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="profilelink">
                                             <a class="dropdown-item" href="#"><i class="ri-user-6-line"></i>My Profile</a>
                                             <a class="dropdown-item" href="#"><i class="ri-mail-line"></i>Email</a>
                                             <a class="dropdown-item" href="#"><i class="ri-settings-3-line"></i>Settings</a>
-                                            <a class="dropdown-item text-danger" href="#"><i class="ri-shut-down-line"></i>Logout</a>
+                                            <form action="{{ route('logout')}}" method="POST">
+                                            @csrf
+                                                <button class="dropdown-item text-danger"><i class="ri-shut-down-line"></i>Logout</button>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>                                   
@@ -105,8 +103,11 @@
                         <li class="scroll dropdown">
                             <a href="javaScript:void();" class="dropdown-toggle" data-toggle="dropdown"><i class="ri-dashboard-line"></i><span>Dashboard</span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="{{url('/')}}">test</a></li>
+                                <li><a href="{{ route('dashboard') }}">test</a></li>
                             </ul>
+                        </li>
+                        <li>
+                            <a href="#" ><i class="ri-settings-2-fill"></i>System</a>
                         </li>
                     </ul>
                 </div>
