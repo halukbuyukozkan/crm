@@ -42,7 +42,15 @@ ROLES
                                     <td>{{ $role->name }}</td>
                                     <td>-</td>
                                     <td>
-                                        <form action="{{ route('admin.role.destroy',$role) }}" method="GET"><button class="btn btn-sm btn-danger"><i class="ri-close-line"></i></button></form>
+                                    <form action="{{ route('admin.role.destroy', $role) }}" method="POST"
+                                    class="d-inline-block" onsubmit="return confirm('{{ __('Are you sure?') }}');">
+                                    @csrf
+                                    @method('DELETE')
+                                        <button type="submit" class="btn btn-sm btn-danger">
+                                            <i class="fas fa-trash"></i>
+                                            <span class="d-none d-sm-inline">{{ __('Delete') }}</span>
+                                        </button>
+                                    </form>
                                     </td>
                                 </tr>  
                                 @endforeach
