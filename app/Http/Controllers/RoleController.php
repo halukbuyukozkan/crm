@@ -68,9 +68,12 @@ class RoleController extends Controller
      * @param  \App\Models\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function edit(Role $role)
+    public function edit(Role $role,Request $request)
     {
-        //
+        $role->fill($request->old());
+        $permissions = Permission::all();
+
+        return view('role.form', compact('role', 'permissions'));
     }
 
     /**
@@ -82,7 +85,15 @@ class RoleController extends Controller
      */
     public function update(Request $request, Role $role)
     {
-        //
+        $data = $request->validate([
+            'name' => 'required|unique:roles,name,' . $role->id,
+            'permissions' => 'array|exists:permissions,id',
+        ]);
+        $role->fill($data);
+        $role->save();
+        $role->syncPermissions($data['permissions'] ?? []);
+
+        return redirect()->route('admin.role.index')->with('success', 'Role updated successfully');
     }
 
     /**
