@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\AboutController;
+use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\RoleController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,8 +20,18 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
-Route::get('/dashboard', function () {
-    return view('index');
-})->middleware(['auth'])->name('dashboard');
+
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('index');
+    })->name('dashboard');
+
+    Route::prefix('admin')->name('admin.')->group(function () {
+        Route::resource('role', RoleController::class);
+        Route::resource('permission', PermissionController::class);
+        Route::resource('about',AboutController::class);
+    });
+});
 
 require __DIR__.'/auth.php';
