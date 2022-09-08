@@ -114,7 +114,7 @@
                             </ul>
                         </li>
                         <li>
-                            <a href="{{ route('admin.about.index') }}" class="dropdown-toggle"><i class="ri-file-info-line"></i></i>Hakkında</a>
+                            <a href="{{ route('admin.about.index') }}"><i class="ri-file-info-line"></i></i>Hakkında</a>
                         </li>
                     </ul>
                 </div>
