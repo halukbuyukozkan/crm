@@ -22,13 +22,17 @@ Yetkiler
                         <div class="card">
                             <div class="card-header" id="headingOneicon">
                                 <h2 class="mb-0">
-                                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOneicon" aria-expanded="true" aria-controls="collapseOneicon"><i class="ri-award-line mr-2"></i>About</button>
+                                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOneicon" aria-expanded="true" aria-controls="collapseOneicon"><i class="ri-award-line mr-2"></i>Hakkımızda</button>
                                 </h2>
                             </div>
                             <div id="collapseOneicon" class="collapse show" aria-labelledby="headingOneicon" data-parent="#accordionwithicon">
                                 <div class="card-body">
-                                    Goodssol Gıda Sanayi A.Ş., distribütörü olduğu uluslarası şirketlerin ürünlerini 81 ilde 500’ün üzerinde noktasına satış ve dağıtım hizmeti vermesinin yanısıra, İş Geliştirme Departmanı ile route optimizasyonu ve P&L yönetimine ek olarak Pazarlama Departmanı ile Private Label markası yaratılması , konumlandırma stratejisi, pazar endex ve dağıtım kanallarının belirlenmesi, dijital pazarlama ve e-ticaret yönetimi konusunda da hizmet vermektedir.
-                                    Türkiye'deki lisans satış hakkına sahip olduğu Gloria Jean’s Coffes markasının "We Gloriosly Serve", "Gloria Jean’s Coffees To Go" iş modelleriyle hizmet veren Goodssol, lojistik, danışmanlık ve eğitim alanlarında da edinmiş olduğu tecrübeleri sizlere aktarmaktadır. Kahve kültürünün günden güne gelişmekte olduğu ülkemiz coğrafyasında, taze çekirdek, taze süt, mükemmel lezzet yol haritasını izleyerek Gloria Jeans Coffees kahve deneyimini perakende mağazaların açılamadığı alanlarda sunabilmek için çalışıyoruz.
+                                    <div class="my-3">
+                                        Goodssol Gıda Sanayi A.Ş., distribütörü olduğu uluslarası şirketlerin ürünlerini 81 ilde 500’ün üzerinde noktasına satış ve dağıtım hizmeti vermesinin yanısıra, İş Geliştirme Departmanı ile route optimizasyonu ve P&L yönetimine ek olarak Pazarlama Departmanı ile Private Label markası yaratılması , konumlandırma stratejisi, pazar endex ve dağıtım kanallarının belirlenmesi, dijital pazarlama ve e-ticaret yönetimi konusunda da hizmet vermektedir. <br>
+                                    </div>
+                                    <div class="my-3">
+                                        Türkiye'deki lisans satış hakkına sahip olduğu Gloria Jean’s Coffes markasının "We Gloriosly Serve", "Gloria Jean’s Coffees To Go" iş modelleriyle hizmet veren Goodssol, lojistik, danışmanlık ve eğitim alanlarında da edinmiş olduğu tecrübeleri sizlere aktarmaktadır. Kahve kültürünün günden güne gelişmekte olduğu ülkemiz coğrafyasında, taze çekirdek, taze süt, mükemmel lezzet yol haritasını izleyerek Gloria Jeans Coffees kahve deneyimini perakende mağazaların açılamadığı alanlarda sunabilmek için çalışıyoruz. <br>
+                                    </div>
                                     Ayrıca T.C. Adalet Bakanlığı CTE Genel Müdürlüğü’ne bağlı tüm cezaevi ve İşyurtları’na Pepsi, Fritolay ve Doğadan ürünleri ile satış ve dağıtım hizmetini vermekteyiz.
                                 </div>
                             </div>
