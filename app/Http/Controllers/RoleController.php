@@ -42,10 +42,9 @@ class RoleController extends Controller
      */
     public function store(RoleRequest $request)
     {
-        $data = $request->validate([
-            'name' => 'required|unique:roles,name',
-            'permissions' => 'array|exists:permissions,id',
-        ]);
+        $data = $request->validated();
+        if(empty($data['order']))
+            $data['order'] = Role::max('order')+1;
         $role = Role::create($data);
         $role->syncPermissions($data['permissions'] ?? []);
 

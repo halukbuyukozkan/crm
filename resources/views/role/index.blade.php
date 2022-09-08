@@ -40,7 +40,7 @@ ROLES
                                 @foreach ($roles as $role)
                                 <tr>
                                     <td>{{ $role->name }}</td>
-                                    <td>-</td>
+                                    <td>{{ $role->order }}</td>
                                     <td>
                                         <a href="{{ route('admin.role.edit',$role) }}"><button class="btn btn-sm btn-primary">
                                             <i class="ri-pencil-line"></i>

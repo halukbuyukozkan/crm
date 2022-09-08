@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class RoleRequest extends FormRequest
@@ -25,6 +26,7 @@ class RoleRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
+            'order' => ['nullable','integer','max:255|unique:roles,order', Rule::unique('roles')->ignore($this->order)]
         ];
     }
 }

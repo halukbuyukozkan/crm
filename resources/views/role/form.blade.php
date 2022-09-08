@@ -29,6 +29,11 @@ Yeni Rol
                 <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name"
                     value="{{ old('name', $role->name) }}" required>
             </div>
+            <h6 class="card-subtitle"><strong>Sıralama</strong></h6>
+            <div class="form-group mb-4">
+                <input type="number" class="form-control @error('order') is-invalid @enderror" id="order" name="order"
+                    value="{{ old('order', $role->order) }}">
+            </div>
             <h6 class="card-subtitle"><strong>Yetkiler</strong></h6>
             <div class="form-group">
                 <select class="form-control @error('permissions') is-invalid @enderror" id="permissions"
