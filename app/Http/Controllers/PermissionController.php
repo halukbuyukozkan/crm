@@ -40,7 +40,8 @@ class PermissionController extends Controller
     public function store(PermissionRequest $request)
     {
         $data = $request->validated();
-        
+        if(empty($data['order']))
+            $data['order'] = Permission::max('order')+1;
         $permission = Permission::create($data);
         $permission->syncPermissions($data['roles'] ?? []);
 

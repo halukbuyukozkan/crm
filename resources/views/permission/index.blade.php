@@ -40,7 +40,7 @@ Yetkiler
                                 @foreach ($permissions as $permission)
                                 <tr>
                                     <td>{{ $permission->name }}</td>
-                                    <td>-</td>
+                                    <td>{{ $permission->order }}</td>
                                     <td>
                                         <a href="{{ route('admin.permission.edit',$permission) }}"><button class="btn btn-sm btn-primary">
                                             <i class="ri-pencil-line"></i>

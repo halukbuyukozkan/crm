@@ -29,6 +29,11 @@ Yeni Yetki
                 <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name"
                     value="{{ old('name', $permission->name) }}" required>
             </div>
+            <h6 class="card-subtitle"><strong>Sıralama</strong></h6>
+            <div class="form-group mb-4">
+                <input type="number" class="form-control @error('order') is-invalid @enderror" id="order" name="order"
+                    value="{{ old('order', $permission->order) }}">
+            </div>
         </div>
         <div class="card-footer">
             <button type="submit" class="btn btn-primary">
