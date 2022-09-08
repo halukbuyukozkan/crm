@@ -107,10 +107,13 @@
                             </ul>
                         </li>
                         <li class="scroll dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="ri-settings-2-fill"></i>System</a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="ri-settings-2-fill"></i>Sistem</a>
                             <ul class="dropdown-menu">
-                                <li><a href="{{ route('admin.role.index') }}">Roles</a></li>
+                                <li><a href="{{ route('admin.role.index') }}">Roller</a></li>
                             </ul>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.about.index') }}" class="dropdown-toggle"><i class="ri-file-info-line"></i></i>Hakkında</a>
                         </li>
                     </ul>
                 </div>
