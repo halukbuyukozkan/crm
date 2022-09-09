@@ -111,10 +111,14 @@
                             <ul class="dropdown-menu">
                                 <li><a href="{{ route('admin.role.index') }}">Roller</a></li>
                                 <li><a href="{{ route('admin.permission.index') }}">Yetkiler</a></li>
+                                <li><a href="{{ route('admin.department.index') }}">Departmanlar</a></li>
                             </ul>
                         </li>
                         <li>
-                            <a href="{{ route('admin.about.index') }}"><i class="ri-file-info-line"></i></i>Hakkında</a>
+                            <a href="{{ route('admin.about.index') }}"><i class="ri-file-info-line"></i></i>Hakkımızda</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.field.index') }}"><i class="ri-file-info-line"></i></i>Faaliyet Alanlarımız</a>
                         </li>
                     </ul>
                 </div>
