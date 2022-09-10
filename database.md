@@ -1,17 +1,18 @@
-# Department
-- id
-- name
-
 # Role 
 - id
-- permission_id
-- department_id
 - name
+- order 
+- department_id
 
 # Permission
 - id 
-- department_id
 - name 
+- order
+
+# Department
+- id
+- name 
+- role_id
 
 # User
 - id
@@ -21,5 +22,8 @@
 - surname
 - phone
 - email
+- balance
+
+
 
 
