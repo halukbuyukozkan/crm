@@ -32,7 +32,7 @@ Departmanlar
                             <thead>
                               <tr>
                                 <th>İsim</th>
-                                <th>Pozisyon</th>
+                                <th>Rol</th>
                                 <th>İşlemler</th>
                               </tr>
                             </thead>
@@ -40,7 +40,7 @@ Departmanlar
                                 @foreach ($departments as $department)
                                 <tr>
                                     <td>{{ $department->name }}</td>
-                                    <td>{{ $department->order }}</td>
+                                    <td>{{ $department->role }}</td>
                                     <td>
                                         <a href="{{ route('admin.permission.edit',$department) }}"><button class="btn btn-sm btn-primary">
                                             <i class="ri-pencil-line"></i>

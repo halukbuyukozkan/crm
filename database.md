@@ -2,7 +2,6 @@
 - id
 - name
 - order 
-- department_id
 
 # Permission
 - id 
@@ -12,17 +11,56 @@
 # Department
 - id
 - name 
-- role_id
 
 # User
 - id
 - department_id
-- role_id 
 - name
-- surname
 - phone
 - email
 - balance
+
+# MoneyRequest
+- id 
+- user_id
+
+# MoneyRequestItem
+- id
+- money_request_id
+- name
+- type_id
+- price
+
+# Type
+- id 
+- name
+- type_id
+
+# MoneyMovement 
+- id 
+- money_request_id
+- user_id 
+- user_id2
+- price
+- is_income
+
+# Job 
+- id 
+- status_id
+- name
+- description
+- deadline
+
+# JobUser
+- job_id
+- user_id
+- department_id
+
+# Status
+- id 
+- name
+- is_completed
+
 
 
 
