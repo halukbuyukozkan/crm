@@ -33,6 +33,11 @@ Yeni Rol
             <div class="form-group mb-4">
                 <input type="number" class="form-control @error('order') is-invalid @enderror" id="order" name="order"
                     value="{{ old('order', $role->order) }}">
+                @error('order')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
             </div>
             <h6 class="card-subtitle"><strong>Yetkiler</strong></h6>
             <div class="form-group">
@@ -45,6 +50,11 @@ Yeni Rol
                         </option>
                     @endforeach
                 </select>
+                @error('permissions')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
             </div> 
         </div>
         <div class="card-footer">
