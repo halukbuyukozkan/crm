@@ -28,6 +28,11 @@ Yeni Rol
             <div class="form-group mb-4">
                 <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name"
                     value="{{ old('name', $role->name) }}" required>
+                @error('name')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
             </div>
             <h6 class="card-subtitle"><strong>Sıralama</strong></h6>
             <div class="form-group mb-4">
