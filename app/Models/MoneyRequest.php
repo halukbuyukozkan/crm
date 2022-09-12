@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class MoneyRequest extends Model
 {
@@ -15,6 +16,11 @@ class MoneyRequest extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function moneyrequestitems(): HasMany
+    {
+        return $this->hasMany(MoneyRequestItem::class);
     }
 }
 
