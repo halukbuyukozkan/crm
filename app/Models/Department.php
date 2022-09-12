@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Spatie\Permission\Models\Role;
 
@@ -11,10 +12,10 @@ class Department extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name','role_id'];
+    protected $fillable = ['name'];
 
-    public function role(): HasOne
+    public function user(): HasMany
     {
-        return $this->hasOne(Role::class);
+        return $this->hasMany(User::class);
     }
 }
