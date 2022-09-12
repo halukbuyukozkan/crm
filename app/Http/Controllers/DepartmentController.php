@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\DepartmentRequest;
 use App\Models\Department;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
@@ -38,9 +39,12 @@ class DepartmentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(DepartmentRequest $request)
     {
-        //
+        $data = $request->validated();
+        $department = Department::create($data);
+
+        return redirect()->route('admin.department.index')->with('success', 'Role created successfully');
     }
 
     /**

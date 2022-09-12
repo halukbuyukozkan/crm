@@ -16,7 +16,7 @@ class RoleController extends Controller
      */
     public function index()
     {   
-        $roles = Role::paginate();
+        $roles = Role::paginate()->sortBy('order');
 
         return view('role.index',compact('roles'));
     }
@@ -85,10 +85,7 @@ class RoleController extends Controller
      */
     public function update(RoleRequest $request, Role $role)
     {
-        $data = $request->validate([
-            'name' => 'required|unique:roles,name,' . $role->id,
-            'permissions' => 'array|exists:permissions,id',
-        ]);
+        $data = $request->validated();
         $role->fill($data);
         $role->save();
         $role->syncPermissions($data['permissions'] ?? []);

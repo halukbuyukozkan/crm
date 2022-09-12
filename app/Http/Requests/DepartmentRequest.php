@@ -2,10 +2,9 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class RoleRequest extends FormRequest
+class DepartmentRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,10 +25,7 @@ class RoleRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'order' => [
-                'nullable','integer','max:255', Rule::unique('roles','order')->ignore($this->role)
-            ],
-            'permission_id' => 'nullable|integer'
+            'role_id' => 'nullable|exists:roles,id',
         ];
     }
 }
