@@ -29,7 +29,7 @@ class RoleRequest extends FormRequest
             'order' => [
                 'nullable','integer','max:255', Rule::unique('roles','order')->ignore($this->role)
             ],
-            'permission_id' => 'nullable|integer'
+            'permissions' => 'nullable|array'
         ];
     }
 }

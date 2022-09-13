@@ -17,7 +17,15 @@ class MoneyRequestController extends Controller
      */
     public function index()
     {
-        $moneyRequests = MoneyRequest::all();
+        $user = Auth::user();
+        if($user->hasPermissionTo('Ödeme Talebi Kabul etme'))
+        {
+            $moneyRequests = MoneyRequest::all();
+        }else{
+            $moneyRequests = $user->moneyrequests;
+        }
+
+        
         return view('moneyrequest.index',compact('moneyRequests'));
     }
 

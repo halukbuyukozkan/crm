@@ -32,6 +32,7 @@ ROLES
                             <thead>
                               <tr>
                                 <th>İsim</th>
+                                <th>Yetkiler</th>
                                 <th>Pozisyon</th>
                                 <th>İşlemler</th>
                               </tr>
@@ -40,6 +41,11 @@ ROLES
                                 @foreach ($roles as $role)
                                 <tr>
                                     <td>{{ $role->name }}</td>
+                                    <td>
+                                        @foreach ($role->permissions as $permission)
+                                        {{ $permission->name }}
+                                        @endforeach
+                                    </td>
                                     <td>{{ $role->order }}</td>
                                     <td>
                                         <a href="{{ route('admin.role.edit',$role) }}"><button class="btn btn-sm btn-primary">
