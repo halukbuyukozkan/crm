@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\FieldController;
 use App\Http\Controllers\MoneyRequestController;
@@ -32,6 +33,7 @@ Route::middleware(['auth'])->group(function () {
     })->name('dashboard');
 
     Route::prefix('admin')->name('admin.')->group(function () {
+        Route::resource('user',UserController::class);
         Route::resource('role', RoleController::class);
         Route::resource('permission', PermissionController::class);
         Route::resource('about',AboutController::class);

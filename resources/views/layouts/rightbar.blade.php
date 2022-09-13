@@ -109,6 +109,7 @@
                         <li class="scroll dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="ri-settings-2-fill"></i>Sistem</a>
                             <ul class="dropdown-menu">
+                                <li><a href="{{ route('admin.user.index') }}">Kullanıcılar</a></li>
                                 <li><a href="{{ route('admin.role.index') }}">Roller</a></li>
                                 <li><a href="{{ route('admin.permission.index') }}">Yetkiler</a></li>
                                 <li><a href="{{ route('admin.department.index') }}">Departmanlar</a></li>
