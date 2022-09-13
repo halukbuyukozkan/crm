@@ -16,4 +16,9 @@ class Type extends Model
     {
         return $this->hasMany(Type::class);
     }
+
+    public function moneyrequestitem():HasMany
+    {
+        return $this->hasMany(MoneyRequestItem::class);
+    }
 }

@@ -40,7 +40,7 @@
                         <ul class="list-inline mb-0">
                             <li class="list-inline-item">
                                 <div class="logobar">
-                                    <a href="{{url('/')}}" class="logo logo-large"><img src="{{asset('assets/images/logo.svg')}}" class="img-fluid" alt="logo"></a>
+                                    <a href="{{url('/')}}" class="logo logo-large"><img src="{{asset('img/logo.png')}}" class="img-fluid" alt="logo"></a>
                                 </div>
                             </li>
                             <li class="list-inline-item">
@@ -118,7 +118,14 @@
                             <a href="{{ route('admin.about.index') }}"><i class="ri-file-info-line"></i></i>Hakkımızda</a>
                         </li>
                         <li>
-                            <a href="{{ route('admin.field.index') }}"><i class="ri-file-info-line"></i></i>Faaliyet Alanlarımız</a>
+                            <a href="{{ route('admin.field.index') }}"><i class="ri-building-line"></i></i>Faaliyet Alanlarımız</a>
+                        </li>
+                        <li class="scroll dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="ri-pages-line"></i>Sık Kullanılan Formlar</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{{ route('admin.moneyrequest.index') }}">Ödeme Talepleri Formu</a></li>
+                                <li><a href="{{ route('admin.permission.index') }}">Kasa İşlemleri Formu</a></li>
+                            </ul>
                         </li>
                     </ul>
                 </div>

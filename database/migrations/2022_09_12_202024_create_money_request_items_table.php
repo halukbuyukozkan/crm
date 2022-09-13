@@ -16,9 +16,8 @@ return new class extends Migration
         Schema::create('money_request_items', function (Blueprint $table) {
             $table->id();
             $table->foreignId('money_request_id')->constrained();
+            $table->foreignId('type_id')->constrained();
 
-            $table->string('name');
-            $table->string('type_id');
             $table->integer('price');
 
             $table->timestamps();

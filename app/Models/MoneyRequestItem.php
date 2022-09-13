@@ -10,11 +10,16 @@ class MoneyRequestItem extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['money_request_id','name','type_id','price'];
+    protected $fillable = ['money_request_id','type_id','price'];
 
 
     public function moneyrequest(): BelongsTo
     {
         return $this->belongsTo(MoneyRequest::class);
+    }
+
+    public function type(): BelongsTo
+    {
+        return $this->belongsTo(Type::class);
     }
 }
