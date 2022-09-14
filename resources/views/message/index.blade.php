@@ -1,5 +1,5 @@
 @section('title') 
-CRM
+Mesajlar
 @endsection 
 @extends('layouts.main')
 @section('style')
@@ -12,35 +12,17 @@ CRM
 @section('rightbar-content')
 <!-- Start Contentbar -->    
 <div class="contentbar">   
-
     <div class="row">
         <!-- Start col -->
         <div class="col-lg-12">
-            <div class="card">
-                <div class="card-header">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h6 class="card-title text-center">{{ $message->message }}</h6>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- End col -->
-
-    </div>
-    <div class="row">
-        <!-- Start col -->
-        <div class="col-lg-6 my-4">
             <div class="card m-b-30">
                 <div class="card-header">
                     <div class="row">
-                        <div class="col-md-8">
-                            <h5 class="card-title">Ödeme Talepleri</h5>
+                        <div class="col-md-10">
+                            <h5 class="card-title">Mesajlar</h5>
                         </div>
-                        <div class="col-md-4 text-right">
-                            <a href="{{ route('admin.moneyrequest.create') }}"><button class="btn btn-primary">Ödeme Talebi Oluştur</button></a>    
+                        <div class="col-md-2 text-right">
+                            <a href="{{ route('admin.message.create') }}"><button class="btn btn-primary">Mesaj Oluştur</button></a>    
                         </div>
                     </div>
                 </div>
@@ -49,19 +31,19 @@ CRM
                         <table class="table table-striped table-bordered" id="edit-btn">
                             <thead>
                               <tr>
-                                <th>Başlık</th>
+                                <th>Mesaj</th>
                                 <th>İşlemler</th>
                               </tr>
                             </thead>
                             <tbody>
-                                @foreach ($moneyrequests as $request)
+                                @foreach ($messages as $message)
                                 <tr>
-                                    <td style="width: 60%">{{ $request->name }}</td>
-                                    <td style="width: 40%">
-                                        <a href="{{ route('admin.moneyrequest.edit',$request) }}"><button class="btn btn-sm btn-primary">
+                                    <td>{{ $message->message }}</td>
+                                    <td>
+                                        <a href="{{ route('admin.message.edit',$message) }}"><button class="btn btn-sm btn-primary">
                                             <i class="ri-pencil-line"></i>
                                         </button></a>
-                                        <form action="{{ route('admin.moneyrequest.destroy', $request) }}" method="POST"
+                                        <form action="{{ route('admin.message.destroy', $message) }}" method="POST"
                                         class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
                                         @csrf
                                         @method('DELETE')
@@ -79,22 +61,10 @@ CRM
                 </div>
             </div>
         </div>
-        <div class="card-body">
-            <div class="col-lg-6">
-                <div class="card m-b-30">
-                    <div class="card-header">
-                        <h5 class="card-title">Bar Chart</h5>
-                    </div>
-                    <div class="card-body">
-                        <canvas id="chartjs-bar-chart" class="chartjs-chart"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div>
         <!-- End col -->
 
     </div>
-
+    
 </div>
 <!-- End Contentbar -->
 @endsection 
@@ -106,5 +76,4 @@ CRM
 <script src="{{ asset('assets/plugins/slick/slick.min.js') }}"></script>
 <!-- Custom Dashboard js -->  
 <script src="{{ asset('assets/js/custom/custom-dashboard.js') }}"></script>
-
 @endsection 

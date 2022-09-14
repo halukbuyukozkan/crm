@@ -43,7 +43,6 @@
 - user_id2
 - price
 - is_income
-
 # Job 
 - id 
 - status_id
@@ -61,6 +60,9 @@
 - name
 - is_completed
 
+# Message
+- id
+- message
 
 
 
