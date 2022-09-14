@@ -1,8 +1,11 @@
 <?php
 
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\FieldController;
+use App\Http\Controllers\MoneyRequestController;
+use App\Http\Controllers\MoneyRequestItemController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RoleController;
 use Illuminate\Support\Facades\Route;
@@ -30,11 +33,14 @@ Route::middleware(['auth'])->group(function () {
     })->name('dashboard');
 
     Route::prefix('admin')->name('admin.')->group(function () {
+        Route::resource('user',UserController::class);
         Route::resource('role', RoleController::class);
         Route::resource('permission', PermissionController::class);
         Route::resource('about',AboutController::class);
         Route::resource('field', FieldController::class);
         Route::resource('department',DepartmentController::class);
+        Route::resource('moneyrequest',MoneyRequestController::class);
+        Route::resource('moneyrequestitem',MoneyRequestItemController::class);
     });
 });
 

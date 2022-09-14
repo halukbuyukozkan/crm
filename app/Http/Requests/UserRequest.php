@@ -2,10 +2,10 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Validation\Rule;
+use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 
-class RoleRequest extends FormRequest
+class UserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,14 +22,14 @@ class RoleRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
-    public function rules()
+    public function rules(User $user)
     {
         return [
             'name' => 'required|string|max:255',
-            'order' => [
-                'nullable','integer','max:255', Rule::unique('roles','order')->ignore($this->role)
-            ],
-            'permissions' => 'nullable|array'
+            'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
+            'password' => 'nullable|string|min:6|confirmed',
+            'roles' => 'array|exists:roles,id',
+            'permissions' => 'array|exists:permissions,id'
         ];
     }
 }

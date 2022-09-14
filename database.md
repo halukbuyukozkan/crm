@@ -23,11 +23,11 @@
 # MoneyRequest
 - id 
 - user_id
+- name
 
 # MoneyRequestItem
 - id
 - money_request_id
-- name
 - type_id
 - price
 

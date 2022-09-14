@@ -1,5 +1,5 @@
 @section('title') 
-ROLES
+Kullanıcılar
 @endsection 
 @extends('layouts.main')
 @section('style')
@@ -19,10 +19,10 @@ ROLES
                 <div class="card-header">
                     <div class="row">
                         <div class="col-md-10">
-                            <h5 class="card-title">Roller</h5>
+                            <h5 class="card-title">Kullanıcılar</h5>
                         </div>
                         <div class="col-md-2 text-right">
-                            <a href="{{ route('admin.role.create') }}"><button class="btn btn-primary">Rol Oluştur</button></a>    
+                            <a href="{{ route('admin.role.create') }}"><button class="btn btn-primary">Kullanıcı Oluştur</button></a>    
                         </div>
                     </div>
                 </div>
@@ -32,26 +32,26 @@ ROLES
                             <thead>
                               <tr>
                                 <th>İsim</th>
+                                <th>Rol</th>
                                 <th>Yetkiler</th>
-                                <th>Pozisyon</th>
                                 <th>İşlemler</th>
                               </tr>
                             </thead>
                             <tbody>
-                                @foreach ($roles as $role)
+                                @foreach ($users as $user)
                                 <tr>
-                                    <td>{{ $role->name }}</td>
+                                    <td>{{ $user->name }}</td>
+                                    <td>{{ $user->role ? $user->role->name : '-' }}</td>
                                     <td>
-                                        @foreach ($role->permissions as $permission)
+                                        @foreach ($user->permissions as $permission)
                                         {{ $permission->name }}
                                         @endforeach
                                     </td>
-                                    <td>{{ $role->order }}</td>
                                     <td>
-                                        <a href="{{ route('admin.role.edit',$role) }}"><button class="btn btn-sm btn-primary">
+                                        <a href="{{ route('admin.user.edit',$user) }}"><button class="btn btn-sm btn-primary">
                                             <i class="ri-pencil-line"></i>
                                         </button></a>
-                                        <form action="{{ route('admin.role.destroy', $role) }}" method="POST"
+                                        <form action="{{ route('admin.user.destroy', $user) }}" method="POST"
                                         class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
                                         @csrf
                                         @method('DELETE')
