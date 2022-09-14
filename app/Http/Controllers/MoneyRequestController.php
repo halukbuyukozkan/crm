@@ -91,11 +91,13 @@ class MoneyRequestController extends Controller
      * @param  \App\Models\MoneyRequest  $moneyRequest
      * @return \Illuminate\Http\Response
      */
-    public function edit(MoneyRequest $moneyRequest,Request $request)
+    public function edit(MoneyRequest $moneyRequest,MoneyRequestItem $moneyRequestItem,Request $request)
     {
         $moneyRequest->fill($request->old());
+        $moneyRequestItem->fill($request->old());
+        $types = Type::all();
 
-        return view('moneyrequest.form', compact('moneyRequest'));
+        return view('moneyrequest.form', compact('moneyRequest','moneyRequestItem','types'));
     }
 
     /**

@@ -27,13 +27,6 @@ class UserController extends Controller
     {
         $users = User::paginate();
 
-        /*
-        foreach($users as $user)
-        {
-            dd($user->permissions);
-        }
-        */
-
         return view('user.index', compact('users'));
     }
 

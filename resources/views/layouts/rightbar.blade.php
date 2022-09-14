@@ -124,7 +124,7 @@
                         <li class="scroll dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="ri-pages-line"></i>Sık Kullanılan Formlar</a>
                             <ul class="dropdown-menu">
-                                <li><a href="{{ route('admin.moneyrequest.index') }}">Ödeme Talepleri Formu</a></li>
+                                <li><a href="{{ route('admin.moneyrequest.index') }}">Ödeme Talepleri</a></li>
                                 <li><a href="{{ route('admin.permission.index') }}">Kasa İşlemleri Formu</a></li>
                             </ul>
                         </li>
