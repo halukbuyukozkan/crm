@@ -118,9 +118,10 @@ class MoneyRequestController extends Controller
      * @param  \App\Models\MoneyRequest  $moneyRequest
      * @return \Illuminate\Http\Response
      */
-    public function destroy(MoneyRequest $moneyRequest)
+    public function destroy(MoneyRequest $moneyrequest)
     {
-        $moneyRequest->delete();
+        $moneyrequest->moneyrequestitems()->delete();
+        $moneyrequest->delete();
 
         return redirect()->route('admin.moneyrequest.index');
     }

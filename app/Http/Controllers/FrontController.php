@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Message;
 use App\Models\MoneyRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class FrontController extends Controller
 {
@@ -16,7 +17,13 @@ class FrontController extends Controller
     public function index()
     {
         $message = Message::all()->first();
-        $moneyrequests = MoneyRequest::all();
+        $user = Auth::user();
+        if($user->hasPermissionTo('Ödeme Talebi Kabul etme'))
+        {
+            $moneyrequests = MoneyRequest::all();
+        }else{
+            $moneyrequests = $user->moneyrequests;
+        }
         
         return view('index',compact('message','moneyrequests'));
     }

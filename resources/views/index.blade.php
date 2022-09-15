@@ -15,6 +15,7 @@ CRM
 
     <div class="row">
         <!-- Start col -->
+        @if($message)
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header">
@@ -26,6 +27,7 @@ CRM
                 </div>
             </div>
         </div>
+        @endif
 
         <!-- End col -->
 

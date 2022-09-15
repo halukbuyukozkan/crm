@@ -34,7 +34,7 @@ Yeni Ödeme Talebi
             <h6 class="card-subtitle"><strong>{{ $type->name }}</strong></h6>
             <div class="form-group mb-4">
                 <input type="number" class="form-control @error('price') is-invalid @enderror" id="price" name="price[]"
-                    value="{{ old('price', $moneyRequestItem->price) }}" required>
+                    value="{{ old('price', $moneyRequestItem->price) }}">
             </div>
             <input name="type_id[]" type="hidden" value="{{ $type->id }}">
             @endforeach
