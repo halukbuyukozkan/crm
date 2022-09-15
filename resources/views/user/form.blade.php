@@ -45,6 +45,10 @@ Yeni Kullanıcı
                     </span>
                 @enderror
             </div>
+            <h6 class="card-subtitle"><strong>Doğum Tarihi</strong></code></h6>
+            <div class="form-group mb-0">
+                <input type="date" class="form-control" name="birthdate" id="birthdate">
+            </div>
             <h6 class="card-subtitle"><strong>Şifre</strong></h6>
             <div class="form-group">
                 <label for="password">{{ __('Password') }}</label>
@@ -56,7 +60,7 @@ Yeni Kullanıcı
                     </span>
                 @enderror
             </div>
-            <h6 class="card-subtitle"><strong>İsim</strong></h6>
+            <h6 class="card-subtitle"><strong>Şifre Doğrulama</strong></h6>
             <div class="form-group">
                 <label for="password_confirmation">{{ __('Password Confirmation') }}</label>
                 <input type="password" class="form-control @error('password_confirmation') is-invalid @enderror"

@@ -79,18 +79,22 @@ CRM
                 </div>
             </div>
         </div>
-        <div class="card-body">
-            <div class="col-lg-6">
-                <div class="card m-b-30">
-                    <div class="card-header">
-                        <h5 class="card-title">Bar Chart</h5>
+        <div class="col-lg-6 my-4">
+            <div class="card m-b-30">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h5 class="card-title">Ödeme Grafiği</h5>
+                        </div>
                     </div>
-                    <div class="card-body">
-                        <canvas id="chartjs-bar-chart" class="chartjs-chart"></canvas>
-                    </div>
+                </div>
+                <div class="card-body">
+                    <canvas id="chartjs-bar-chart" class="chartjs-chart"></canvas>
                 </div>
             </div>
         </div>
+        
+
         <!-- End col -->
 
     </div>

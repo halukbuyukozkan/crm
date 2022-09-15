@@ -120,10 +120,10 @@
                             <a href="{{ route('admin.field.index') }}"><i class="ri-building-line"></i></i>Faaliyet Alanlarımız</a>
                         </li>
                         <li class="scroll dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="ri-pages-line"></i>Sık Kullanılan Formlar</a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="ri-pages-line"></i>Ödeme Talepleri&Kasa İşlemleri</a>
                             <ul class="dropdown-menu">
                                 <li><a href="{{ route('admin.moneyrequest.index') }}">Ödeme Talepleri</a></li>
-                                <li><a href="{{ route('admin.permission.index') }}">Kasa İşlemleri Formu</a></li>
+                                <li><a href="{{ route('admin.permission.index') }}">Kasa İşlemleri</a></li>
                             </ul>
                         </li>
                     </ul>
