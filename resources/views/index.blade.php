@@ -47,6 +47,7 @@ CRM
                         </div>
                     </div>
                 </div>
+                @if($birthday)
                 <div class="card-body">
                     <div class="row">
                         <div class="text-center">
@@ -55,6 +56,7 @@ CRM
                         </div>
                     </div>
                 </div>
+                @endif
             </div>
         </div>
         <div class="col-md-8">

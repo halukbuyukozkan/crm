@@ -126,6 +126,9 @@
                                 <li><a href="{{ route('admin.permission.index') }}">Kasa İşlemleri</a></li>
                             </ul>
                         </li>
+                        <li>
+                            <a href="{{ route('admin.about.index') }}"><i class="ri-checkbox-multiple-line"></i></i>Görevler</a>
+                        </li>
                     </ul>
                 </div>
             </nav>
