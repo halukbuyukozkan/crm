@@ -14,7 +14,8 @@ class JobController extends Controller
      */
     public function index()
     {
-        //
+        $jobs = Job::paginate();
+        return view('job.index',compact('jobs'));
     }
 
     /**
@@ -22,9 +23,11 @@ class JobController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $job = new Job($request->old());
+
+        return view('job.form',compact('job'));
     }
 
     /**
@@ -35,7 +38,10 @@ class JobController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validated();
+        $job = Job::create($data);
+
+        return redirect()->route('admin.job.index')->with('success', 'Yetki başarıyla oluşturuldu.');
     }
 
     /**

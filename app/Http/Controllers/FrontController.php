@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Job;
 use App\Models\Message;
 use App\Models\MoneyRequest;
 use App\Models\User;
@@ -28,8 +29,9 @@ class FrontController extends Controller
         }
 
         $birthday = User::whereDay('birthdate', Carbon::now()->format('d'))->get()->first();
+        $jobs = Job::all();
         
-        return view('index',compact('message','moneyrequests','birthday'));
+        return view('index',compact('message','moneyrequests','birthday','jobs'));
     }
 
     /**

@@ -37,15 +37,15 @@ Görevler
                               </tr>
                             </thead>
                             <tbody>
-                                @foreach ($moneyRequests as $moneyrequest)
+                                @foreach ($jobs as $job)
                                 <tr>
-                                    <td><a href="{{ route('admin.moneyrequest.show',$moneyrequest) }}">{{ $moneyrequest->name }}</a></td>
-                                    <td>{{ $moneyrequest->created_at }}</td>
+                                    <td><a href="{{ route('admin.job.show',$job) }}">{{ $job->name }}</a></td>
+                                    <td>{{ $job->created_at }}</td>
                                     <td>
-                                        <a href="{{ route('admin.moneyrequest.edit',$moneyrequest) }}"><button class="btn btn-sm btn-primary">
+                                        <a href="{{ route('admin.job.edit',$job) }}"><button class="btn btn-sm btn-primary">
                                             <i class="ri-pencil-line"></i>
                                         </button></a>
-                                        <form action="{{ route('admin.moneyrequest.destroy', $moneyrequest) }}" method="POST"
+                                        <form action="{{ route('admin.job.destroy', $job) }}" method="POST"
                                         class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
                                         @csrf
                                         @method('DELETE')

@@ -127,7 +127,7 @@
                             </ul>
                         </li>
                         <li>
-                            <a href="{{ route('admin.about.index') }}"><i class="ri-checkbox-multiple-line"></i></i>Görevler</a>
+                            <a href="{{ route('admin.job.index') }}"><i class="ri-checkbox-multiple-line"></i></i>Görevler</a>
                         </li>
                     </ul>
                 </div>

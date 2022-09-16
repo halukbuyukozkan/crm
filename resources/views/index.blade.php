@@ -212,6 +212,58 @@ CRM
 
     </div>
 
+    <div class="row">
+        <!-- Start col -->
+        <div class="col-lg-12 my-4">
+            <div class="card m-b-30">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h5 class="card-title">Görevler</h5>
+                        </div>
+                        <div class="col-md-4 text-right">
+                            <a href="{{ route('admin.job.create') }}"><button class="btn btn-primary">Görev Oluştur</button></a>    
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered" id="edit-btn">
+                            <thead>
+                              <tr>
+                                <th>Görev Adı</th>
+                                <th>İşlemler</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($jobs as $request)
+                                <tr>
+                                    <td style="width: 40%">{{ $request->name }}</td>
+                                    <td style="width: 30%">
+                                        <a href="{{ route('admin.moneyrequest.edit',$request) }}"><button class="btn btn-sm btn-primary">
+                                            <i class="ri-pencil-line"></i>
+                                        </button></a>
+                                        <form action="{{ route('admin.moneyrequest.destroy', $request) }}" method="POST"
+                                        class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
+                                        @csrf
+                                        @method('DELETE')
+                                            <button type="submit" class="btn btn-sm btn-danger">
+                                                <i class="ri-delete-bin-line"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>  
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
 </div>
 <!-- End Contentbar -->
 @endsection 
