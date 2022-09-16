@@ -150,14 +150,17 @@ CRM
                             <thead>
                               <tr>
                                 <th>Başlık</th>
+                                <th>Kullanıcı</th>
                                 <th>İşlemler</th>
                               </tr>
                             </thead>
                             <tbody>
                                 @foreach ($moneyrequests as $request)
                                 <tr>
-                                    <td style="width: 60%">{{ $request->name }}</td>
-                                    <td style="width: 40%">
+                                    <td style="width: 40%">{{ $request->name }}</td>
+                                    <td>{{ $request->user->name }}</td>
+                                    <td style="width: 30%">
+                                        @if($request->user->id == Auth::user()->id)
                                         <a href="{{ route('admin.moneyrequest.edit',$request) }}"><button class="btn btn-sm btn-primary">
                                             <i class="ri-pencil-line"></i>
                                         </button></a>
@@ -169,6 +172,14 @@ CRM
                                                 <i class="ri-delete-bin-line"></i>
                                             </button>
                                         </form>
+                                        @elseif(Auth::user()->hasRole('Başkan'))
+                                        <a href="{{ route('admin.moneyrequest.edit',$request) }}"><button class="btn btn-sm btn-primary">
+                                            <i class="ri-check-line"></i>
+                                        </button></a>
+                                        <a href="{{ route('admin.moneyrequest.edit',$request) }}"><button class="btn btn-sm btn-danger">
+                                            <i class="ri-close-line"></i>
+                                        </button></a>
+                                        @endif
                                     </td>
                                 </tr>  
                                 @endforeach
