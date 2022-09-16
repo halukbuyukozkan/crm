@@ -27,6 +27,7 @@ class UserRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
+            'birthdate' => 'nullable|date',
             'password' => 'nullable|string|min:6|confirmed',
             'roles' => 'array|exists:roles,id',
             'permissions' => 'array|exists:permissions,id'

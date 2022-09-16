@@ -65,7 +65,7 @@ class MoneyRequestController extends Controller
             $moneyRequestItem = MoneyRequestItem::create([
                 'money_request_id' => $moneyRequest->id,
                 'type_id' => isset($type) ? $type : '',
-                'price' => isset($prices[$type]) ? $prices[$type] : 0,  
+                'price' => isset($prices[$type-1]) ? $prices[$type-1] : 0,  
             ]);
         }
 
@@ -109,7 +109,12 @@ class MoneyRequestController extends Controller
      */
     public function update(Request $request, MoneyRequest $moneyRequest)
     {
-        //
+        $data = $request->validated();
+
+        $moneyRequest->fill($data);
+        $moneyRequest->save();
+
+        return redirect()->route('admin.role.index')->with('success', 'Role updated successfully');
     }
 
     /**
@@ -118,9 +123,10 @@ class MoneyRequestController extends Controller
      * @param  \App\Models\MoneyRequest  $moneyRequest
      * @return \Illuminate\Http\Response
      */
-    public function destroy(MoneyRequest $moneyRequest)
+    public function destroy(MoneyRequest $moneyrequest)
     {
-        $moneyRequest->delete();
+        $moneyrequest->moneyrequestitems()->delete();
+        $moneyrequest->delete();
 
         return redirect()->route('admin.moneyrequest.index');
     }

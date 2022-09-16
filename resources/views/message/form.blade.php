@@ -1,5 +1,5 @@
 @section('title') 
-Yeni Ödeme Talebi
+Yeni Mesaj
 @endsection 
 @extends('layouts.main')
 @section('style')
@@ -14,30 +14,26 @@ Yeni Ödeme Talebi
 <div class="contentbar">   
     
     <form method="post" enctype="multipart/form-data"
-    action="{{ $moneyRequestItem->exists ? route('admin.moneyrequest.update', $moneyRequestItem) : route('admin.moneyrequest.store') }}">
+    action="{{ $message->exists ? route('admin.message.update', $message) : route('admin.message.store') }}">
     @csrf
-    @if ($moneyRequestItem->exists)
+    @if ($message->exists)
         @method('PUT')
     @endif
     <div class="card m-b-30">
         <div class="card-header">
-            <h5 class="card-title">Ödeme Talebi Formu</h5>
+            <h5 class="card-title">Yeni Mesaj</h5>
         </div>
-        <div class="card-body ">
-            <h6 class="card-subtitle"><strong>İsim</strong></h6>
+        <div class="card-body">
+            <h6 class="card-subtitle"><strong>Mesaj</strong></h6>
             <div class="form-group mb-4">
-                <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name"
-                    value="{{ old('name', $moneyRequest->name) }}" required>
+                <input type="text" class="form-control @error('message') is-invalid @enderror" id="message" name="message"
+                    value="{{ old('message', $message->message) }}" required>
             </div>
-            <h4 class="card-subtitle my-4 mt-5"><strong>Talep Edilen Tutar</strong></h4>
-            @foreach ($types as $type)
-            <h6 class="card-subtitle"><strong>{{ $type->name }}</strong></h6>
-            <div class="form-group mb-4">
-                <input type="number" class="form-control @error('price') is-invalid @enderror" id="price" name="price[]"
-                    value="{{ old('price', $moneyRequestItem->price) }}">
-            </div>
-            <input name="type_id[]" type="hidden" value="{{ $type->id }}">
-            @endforeach
+            @error('message')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+        @enderror
         </div>
         <div class="card-footer">
             <button type="submit" class="btn btn-primary">
