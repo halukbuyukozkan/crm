@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Message;
 use App\Models\MoneyRequest;
+use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -24,8 +26,10 @@ class FrontController extends Controller
         }else{
             $moneyrequests = $user->moneyrequests;
         }
+
+        $birthday = User::whereDay('birthdate', Carbon::now()->format('d'))->get()->first();
         
-        return view('index',compact('message','moneyrequests'));
+        return view('index',compact('message','moneyrequests','birthday'));
     }
 
     /**
