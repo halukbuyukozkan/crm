@@ -19,7 +19,7 @@ class FrontController extends Controller
      */
     public function index()
     {
-        $message = Message::all()->first();
+        $messages = Message::all();
         $user = Auth::user();
         if($user->hasPermissionTo('Ödeme Talebi Kabul etme'))
         {
@@ -28,10 +28,9 @@ class FrontController extends Controller
             $moneyrequests = $user->moneyrequests;
         }
 
-        $birthday = User::whereDay('birthdate', Carbon::now()->format('d'))->get()->first();
         $jobs = Job::all();
         
-        return view('index',compact('message','moneyrequests','birthday','jobs'));
+        return view('index',compact('messages','moneyrequests','jobs'));
     }
 
     /**

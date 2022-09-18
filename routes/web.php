@@ -11,6 +11,7 @@ use App\Http\Controllers\MoneyRequestController;
 use App\Http\Controllers\MoneyRequestItemController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\ShowController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -45,6 +46,7 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('department',DepartmentController::class);
         Route::resource('moneyrequest',MoneyRequestController::class);
         Route::resource('moneyrequestitem',MoneyRequestItemController::class);
+        Route::get('goodssol',[ShowController::class,'index'])->name('goodssol');
     });
 });
 
