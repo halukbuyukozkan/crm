@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Job;
-use App\Models\User;
-use App\Models\Status;
+use App\Models\Information;
 use Illuminate\Http\Request;
-use App\Http\Requests\JobRequest;
 
-class JobController extends Controller
+class InformationController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,8 +14,8 @@ class JobController extends Controller
      */
     public function index()
     {
-        $jobs = Job::paginate();
-        return view('job.index',compact('jobs'));
+        $informations = Information::paginate();
+        return view('information.index',compact('informations'));
     }
 
     /**
@@ -28,11 +25,9 @@ class JobController extends Controller
      */
     public function create(Request $request)
     {
-        $job = new Job($request->old());
-        $statuses = Status::all();
-        $users = User::all();
+        $information = new Information($request->old());
 
-        return view('job.form',compact('job','statuses','users'));
+        return view('information.form',compact('information'));
     }
 
     /**
@@ -41,23 +36,23 @@ class JobController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(JobRequest $request)
+    public function store(Request $request)
     {
-        $data = $request->validated();
-        $job = Job::create($data);
-        
-        $job->users()->sync($data['users'] ?? []);
+        $data = $request->validate([
+            'description' => 'required|string',
+        ]);
+        $information = Information::create($data);
 
-        return redirect()->route('admin.job.index')->with('success', 'Görev başarıyla oluşturuldu.');
+        return redirect()->route('admin.information.index')->with('success', 'Haber başarıyla oluşturuldu.');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Job  $job
+     * @param  \App\Models\Information  $information
      * @return \Illuminate\Http\Response
      */
-    public function show(Job $job)
+    public function show(Information $information)
     {
         //
     }
@@ -65,10 +60,10 @@ class JobController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Job  $job
+     * @param  \App\Models\Information  $information
      * @return \Illuminate\Http\Response
      */
-    public function edit(Job $job)
+    public function edit(Information $information)
     {
         //
     }
@@ -77,10 +72,10 @@ class JobController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Job  $job
+     * @param  \App\Models\Information  $information
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Job $job)
+    public function update(Request $request, Information $information)
     {
         //
     }
@@ -88,13 +83,11 @@ class JobController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Job  $job
+     * @param  \App\Models\Information  $information
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Job $job)
+    public function destroy(Information $information)
     {
-        $job->delete();
-
-        return redirect()->route('admin.job.index');
+        //
     }
 }

@@ -130,6 +130,7 @@
                                 <li><a href="{{ route('admin.permission.index') }}">Yetkiler</a></li>
                                 <li><a href="{{ route('admin.department.index') }}">Departmanlar</a></li>
                                 <li><a href="{{ route('admin.message.index') }}">Sistem Mesajları</a></li>
+                                <li><a href="{{ route('admin.information.index') }}">Sistem Haberler</a></li>
                             </ul>
                         </li>  
                     </ul>

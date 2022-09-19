@@ -13,7 +13,7 @@ class JobRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,11 @@ class JobRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'status_id' => 'required|string',
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'deadline' => 'nullable|date',
+            'users' => 'array|required',
         ];
     }
 }

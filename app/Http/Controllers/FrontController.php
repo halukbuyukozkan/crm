@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Information;
 use App\Models\Job;
 use App\Models\Message;
 use App\Models\MoneyRequest;
@@ -20,6 +21,7 @@ class FrontController extends Controller
     public function index()
     {
         $messages = Message::all();
+        $informations = Information::all();
         $user = Auth::user();
         if($user->hasPermissionTo('Ödeme Talebi Kabul etme'))
         {
@@ -29,8 +31,9 @@ class FrontController extends Controller
         }
 
         $jobs = Job::all();
+
         
-        return view('index',compact('messages','moneyrequests','jobs'));
+        return view('index',compact('messages','moneyrequests','jobs','informations','user'));
     }
 
     /**

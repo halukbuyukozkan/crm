@@ -57,7 +57,7 @@ Yetkiler
                         <div class="card">
                             <div class="card-header" id="headingThreeicon">
                                 <h2 class="mb-0">
-                                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThreeicon" aria-expanded="false" aria-controls="collapseThreeicon"><i class="ri-drop-line mr-2"></i>Üst Yönetim</button>
+                                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThreeicon" aria-expanded="false" aria-controls="collapseThreeicon"><i class="ri-drop-line mr-2"></i>Üst Yönetim Organizasyon Şeması</button>
                                 </h2>
                             </div>
                             <div id="collapseThreeicon" class="collapse" aria-labelledby="headingThreeicon" data-parent="#accordionwithicon">

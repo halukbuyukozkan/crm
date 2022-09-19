@@ -5,6 +5,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\FieldController;
 use App\Http\Controllers\FrontController;
+use App\Http\Controllers\InformationController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\MoneyRequestController;
@@ -39,6 +40,7 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('user',UserController::class);
         Route::resource('about',AboutController::class);
         Route::resource('message',MessageController::class);
+        Route::resource('information',InformationController::class);
         Route::resource('job',JobController::class);
         Route::resource('role', RoleController::class);
         Route::resource('permission', PermissionController::class);

@@ -43,6 +43,7 @@
 - user_id2
 - price
 - is_income
+
 # Job 
 - id 
 - status_id
@@ -53,7 +54,7 @@
 # JobUser
 - job_id
 - user_id
-- department_id
+ // department_id
 
 # Status
 - id 

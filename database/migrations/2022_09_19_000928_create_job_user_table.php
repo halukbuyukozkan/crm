@@ -13,14 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('jobs', function (Blueprint $table) {
+        Schema::create('job_user', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('status_id')->constrained();
+            $table->foreignId('job_id')->constrained();
+            $table->foreignId('user_id')->constrained();
+            $table->foreignId('department_id')->constrained();
 
-            $table->string('name');
-            $table->text('description');
-            
-            $table->date('deadline');
             $table->timestamps();
         });
     }
@@ -32,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('jobs');
+        Schema::dropIfExists('job_user');
     }
 };

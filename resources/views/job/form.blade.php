@@ -29,6 +29,41 @@ Yeni Görev
                 <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name"
                     value="{{ old('name', $job->name) }}" required>
             </div>
+            <h6 class="card-subtitle"><strong>Durum seçin</strong></h6>
+            <div class="form-group">
+                <select class="form-control" name="status_id" id="formControlSelect">
+                    @foreach ($statuses as $status)
+                        <option value="{{ $status->id }}">{{ $status->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <h6 class="card-subtitle"><strong>Kişi seçin</strong></h6>
+            <div class="form-group">
+                <select class="form-control @error('users') is-invalid @enderror" id="users"
+                    name="users[]" multiple>
+                    @foreach ($users as $user)
+                        <option value="{{ $user->id }}"
+                            {{ $job->users->contains($user) ? 'selected' : '' }}>
+                            {{ $user->name }}
+                        </option>
+                    @endforeach
+                </select>
+                @error('users')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div> 
+            <h6 class="card-subtitle"><strong>Acıklama</strong></h6>
+            <div class="form-group mb-4">
+                <input type="text" class="form-control @error('description') is-invalid @enderror" id="description" name="description"
+                    value="{{ old('description', $job->description) }}" required>
+            </div>
+            <h6 class="card-subtitle"><strong>Bitiş Tarihi</strong></h6>
+            <div class="form-group mb-4">
+                <input type="date" class="form-control @error('deadline') is-invalid @enderror" id="deadline" name="deadline"
+                    value="{{ old('deadline', $job->deadline) }}" required>
+            </div>
         </div>
         <div class="card-footer">
             <button type="submit" class="btn btn-primary">
