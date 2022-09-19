@@ -30,20 +30,18 @@ Yeni Departman
                     value="{{ old('name', $department->name) }}" required>
             </div>
         </div>
-        <div class="card m-b-30">
-            <div class="card-header">
-                <h5 class="card-title">Roller</h5>
-            </div>
-            <div class="card-body">
-                <h6 class="card-subtitle">Departmanın varsayılan rolünü seçin</h6>
-                <div class="form-group">
-                    <select class="form-control" id="formControlSelect">
-                        @foreach ($roles as $role)
-                            <option value="{{ $role->id }}">{{ $role->name }}</option>
-                        @endforeach
-                    </select>
-                </div> 
-            </div>
+        <div class="card-header">
+            <h5 class="card-title">Roller</h5>
+        </div>
+        <div class="card-body">
+            <h6 class="card-subtitle">Departmanın varsayılan rolünü seçin</h6>
+            <div class="form-group">
+                <select class="form-control" id="formControlSelect">
+                    @foreach ($roles as $role)
+                        <option value="{{ $role->id }}">{{ $role->name }}</option>
+                    @endforeach
+                </select>
+            </div> 
         </div>
         <div class="card-footer">
             <button type="submit" class="btn btn-primary">

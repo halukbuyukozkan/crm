@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Status;
 use Illuminate\Http\Request;
 use App\Http\Requests\JobRequest;
+use App\Models\Department;
 
 class JobController extends Controller
 {
@@ -31,8 +32,9 @@ class JobController extends Controller
         $job = new Job($request->old());
         $statuses = Status::all();
         $users = User::all();
+        $departments = Department::all();
 
-        return view('job.form',compact('job','statuses','users'));
+        return view('job.form',compact('job','statuses','users','departments'));
     }
 
     /**

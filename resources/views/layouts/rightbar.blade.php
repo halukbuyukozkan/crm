@@ -113,10 +113,10 @@
                             <a href="{{ route('admin.goodssol') }}"><i class="ri-file-info-line"></i></i>Goodssol Ailesi</a>
                         </li>
                         <li class="scroll dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="ri-pages-line"></i>Formlar</a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="ri-pages-line"></i>Mevzuat</a>
                             <ul class="dropdown-menu">
-                                <li><a href="{{ route('admin.moneyrequest.index') }}">Ödeme Talepleri</a></li>
-                                <li><a href="{{ route('admin.permission.index') }}">Kasa İşlemleri</a></li>
+                                <li><a href="#">Formlar</a></li>
+                                <li><a href="#">Talimatlar</a></li>
                             </ul>
                         </li>
                         <li>

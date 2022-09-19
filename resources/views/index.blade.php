@@ -16,44 +16,54 @@ CRM
     <div class="row">
         @if($messages)
         <div class="col-lg-6">
-            <div class="card">
+            <div class="card m-b-30">
                 <div class="card-header">
-                    <div>
-                        <h6 class="card-title">Yönetimden Mesajlar</h6>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h5>Yönetimden Mesajlar</h5>
+                        </div>
                     </div>
                 </div>
                 <div class="card-body">
-                    @foreach ($messages as $message)
-                    <div class="row">
-                        <div class="col-md-12 mb-2">
-                            <div>
-                                <p><strong>{{ $message->created_at->format('d/m/Y') }} {{ $message->message }}</strong></p>
-                            </div>
-                        </div>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered" id="edit-btn">
+                            <tbody>
+                                @foreach ($messages as $message)
+                                <tr>
+                                    <td style="width: 25%">{{ $message->created_at->format('d/m/Y') }}</td>
+                                    <td style="width: 60%">{{ $message->message }}</td>
+                                </tr>  
+                                @endforeach
+                            </tbody>
+                        </table>
                     </div>
-                    @endforeach
                 </div>
             </div>
         </div>
         @endif
         @if($informations)
         <div class="col-lg-6">
-            <div class="card">
+            <div class="card m-b-30">
                 <div class="card-header">
-                    <div>
-                        <h6 class="card-title">Haberler</h6>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h5>Haberler</h5>
+                        </div>
                     </div>
                 </div>
                 <div class="card-body">
-                    @foreach ($informations as $information)
-                    <div class="row">
-                        <div class="col-md-12 mb-2">
-                            <div>
-                                <p><strong>{{ $information->created_at->format('d/m/Y') }} {{ $information->description }}</strong></p>
-                            </div>
-                        </div>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered" id="edit-btn">
+                            <tbody>
+                                @foreach ($informations as $information)
+                                <tr>
+                                    <td style="width: 25%">{{ $information->created_at->format('d/m/Y') }}</td>
+                                    <td style="width: 60%">{{ $information->description }}</td>
+                                </tr>  
+                                @endforeach
+                            </tbody>
+                        </table>
                     </div>
-                    @endforeach
                 </div>
             </div>
         </div>
@@ -67,7 +77,7 @@ CRM
                 <div class="card-header">
                     <div class="row">
                         <div class="col-md-8">
-                            <h5 class="card-title">Görevler</h5>
+                            <h5>Görevlerim</h5>
                         </div>
                     </div>
                 </div>
@@ -118,48 +128,58 @@ CRM
     </div>
 
     <div class="row">
-        <div class="col-lg-6 my-4">
+        <div class="col-lg-7 my-4">
             <div class="card m-b-30">
                 <div class="card-header">
                     <div class="row">
                         <div class="col-md-8">
-                            <h5 class="card-title">Kullanıcı Bilgileri</h5>
+                            <h5>Kullanıcı Bilgileri</h5>
                         </div>
                     </div>
                 </div>
                 <div class="card-body">
-                    <h6 class="card-text">Ad Soyad : {{ $user->name }}</h6>
-                    <h6 class="card-text">Email : {{ $user->email }}</h6>
-                    <h6 class="card-text">Avans Bakiyesi : {{ $user->balance }} TL</h6>
-                </div>
-            </div>
-            <div class="card m-b-30">
-                <div class="card-header">
-                    <div class="row">
-                        <div class="col-md-8">
-                            <h4 class="card-title">İzinler</h4>
+                    <div class="col-md-12">
+                        <div>
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered" id="edit-btn">
+                                    <tbody>
+                                        <tr>
+                                            <td>Ad Soyad</td>
+                                            <td style="width: 60%">{{ $user->name }}</td>
+                                        </tr>  
+                                        <tr>
+                                            <td>Email</td>
+                                            <td style="width: 60%">{{ $user->email }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Avans Bakiyesi</td>
+                                            <td style="width: 60%">{{ $user->balance }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="mt-5">
+                            <a href="{{ route('admin.moneyrequest.index') }}"><button class="btn btn-primary btn-lg btn-block">Avans Talebi Oluştur</button></a>
+                            <a href="{{ route('admin.moneyrequest.index') }}"><button class="btn btn-primary btn-lg btn-block mt-2">Masraf Talebi Oluştur</button></a>
                         </div>
                     </div>
-                </div>
-                <div class="card-body">
-                    <h5 class="card-text"><a href="#">>İzin Yönetim Sistemi</a></h5>
-                    <h5 class="card-text"><a href="#">>Ücretisiz İzin Talebi</a></h5>
-                    <h5 class="card-text"><a href="#">>Yıllık İzin Talebi</a></h5>
-                    <h6 class="card-text">Yıllık izin hakkı : 7 gün</h6>
                 </div>
             </div>
         </div>
-        <div class="col-lg-6 my-4">
+        <div class="col-lg-5 my-4">
             <div class="card m-b-30">
                 <div class="card-header">
                     <div class="row">
                         <div class="col-md-8">
-                            <h5 class="card-title">Aylık Masraf Dağılım Grafiği</h5>
+                            <h5>Aylık Masraf Dağılım Grafiği</h5>
                         </div>
                     </div>
                 </div>
                 <div class="card-body">
-                    <canvas id="chartjs-bar-chart" class="chartjs-chart"></canvas>
+                    <div class="col-md-12">
+                        <img class="w-100" src="{{ asset('img/nopic.png') }}" alt="">
+                    </div>
                 </div>
             </div>
         </div>
@@ -175,7 +195,7 @@ CRM
                             <h5 class="card-title">Onay Bekleyen Avans/Masraf Taleplerim</h5>
                         </div>
                         <div class="col-md-4 text-right">
-                            <a href="{{ route('admin.moneyrequest.create') }}"><button class="btn btn-primary">Ödeme Talebi Oluştur</button></a>    
+                            <a href="{{ route('admin.moneyrequest.create') }}"><button class="btn btn-primary">Avans Talebi Oluştur</button></a>    
                         </div>
                     </div>
                 </div>
@@ -227,6 +247,31 @@ CRM
         </div>
         <!-- End col -->
 
+    </div>
+    <div class="row">
+        <div class="col-lg-12 my-4">
+            <div class="card m-b-30">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h5>İzinler</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5><a href="#">>İzin Yönetim Sistemi</a></h5>
+                            <h5><a href="#">>Ücretisiz İzin Talebi</a></h5>
+                        </div>
+                        <div class="col-md-6">
+                            <h5><a href="#">>Yıllık İzin Talebi</a></h5>
+                            <h6>Yıllık izin hakkı : 7 gün</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
 

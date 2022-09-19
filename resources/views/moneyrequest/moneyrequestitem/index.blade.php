@@ -22,7 +22,7 @@
                             <h5 class="card-title">{{ $moneyrequest->name }}</h5>
                         </div>
                         <div class="col-md-2 text-right">
-                            <a href="{{ route('admin.moneyrequestitem.create') }}"><button class="btn btn-primary">Ödeme Talebini Onayla</button></a>    
+                            <a href="{{ route('admin.moneyrequestitem.create') }}"><button class="btn btn-primary">Avans Talebini Onayla</button></a>    
                         </div>
                     </div>
                 </div>
