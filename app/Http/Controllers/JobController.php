@@ -8,6 +8,7 @@ use App\Models\Status;
 use Illuminate\Http\Request;
 use App\Http\Requests\JobRequest;
 use App\Models\Department;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class JobController extends Controller
@@ -57,6 +58,7 @@ class JobController extends Controller
     public function store(JobRequest $request)
     {
         $data = $request->validated();
+        $data['deadline'] = Carbon::createFromFormat('Y-m-d', $data['deadline'])->format('d.m.Y');
         $job = Job::create($data);
         
         $job->users()->sync($data['users'] ?? []);

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\Admin\StatusController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\FieldController;
@@ -42,6 +43,7 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('message',MessageController::class);
         Route::resource('information',InformationController::class);
         Route::resource('job',JobController::class);
+        Route::resource('status',StatusController::class);
         Route::resource('role', RoleController::class);
         Route::resource('permission', PermissionController::class);
         Route::resource('field', FieldController::class);

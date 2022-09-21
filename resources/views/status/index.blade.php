@@ -1,5 +1,5 @@
 @section('title') 
-Görevler
+Durumlar
 @endsection 
 @extends('layouts.main')
 @section('style')
@@ -18,15 +18,12 @@ Görevler
             <div class="card m-b-30">
                 <div class="card-header">
                     <div class="row">
-                        <div class="col-md-8">
-                            <h5 class="card-title">Görevler</h5>
+                        <div class="col-md-10">
+                            <h5 class="card-title">Durumlar</h5>
                         </div>
-                        @if(Auth::user()->hasAnyPermission('Satış Görev Atama'))
-                        <div class="col-md-4 text-right">
-                            <a href="{{ route('admin.job.create') }}"><button class="btn btn-primary">Görevi Oluştur</button></a> 
-                            <a href="{{ route('admin.status.index') }}"><button class="btn btn-primary">Durumlar</button></a>    
+                        <div class="col-md-2 text-right">
+                            <a href="{{ route('admin.status.create') }}"><button class="btn btn-primary">Durum Oluştur</button></a>    
                         </div>
-                        @endif
                     </div>
                 </div>
                 <div class="card-body">
@@ -35,22 +32,20 @@ Görevler
                             <thead>
                               <tr>
                                 <th>İsim</th>
-                                <th>Başlangıç Tarihi</th>
-                                <th>Bitiş Tarihi</th>
+                                <th>durum</th>
                                 <th>İşlemler</th>
                               </tr>
                             </thead>
                             <tbody>
-                                @foreach ($jobs as $job)
+                                @foreach ($statuses as $status)
                                 <tr>
-                                    <td><a href="{{ route('admin.job.show',$job) }}">{{ $job->name }}</a></td>
-                                    <td>{{ $job->created_at->format('d.m.Y') }}</td>
-                                    <td>{{ $job->deadline }}</td>
+                                    <td>{{ $status->name }}</td>
+                                    <td>{{ $status->is_completed }}</td>
                                     <td>
-                                        <a href="{{ route('admin.job.edit',$job) }}"><button class="btn btn-sm btn-primary">
+                                        <a href="{{ route('admin.status.edit',$status) }}"><button class="btn btn-sm btn-primary">
                                             <i class="ri-pencil-line"></i>
                                         </button></a>
-                                        <form action="{{ route('admin.job.destroy', $job) }}" method="POST"
+                                        <form action="{{ route('admin.status.destroy', $status) }}" method="POST"
                                         class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
                                         @csrf
                                         @method('DELETE')
