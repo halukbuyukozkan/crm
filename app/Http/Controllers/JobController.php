@@ -21,6 +21,7 @@ class JobController extends Controller
     public function index()
     {
         $jobs = Job::paginate();
+        
         return view('job.index',compact('jobs'));
     }
 

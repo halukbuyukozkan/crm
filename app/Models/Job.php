@@ -12,7 +12,7 @@ class Job extends Model
 
     protected $fillable = ['status_id','name','description','deadline'];
 
-    public function statuses(): BelongsTo
+    public function status(): BelongsTo
     {
         return $this->belongsTo(Status::class);
     }

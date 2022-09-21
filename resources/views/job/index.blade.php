@@ -35,6 +35,7 @@ Görevler
                             <thead>
                               <tr>
                                 <th>İsim</th>
+                                <th>Durum</th>
                                 <th>Başlangıç Tarihi</th>
                                 <th>Bitiş Tarihi</th>
                                 <th>İşlemler</th>
@@ -44,6 +45,7 @@ Görevler
                                 @foreach ($jobs as $job)
                                 <tr>
                                     <td><a href="{{ route('admin.job.show',$job) }}">{{ $job->name }}</a></td>
+                                    <td>{{ $job->status->name }}</td>
                                     <td>{{ $job->created_at->format('d.m.Y') }}</td>
                                     <td>{{ $job->deadline }}</td>
                                     <td>

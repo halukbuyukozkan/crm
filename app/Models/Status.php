@@ -12,7 +12,7 @@ class Status extends Model
 
     protected $fillable = ['name','is_completed'];
 
-    public function job(): HasMany
+    public function jobs(): HasMany
     {
         return $this->hasMany(Job::class);
     }
