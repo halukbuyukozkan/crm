@@ -21,12 +21,39 @@ class PermissionsTableSeeder extends Seeder
         \DB::table('permissions')->insert(array (
             0 => 
             array (
-                'created_at' => '2022-09-13 12:36:06',
-                'guard_name' => 'web',
                 'id' => 1,
                 'name' => 'Ödeme Talebi Kabul etme',
+                'guard_name' => 'web',
+                'order' => 4,
+                'created_at' => '2022-09-13 12:36:06',
+                'updated_at' => '2022-09-21 14:05:52',
+            ),
+            1 => 
+            array (
+                'id' => 2,
+                'name' => 'Satış Görev Atama',
+                'guard_name' => 'web',
+                'order' => 2,
+                'created_at' => '2022-09-21 13:17:03',
+                'updated_at' => '2022-09-21 13:17:03',
+            ),
+            2 => 
+            array (
+                'id' => 3,
+                'name' => 'Genel Görev Atama',
+                'guard_name' => 'web',
+                'order' => 3,
+                'created_at' => '2022-09-21 13:24:29',
+                'updated_at' => '2022-09-21 13:24:37',
+            ),
+            3 => 
+            array (
+                'id' => 5,
+                'name' => 'Sistem Yönetimi',
+                'guard_name' => 'web',
                 'order' => 1,
-                'updated_at' => '2022-09-13 12:36:06',
+                'created_at' => '2022-09-21 14:05:38',
+                'updated_at' => '2022-09-21 14:05:49',
             ),
         ));
         

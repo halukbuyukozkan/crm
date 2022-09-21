@@ -122,7 +122,7 @@
                         <li>
                             <a href="{{ route('admin.job.index') }}"><i class="ri-checkbox-multiple-line"></i></i>Görevler</a>
                         </li>
-                        
+                        @if(Auth::user()->hasAnyPermission('Sistem Yönetimi'))
                         <li class="scroll dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="ri-settings-2-fill"></i>Sistem</a>
                             <ul class="dropdown-menu">
@@ -134,7 +134,7 @@
                                 <li><a href="{{ route('admin.information.index') }}">Sistem Haberler</a></li>
                             </ul>
                         </li>  
-                        
+                        @endif
                     </ul>
                 </div>
             </nav>

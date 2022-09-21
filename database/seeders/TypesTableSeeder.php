@@ -21,34 +21,34 @@ class TypesTableSeeder extends Seeder
         \DB::table('types')->insert(array (
             0 => 
             array (
-                'created_at' => NULL,
                 'id' => 1,
                 'name' => 'Yemek',
                 'type_id' => NULL,
+                'created_at' => NULL,
                 'updated_at' => NULL,
             ),
             1 => 
             array (
-                'created_at' => NULL,
                 'id' => 2,
                 'name' => 'Yakıt',
                 'type_id' => NULL,
+                'created_at' => NULL,
                 'updated_at' => NULL,
             ),
             2 => 
             array (
-                'created_at' => NULL,
                 'id' => 3,
                 'name' => 'Konaklama',
                 'type_id' => NULL,
+                'created_at' => NULL,
                 'updated_at' => NULL,
             ),
             3 => 
             array (
-                'created_at' => NULL,
                 'id' => 4,
                 'name' => 'Diğer',
                 'type_id' => NULL,
+                'created_at' => NULL,
                 'updated_at' => NULL,
             ),
         ));

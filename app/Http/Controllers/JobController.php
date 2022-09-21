@@ -8,6 +8,7 @@ use App\Models\Status;
 use Illuminate\Http\Request;
 use App\Http\Requests\JobRequest;
 use App\Models\Department;
+use Illuminate\Support\Facades\Auth;
 
 class JobController extends Controller
 {
@@ -31,7 +32,17 @@ class JobController extends Controller
     {
         $job = new Job($request->old());
         $statuses = Status::all();
-        $users = User::all();
+
+        if(Auth::user()->hasAnyPermission('Satış Görev Atama'))
+        {
+            $users = User::role('Satış Çalışanı')->get();
+            $superiors = User::permission('Satış Görev Atama')->get();
+            $users = $users->merge($superiors);
+        }
+        else {
+            $users = null;
+        }
+
         $departments = Department::all();
 
         return view('job.form',compact('job','statuses','users','departments'));

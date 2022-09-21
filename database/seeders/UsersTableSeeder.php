@@ -94,6 +94,36 @@ class UsersTableSeeder extends Seeder
                 'created_at' => '2022-09-21 08:51:55',
                 'updated_at' => '2022-09-21 08:51:55',
             ),
+            5 => 
+            array (
+                'id' => 7,
+                'department_id' => 2,
+                'name' => 'Recep Gürkan Elbir',
+                'phone' => '05768763546',
+                'email' => 'gurkanelbir@gmail.com',
+                'email_verified_at' => NULL,
+                'birthdate' => NULL,
+                'balance' => NULL,
+                'password' => '$2y$10$v9bqzR2Tu.Y.Tkcn.9hkheCrFh7nOhZKRq3DfdFgsjT4.ievfzg3K',
+                'remember_token' => NULL,
+                'created_at' => '2022-09-21 14:01:29',
+                'updated_at' => '2022-09-21 14:01:29',
+            ),
+            6 => 
+            array (
+                'id' => 8,
+                'department_id' => 2,
+                'name' => 'Eren Görmez',
+                'phone' => '05069756735',
+                'email' => 'erengormez@gmail.com',
+                'email_verified_at' => NULL,
+                'birthdate' => NULL,
+                'balance' => NULL,
+                'password' => '$2y$10$OGeyhvIvpl1tKuWqXEwrx.IoUDChRiTO7KJ3Fcg2MiwMl3DOXZzP2',
+                'remember_token' => NULL,
+                'created_at' => '2022-09-21 14:02:33',
+                'updated_at' => '2022-09-21 14:02:33',
+            ),
         ));
         
         
