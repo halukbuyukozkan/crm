@@ -26,7 +26,11 @@ class PermissionRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'order' => ['nullable','integer','max:255|unique:permissions,order', Rule::unique('permissions')->ignore($this->order)]
+            'order' => ['nullable',
+                        'integer',
+                        'max:255', 
+                        Rule::unique('permissions','order')->ignore($this->order)
+                        ]
         ];
     }
 }

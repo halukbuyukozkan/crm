@@ -26,8 +26,10 @@ class RoleRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'order' => [
-                'nullable','integer','max:255', Rule::unique('roles','order')->ignore($this->role)
+            'order' => ['nullable',
+                        'integer',
+                        'max:255', 
+                        Rule::unique('roles','order')->ignore($this->role)
             ],
             'permissions' => 'nullable|array'
         ];
