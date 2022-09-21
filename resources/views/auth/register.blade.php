@@ -27,6 +27,18 @@
             </div>
 
             <div class="mt-4">
+                <x-input-label for="department" :value="__('Department')" />
+
+                <div class="mt-4">
+                    <select class="block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" name="department_id" id="department">
+                        @foreach ($departments as $department)
+                            <option value="{{ $department->id }}">{{ $department->name }}</option>
+                        @endforeach
+                    </select>
+                </div> 
+            </div>
+
+            <div class="mt-4">
                 <x-input-label for="phone" :value="__('Phone')" />
 
                 <x-text-input id="phone" class="block mt-1 w-full" type="text" name="phone" :value="old('phone')" required />

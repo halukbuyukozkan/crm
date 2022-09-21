@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Department;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
@@ -20,7 +21,8 @@ class RegisteredUserController extends Controller
      */
     public function create()
     {
-        return view('auth.register');
+        $departments = Department::all();
+        return view('auth.register',compact('departments'));
     }
 
     /**
@@ -34,6 +36,7 @@ class RegisteredUserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'department_id' => ['required'],
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'phone' => ['required', 'string', 'max:255'],
@@ -41,6 +44,7 @@ class RegisteredUserController extends Controller
         ]);
 
         $user = User::create([
+            'department_id' => $request->department_id,
             'name' => $request->name,
             'email' => $request->email,
             'phone' => $request->phone,
