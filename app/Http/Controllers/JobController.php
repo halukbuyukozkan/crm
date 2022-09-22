@@ -21,12 +21,15 @@ class JobController extends Controller
      */
     public function index()
     {
-        $jobs = Job::whereHas('users', function (Builder $query) {
-            $query->whereHas('department', function (Builder $query) {
-                $query->where('name', Auth::user()->department->name);
-            });
-        })->get(); 
-
+        if(Auth::user()->hasAnyPermission('Genel Görev Atama')) {
+            $jobs = Job::whereHas('users', function (Builder $query) {
+                $query->whereHas('department', function (Builder $query) {
+                    $query->where('name', Auth::user()->department->name);
+                });
+            })->get(); 
+        }else{
+            $jobs = Auth::user()->jobs;
+        }
 
         return view('job.index',compact('jobs'));
     }
@@ -61,7 +64,7 @@ class JobController extends Controller
         $data = $request->validated();
         $data['deadline'] = Carbon::createFromFormat('Y-m-d', $data['deadline'])->format('d.m.Y');
         $job = Job::create($data);
-        
+
         $job->users()->sync($data['users'] ?? []);
 
         return redirect()->route('admin.job.index')->with('success', 'Görev başarıyla oluşturuldu.');
@@ -84,9 +87,18 @@ class JobController extends Controller
      * @param  \App\Models\Job  $job
      * @return \Illuminate\Http\Response
      */
-    public function edit(Job $job)
+    public function edit(Job $job,Request $request)
     {
-        //
+        $job->fill($request->old());
+        $statuses = Status::all();
+
+        $users = Auth::user()->department->users;
+        $superiors = User::permission('Genel Görev Atama')->get();
+        $users = $users->merge($superiors);
+
+        $departments = Department::all();
+
+        return view('job.form', compact('job','statuses','users','departments'));
     }
 
     /**
@@ -96,9 +108,16 @@ class JobController extends Controller
      * @param  \App\Models\Job  $job
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Job $job)
+    public function update(JobRequest $request, Job $job)
     {
-        //
+        $data = $request->validated();
+
+        $job->fill($data);
+        $data['deadline'] = Carbon::createFromFormat('Y-m-d', $data['deadline'])->format('d.m.Y');
+        $job->save();
+        $job->users()->sync($data['users'] ?? []);
+
+        return redirect()->route('admin.job.index')->with('success', 'Role updated successfully');
     }
 
     /**
@@ -110,6 +129,7 @@ class JobController extends Controller
     public function destroy(Job $job)
     {
         $job->delete();
+        
 
         return redirect()->route('admin.job.index');
     }

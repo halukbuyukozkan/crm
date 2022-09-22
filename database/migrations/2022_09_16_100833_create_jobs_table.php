@@ -19,8 +19,10 @@ return new class extends Migration
 
             $table->string('name');
             $table->text('description');
-            
             $table->date('deadline');
+
+            $table->string('created_by');
+            $table->string('updated_by')->nullable();
             $table->timestamps();
         });
     }

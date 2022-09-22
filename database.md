@@ -50,6 +50,7 @@
 - name
 - description
 - deadline
+- created_by
 
 # JobUser
 - job_id

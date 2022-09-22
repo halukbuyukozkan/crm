@@ -66,9 +66,11 @@ class StatusController extends Controller
      * @param  \App\Models\Status  $status
      * @return \Illuminate\Http\Response
      */
-    public function edit(Status $status)
+    public function edit(Status $status,Request $request)
     {
-        //
+        $status->fill($request->old());
+
+        return view('status.form', compact('status'));
     }
 
     /**
@@ -80,7 +82,15 @@ class StatusController extends Controller
      */
     public function update(Request $request, Status $status)
     {
-        //
+        $data = $request->validate([
+            'name' => 'required|string|max:255',
+            'is_completed' => 'required|boolean',
+        ]);
+
+        $status->fill($data);
+        $status->save();
+
+        return redirect()->route('admin.status.index')->with('success', 'Role updated successfully');
     }
 
     /**

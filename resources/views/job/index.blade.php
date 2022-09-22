@@ -35,6 +35,7 @@ Görevler
                             <thead>
                               <tr>
                                 <th>İsim</th>
+                                <th>Görevi Oluşturan</th>
                                 <th>Görevli</th>
                                 <th>Durum</th>
                                 <th>Başlangıç Tarihi</th>
@@ -46,6 +47,7 @@ Görevler
                                 @foreach ($jobs as $job)
                                 <tr>
                                     <td><a href="{{ route('admin.job.show',$job) }}">{{ $job->name }}</a></td>
+                                    <td>{{ $job->created_by }}</td>
                                     <td>@foreach ($job->users  as $user)
                                         {{ $user->name }}
                                     @endforeach</td>
