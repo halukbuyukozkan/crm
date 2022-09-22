@@ -21,7 +21,7 @@ class ModelHasPermissionsTableSeeder extends Seeder
         \DB::table('model_has_permissions')->insert(array (
             0 => 
             array (
-                'permission_id' => 1,
+                'permission_id' => 3,
                 'model_type' => 'App\\Models\\User',
                 'model_id' => 1,
             ),
@@ -33,7 +33,19 @@ class ModelHasPermissionsTableSeeder extends Seeder
             ),
             2 => 
             array (
-                'permission_id' => 2,
+                'permission_id' => 7,
+                'model_type' => 'App\\Models\\User',
+                'model_id' => 1,
+            ),
+            3 => 
+            array (
+                'permission_id' => 3,
+                'model_type' => 'App\\Models\\User',
+                'model_id' => 5,
+            ),
+            4 => 
+            array (
+                'permission_id' => 7,
                 'model_type' => 'App\\Models\\User',
                 'model_id' => 5,
             ),

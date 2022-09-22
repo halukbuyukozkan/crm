@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Job;
 use App\Models\User;
 use App\Models\Status;
+use App\Models\Department;
 use Illuminate\Http\Request;
 use App\Http\Requests\JobRequest;
-use App\Models\Department;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Builder;
 
 class JobController extends Controller
 {
@@ -20,8 +21,13 @@ class JobController extends Controller
      */
     public function index()
     {
-        $jobs = Job::paginate();
-        
+        $jobs = Job::whereHas('users', function (Builder $query) {
+            $query->whereHas('department', function (Builder $query) {
+                $query->where('name', Auth::user()->department->name);
+            });
+        })->get(); 
+
+
         return view('job.index',compact('jobs'));
     }
 
@@ -35,15 +41,27 @@ class JobController extends Controller
         $job = new Job($request->old());
         $statuses = Status::all();
 
-        if(Auth::user()->hasAnyPermission('Satış Görev Atama'))
+        $users = Auth::user()->department->users;
+        $superiors = User::permission('Satış Görev Atama')->get();
+        $users = $users->merge($superiors);
+    
+            
+
+        /*
+        if(Auth::user()->hasAnyPermission('Genel Görev Atama'))
         {
             $users = User::role('Satış Çalışanı')->get();
             $superiors = User::permission('Satış Görev Atama')->get();
             $users = $users->merge($superiors);
         }
+        elseif(Auth::user()->hasAnyPermission('Muhasebe Görev Atama'))
+        {
+            $users = User::role('Muhasebe Çalışanı')->get();
+        }
         else {
             $users = null;
         }
+        */
 
         $departments = Department::all();
 

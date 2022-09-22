@@ -21,7 +21,7 @@ Görevler
                         <div class="col-md-8">
                             <h5 class="card-title">Görevler</h5>
                         </div>
-                        @if(Auth::user()->hasAnyPermission('Satış Görev Atama'))
+                        @if(Auth::user()->hasAnyPermission(['Satış Görev Atama','Muhasebe Görev Atama']))
                         <div class="col-md-4 text-right">
                             <a href="{{ route('admin.job.create') }}"><button class="btn btn-primary">Görevi Oluştur</button></a> 
                             <a href="{{ route('admin.status.index') }}"><button class="btn btn-primary">Durumlar</button></a>    
@@ -35,6 +35,7 @@ Görevler
                             <thead>
                               <tr>
                                 <th>İsim</th>
+                                <th>Görevli</th>
                                 <th>Durum</th>
                                 <th>Başlangıç Tarihi</th>
                                 <th>Bitiş Tarihi</th>
@@ -45,10 +46,14 @@ Görevler
                                 @foreach ($jobs as $job)
                                 <tr>
                                     <td><a href="{{ route('admin.job.show',$job) }}">{{ $job->name }}</a></td>
+                                    <td>@foreach ($job->users  as $user)
+                                        {{ $user->name }}
+                                    @endforeach</td>
                                     <td>{{ $job->status->name }}</td>
                                     <td>{{ $job->created_at->format('d.m.Y') }}</td>
                                     <td>{{ $job->deadline }}</td>
                                     <td>
+                                        @if(Auth::user()->hasAnyPermission('Görevde Değişiklik Yapma'))
                                         <a href="{{ route('admin.job.edit',$job) }}"><button class="btn btn-sm btn-primary">
                                             <i class="ri-pencil-line"></i>
                                         </button></a>
@@ -60,6 +65,7 @@ Görevler
                                                 <i class="ri-delete-bin-line"></i>
                                             </button>
                                         </form>
+                                        @endif
                                     </td>
                                 </tr>  
                                 @endforeach

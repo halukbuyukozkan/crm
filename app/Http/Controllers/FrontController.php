@@ -8,6 +8,7 @@ use App\Models\Message;
 use App\Models\MoneyRequest;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -30,9 +31,18 @@ class FrontController extends Controller
             $moneyrequests = $user->moneyrequests;
         }
 
-        $jobs = Job::all();
+        if($user->hasAnyRole('Satış Direktörü'))
+        {
+            $jobs = Job::with(['users' => function($q) {
+                $q->whereHas('department', function($query) {
+                    $query->where('name', 'Satış Departmanı');
+                });
+            }])->get();
+        }else {
+            $jobs = null;
+        }                               
 
-        
+
         return view('index',compact('messages','moneyrequests','jobs','informations','user'));
     }
 

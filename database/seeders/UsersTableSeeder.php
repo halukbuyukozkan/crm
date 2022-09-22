@@ -52,7 +52,7 @@ class UsersTableSeeder extends Seeder
             2 => 
             array (
                 'id' => 3,
-                'department_id' => 2,
+                'department_id' => 1,
                 'name' => 'user',
                 'phone' => '05069756735',
                 'email' => 'user@a.com',

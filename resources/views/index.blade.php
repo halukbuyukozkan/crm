@@ -86,17 +86,26 @@ CRM
                         <table class="table table-striped table-bordered" id="edit-btn">
                             <thead>
                               <tr>
-                                <th>Görev Adı</th>
-                                <th>Açıklama</th>
+                                <th>İsim</th>
+                                <th>Görevli</th>
+                                <th>Durum</th>
+                                <th>Başlangıç Tarihi</th>
+                                <th>Bitiş Tarihi</th>
                                 <th>İşlemler</th>
                               </tr>
                             </thead>
                             <tbody>
+                                @if($jobs)
                                 @foreach ($jobs->take(5) as $job)
                                 <tr>
-                                    <td style="width: 25%">{{ $job->name }}</td>
-                                    <td style="width: 60%">{{ $job->description }}</td>
-                                    <td style="width: 15%">
+                                    <td><a href="{{ route('admin.job.show',$job) }}">{{ $job->name }}</a></td>
+                                    <td>@foreach ($job->users  as $user)
+                                        {{ $user->name }}
+                                    @endforeach</td>
+                                    <td>{{ $job->status->name }}</td>
+                                    <td>{{ $job->created_at->format('d.m.Y') }}</td>
+                                    <td>{{ $job->deadline }}</td>
+                                    <td>
                                         <a href="{{ route('admin.job.edit',$job) }}"><button class="btn btn-sm btn-primary">
                                             <i class="ri-pencil-line"></i>
                                         </button></a>
@@ -111,6 +120,7 @@ CRM
                                     </td>
                                 </tr>  
                                 @endforeach
+                                @endif
                             </tbody>
                         </table>
                     </div>
