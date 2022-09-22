@@ -42,26 +42,8 @@ class JobController extends Controller
         $statuses = Status::all();
 
         $users = Auth::user()->department->users;
-        $superiors = User::permission('Satış Görev Atama')->get();
+        $superiors = User::permission('Genel Görev Atama')->get();
         $users = $users->merge($superiors);
-    
-            
-
-        /*
-        if(Auth::user()->hasAnyPermission('Genel Görev Atama'))
-        {
-            $users = User::role('Satış Çalışanı')->get();
-            $superiors = User::permission('Satış Görev Atama')->get();
-            $users = $users->merge($superiors);
-        }
-        elseif(Auth::user()->hasAnyPermission('Muhasebe Görev Atama'))
-        {
-            $users = User::role('Muhasebe Çalışanı')->get();
-        }
-        else {
-            $users = null;
-        }
-        */
 
         $departments = Department::all();
 

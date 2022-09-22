@@ -21,7 +21,7 @@ Görevler
                         <div class="col-md-8">
                             <h5 class="card-title">Görevler</h5>
                         </div>
-                        @if(Auth::user()->hasAnyPermission(['Satış Görev Atama','Muhasebe Görev Atama']))
+                        @if(Auth::user()->hasAnyPermission(['Genel Görev Atama']))
                         <div class="col-md-4 text-right">
                             <a href="{{ route('admin.job.create') }}"><button class="btn btn-primary">Görevi Oluştur</button></a> 
                             <a href="{{ route('admin.status.index') }}"><button class="btn btn-primary">Durumlar</button></a>    
