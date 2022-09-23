@@ -21,93 +21,111 @@ class RolesTableSeeder extends Seeder
         \DB::table('roles')->insert(array (
             0 => 
             array (
-                'created_at' => '2022-09-12 17:26:41',
-                'guard_name' => 'web',
                 'id' => 1,
                 'name' => 'Başkan',
+                'guard_name' => 'web',
                 'order' => 1,
+                'created_at' => '2022-09-12 17:26:41',
                 'updated_at' => '2022-09-12 17:28:53',
             ),
             1 => 
             array (
-                'created_at' => '2022-09-12 17:29:24',
-                'guard_name' => 'web',
                 'id' => 2,
                 'name' => 'Yönetim Kurulu Üyesi',
+                'guard_name' => 'web',
                 'order' => 2,
+                'created_at' => '2022-09-12 17:29:24',
                 'updated_at' => '2022-09-12 17:29:24',
             ),
             2 => 
             array (
-                'created_at' => '2022-09-12 17:43:40',
-                'guard_name' => 'web',
                 'id' => 3,
                 'name' => 'Genel Müdür',
+                'guard_name' => 'web',
                 'order' => 3,
+                'created_at' => '2022-09-12 17:43:40',
                 'updated_at' => '2022-09-12 17:43:40',
             ),
             3 => 
             array (
-                'created_at' => '2022-09-12 18:29:36',
-                'guard_name' => 'web',
                 'id' => 4,
                 'name' => 'Satış Direktörü',
+                'guard_name' => 'web',
                 'order' => 4,
+                'created_at' => '2022-09-12 18:29:36',
                 'updated_at' => '2022-09-12 18:29:36',
             ),
             4 => 
             array (
-                'created_at' => '2022-09-12 18:37:37',
-                'guard_name' => 'web',
                 'id' => 8,
                 'name' => 'Mali ve İdari İşler Müdürü',
-                'order' => 6,
-                'updated_at' => '2022-09-12 18:37:37',
+                'guard_name' => 'web',
+                'order' => 8,
+                'created_at' => '2022-09-12 18:37:37',
+                'updated_at' => '2022-09-21 13:20:18',
             ),
             5 => 
             array (
-                'created_at' => '2022-09-12 18:38:19',
-                'guard_name' => 'web',
                 'id' => 9,
                 'name' => 'Muhasebe Yöneticisi',
-                'order' => 7,
-                'updated_at' => '2022-09-12 18:38:19',
+                'guard_name' => 'web',
+                'order' => 9,
+                'created_at' => '2022-09-12 18:38:19',
+                'updated_at' => '2022-09-21 13:20:12',
             ),
             6 => 
             array (
-                'created_at' => '2022-09-12 18:39:37',
-                'guard_name' => 'web',
                 'id' => 10,
                 'name' => 'Muhasebe Uzmanı',
-                'order' => 8,
-                'updated_at' => '2022-09-12 18:39:37',
+                'guard_name' => 'web',
+                'order' => 10,
+                'created_at' => '2022-09-12 18:39:37',
+                'updated_at' => '2022-09-21 13:20:07',
             ),
             7 => 
             array (
-                'created_at' => '2022-09-12 18:41:04',
-                'guard_name' => 'web',
                 'id' => 11,
                 'name' => 'İdari İşler Sorumlusu',
-                'order' => 9,
-                'updated_at' => '2022-09-12 18:41:04',
+                'guard_name' => 'web',
+                'order' => 11,
+                'created_at' => '2022-09-12 18:41:04',
+                'updated_at' => '2022-09-21 13:20:02',
             ),
             8 => 
             array (
-                'created_at' => '2022-09-12 18:41:56',
-                'guard_name' => 'web',
                 'id' => 12,
                 'name' => 'Tasarım',
-                'order' => 10,
-                'updated_at' => '2022-09-12 18:41:56',
+                'guard_name' => 'web',
+                'order' => 12,
+                'created_at' => '2022-09-12 18:41:56',
+                'updated_at' => '2022-09-21 13:19:57',
             ),
             9 => 
             array (
-                'created_at' => '2022-09-12 18:42:24',
-                'guard_name' => 'web',
                 'id' => 13,
                 'name' => 'WGS Müdür',
+                'guard_name' => 'web',
+                'order' => 7,
+                'created_at' => '2022-09-12 18:42:24',
+                'updated_at' => '2022-09-21 13:20:22',
+            ),
+            10 => 
+            array (
+                'id' => 14,
+                'name' => 'Satış Çalışanı',
+                'guard_name' => 'web',
                 'order' => 5,
-                'updated_at' => '2022-09-12 18:44:26',
+                'created_at' => '2022-09-21 13:20:40',
+                'updated_at' => '2022-09-21 13:20:46',
+            ),
+            11 => 
+            array (
+                'id' => 15,
+                'name' => 'Muhasebe Çalışanı',
+                'guard_name' => 'web',
+                'order' => 13,
+                'created_at' => '2022-09-21 18:51:49',
+                'updated_at' => '2022-09-21 18:51:49',
             ),
         ));
         

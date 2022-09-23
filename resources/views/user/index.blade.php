@@ -40,14 +40,17 @@ Kullanıcılar
                             <tbody>
                                 @foreach ($users as $user)
                                 <tr>
-                                    <td>{{ $user->name }}</td>
-                                    <td>{{ $user->role ? $user->role->name : '-' }}</td>
-                                    <td>
-                                        @foreach ($user->permissions as $permission)
-                                        {{ $permission->name }}
+                                    <td style="width:20%">{{ $user->name }}</td>
+                                    <td style="width:30%">@foreach($user->roles as $role)
+                                        {{$role->name . ','}} <br>
                                         @endforeach
                                     </td>
-                                    <td>
+                                    <td style="width:30%">
+                                        @foreach ($user->permissions as $permission)
+                                        {{$permission->name . ','}} <br>
+                                        @endforeach
+                                    </td>
+                                    <td style="width: 20%">
                                         <a href="{{ route('admin.user.edit',$user) }}"><button class="btn btn-sm btn-primary">
                                             <i class="ri-pencil-line"></i>
                                         </button></a>

@@ -43,17 +43,19 @@
 - user_id2
 - price
 - is_income
+
 # Job 
 - id 
 - status_id
 - name
 - description
 - deadline
+- created_by
 
 # JobUser
 - job_id
 - user_id
-- department_id
+ // department_id
 
 # Status
 - id 

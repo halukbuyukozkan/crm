@@ -2,10 +2,9 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class PermissionRequest extends FormRequest
+class JobRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,12 +24,11 @@ class PermissionRequest extends FormRequest
     public function rules()
     {
         return [
+            'status_id' => 'required|string',
             'name' => 'required|string|max:255',
-            'order' => ['nullable',
-                        'integer',
-                        'max:255', 
-                        Rule::unique('permissions','order')->ignore($this->order)
-                        ]
+            'description' => 'nullable|string',
+            'deadline' => 'nullable|date',
+            'users' => 'array|required',
         ];
     }
 }

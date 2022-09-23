@@ -1,5 +1,5 @@
 @section('title') 
-Yeni Departman
+Yeni Durum
 @endsection 
 @extends('layouts.main')
 @section('style')
@@ -14,35 +14,40 @@ Yeni Departman
 <div class="contentbar">   
     
     <form method="post" enctype="multipart/form-data"
-    action="{{ $department->exists ? route('admin.department.update', $department) : route('admin.department.store') }}">
+    action="{{ $status->exists ? route('admin.status.update', $status) : route('admin.status.store') }}">
     @csrf
-    @if ($department->exists)
+    @if ($status->exists)
         @method('PUT')
     @endif
     <div class="card m-b-30">
         <div class="card-header">
-            <h5 class="card-title">Yeni Departman</h5>
+            <h5 class="card-title">Yeni Durum</h5>
         </div>
         <div class="card-body">
             <h6 class="card-subtitle"><strong>İsim</strong></h6>
             <div class="form-group mb-4">
                 <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name"
-                    value="{{ old('name', $department->name) }}" required>
+                    value="{{ old('name', $status->name) }}" required>
+                @error('name')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
             </div>
-        </div>
-        <div class="card-header">
-            <h5 class="card-title">Roller</h5>
-        </div>
-        <div class="card-body">
-            <h6 class="card-subtitle">Departmanın varsayılan rolünü seçin</h6>
+            <h6 class="card-subtitle"><strong>Durum seçin</strong></h6>
             <div class="form-group">
-                <select class="form-control" id="formControlSelect">
-                    @foreach ($roles as $role)
-                        <option value="{{ $role->id }}">{{ $role->name }}</option>
-                    @endforeach
+                <select class="form-control" name="is_completed" id="formControlSelect">
+                    <option value="0">Açık</option>
+                    <option value="1">Kapalı</option>
                 </select>
-            </div> 
+            </div>
+            @error('is_completed')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+            @enderror
         </div>
+        
         <div class="card-footer">
             <button type="submit" class="btn btn-primary">
                 <i class="ri-save-line"></i>

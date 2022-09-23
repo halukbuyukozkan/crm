@@ -1,5 +1,5 @@
 @section('title') 
-Ödeme Talepleri
+Durumlar
 @endsection 
 @extends('layouts.main')
 @section('style')
@@ -19,10 +19,10 @@
                 <div class="card-header">
                     <div class="row">
                         <div class="col-md-10">
-                            <h5 class="card-title">{{ $moneyrequest->name }}</h5>
+                            <h5 class="card-title">Durumlar</h5>
                         </div>
                         <div class="col-md-2 text-right">
-                            <a href="{{ route('admin.moneyrequestitem.create') }}"><button class="btn btn-primary">Avans Talebini Onayla</button></a>    
+                            <a href="{{ route('admin.status.create') }}"><button class="btn btn-primary">Durum Oluştur</button></a>    
                         </div>
                     </div>
                 </div>
@@ -32,14 +32,28 @@
                             <thead>
                               <tr>
                                 <th>İsim</th>
-                                <th>Miktar</th>
+                                <th>durum</th>
+                                <th>İşlemler</th>
                               </tr>
                             </thead>
                             <tbody>
-                                @foreach ($moneyRequestItems as $request)
+                                @foreach ($statuses as $status)
                                 <tr>
-                                    <td>{{ $request->type->name }}</td>
-                                    <td>{{ $request->price }}</td>
+                                    <td>{{ $status->name }}</td>
+                                    <td>{{ $status->is_completed }}</td>
+                                    <td>
+                                        <a href="{{ route('admin.status.edit',$status) }}"><button class="btn btn-sm btn-primary">
+                                            <i class="ri-pencil-line"></i>
+                                        </button></a>
+                                        <form action="{{ route('admin.status.destroy', $status) }}" method="POST"
+                                        class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
+                                        @csrf
+                                        @method('DELETE')
+                                            <button type="submit" class="btn btn-sm btn-danger">
+                                                <i class="ri-delete-bin-line"></i>
+                                            </button>
+                                        </form>
+                                    </td>
                                 </tr>  
                                 @endforeach
                             </tbody>

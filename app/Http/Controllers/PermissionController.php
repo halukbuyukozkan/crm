@@ -15,7 +15,7 @@ class PermissionController extends Controller
      */
     public function index()
     {
-        $permissions = Permission::all();
+        $permissions = Permission::paginate()->sortBy('order');
         return view('permission.index',compact('permissions'));
     }
 
@@ -81,10 +81,7 @@ class PermissionController extends Controller
      */
     public function update(PermissionRequest $request, Permission $permission)
     {
-        $data = $request->validate([
-            'name' => 'required|unique:roles,name,' . $permission->id,
-            'permissions' => 'array|exists:permissions,id',
-        ]);
+        $data = $request->validated();
         $permission->fill($data);
         $permission->save();
         $permission->syncPermissions($data['permissions'] ?? []);

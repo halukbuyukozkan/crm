@@ -14,133 +14,252 @@ CRM
 <div class="contentbar">   
 
     <div class="row">
-        @if($message)
-        <div class="col-lg-12">
-            <div class="card">
+        @if($messages)
+        <div class="col-lg-6">
+            <div class="card m-b-30">
                 <div class="card-header">
                     <div class="row">
-                        <div class="col-md-12">
-                            <h6 class="card-title text-center">{{ $message->message }}</h6>
+                        <div class="col-md-8">
+                            <h5>Yönetimden Mesajlar</h5>
                         </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered" id="edit-btn">
+                            <tbody>
+                                @foreach ($messages as $message)
+                                <tr>
+                                    <td style="width: 25%">{{ $message->created_at->format('d/m/Y') }}</td>
+                                    <td style="width: 60%">{{ $message->message }}</td>
+                                </tr>  
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endif
+        @if($informations)
+        <div class="col-lg-6">
+            <div class="card m-b-30">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h5>Haberler</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered" id="edit-btn">
+                            <tbody>
+                                @foreach ($informations as $information)
+                                <tr>
+                                    <td style="width: 25%">{{ $information->created_at->format('d/m/Y') }}</td>
+                                    <td style="width: 60%">{{ $information->description }}</td>
+                                </tr>  
+                                @endforeach
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
         @endif
     </div>
-    <div class="row my-2">
-        <div class="col-md-8">
-            <img class="w-100" src="{{ asset('img/nopic.png') }}" alt="">
-        </div>
-        <div class="col-md-4">
-            <img class="w-100" src="{{ asset('img/nopic.png') }}" alt="">
-            <img class="w-100 mt-4" src="{{ asset('img/nopic.png') }}" alt="">
-        </div>
-    </div>
-    <div class="row my-4">
-        <div class="col-lg-4">
-            <div class="card">
+
+    <div class="row">
+        <!-- Start col -->
+        <div class="col-lg-12 my-4">
+            <div class="card m-b-30">
                 <div class="card-header">
                     <div class="row">
-                        <div class="col-md-12">
-                            <h6 class="card-title text-center">Doğum Günü</h6>
+                        <div class="col-md-8">
+                            <h5>Görevlerim</h5>
                         </div>
                     </div>
                 </div>
                 <div class="card-body">
-                    <div class="row">
-                        <div class="text-center">
-                            <img src="{{ asset('img/emptyprofile.png') }}" class="rounded-circle w-50" alt="...">
-                            <h6 class="card-title text-center">{{ $birthday->name }}</h6>
-                        </div>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered" id="edit-btn">
+                            <thead>
+                              <tr>
+                                <th>İsim</th>
+                                <th>Görevi Veren</th>
+                                <th>Görevli</th>
+                                <th>Durum</th>
+                                <th>Başlangıç Tarihi</th>
+                                <th>Bitiş Tarihi</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                                @forelse ($myjobs->take(5) as $job)
+                                <tr>
+                                    <td><a href="{{ route('admin.job.show',$job) }}">{{ $job->name }}</a></td>
+                                    <td>{{ $job->created_by }}</td>
+                                    <td>@foreach ($job->users  as $user)
+                                        {{ $user->name }}
+                                    @endforeach</td>
+                                    <td>{{ $job->status->name }}</td>
+                                    <td>{{ $job->created_at->format('d.m.Y') }}</td>
+                                    <td>{{ $job->deadline }}</td>
+                                </tr>  
+                                @empty
+                                    <tr>
+                                        <td colspan="99" class="text-center text-muted">
+                                            {{ __('No Jobs') }}
+                                        </td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
                     </div>
+                    @if($otherjobs)
+                        @if($otherjobs->count() > 5)
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="text-center">
+                                    <a href="{{ route('admin.job.index') }}">Tümünü gör</a>
+                                </div>
+                            </div>
+                        </div>
+                        @endif
+                    @endif
                 </div>
             </div>
-        </div>
-        <div class="col-md-8">
-            <div class="accordion" id="accordionwithicon">
-                <div class="card">
-                    <div class="card-header" id="headingOneicon">
-                        <h2 class="mb-0">
-                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOneicon" aria-expanded="true" aria-controls="collapseOneicon"><i class="ri-award-line mr-2"></i>Hakkımızda</button>
-                        </h2>
-                    </div>
-                    <div id="collapseOneicon" class="collapse show" aria-labelledby="headingOneicon" data-parent="#accordionwithicon">
-                        <div class="card-body">
-                            <div class="mb-3">
-                                Goodssol Gıda Sanayi A.Ş., distribütörü olduğu uluslarası şirketlerin ürünlerini 81 ilde 500’ün üzerinde noktaya satış ve dağıtım hizmeti vermesinin yanısıra, İş Geliştirme Departmanı ile route optimizasyonu ve P&L yönetimine ek olarak Pazarlama Departmanı ile Private Label markası yaratılması, marka konumlandırma stratejisi, pazar endex ve dağıtım kanallarının belirlenmesi, dijital pazarlama ve e-ticaret yönetimi konusunda da hizmet vermektedir.
-                            </div>
-                            <div class="mb-3">
-                                Türkiye'deki lisans satış hakkına sahip olduğu Gloria Jean’s Coffes markasının "We Gloriosly Serve", "Gloria Jean’s Coffees To Go" iş modelleriyle hizmet veren Goodssol; lojistik, danışmanlık ve eğitim alanlarında da edinmiş olduğu tecrübeleri iş ortaklarına aktarmaktadır. Kahve kültürünün günden güne gelişmekte olduğu ülkemiz coğrafyasında, taze çekirdek, taze süt, mükemmel lezzet yol haritasını izleyerek Gloria Jeans Coffees kahve deneyimini perakende mağazaların açılamadığı alanlarda sunabilmek için çalışıyoruz.
-                            </div>
-                            <div>
-                                Ayrıca T.C. Adalet Bakanlığı CTE Genel Müdürlüğü’ne bağlı tüm cezaevi ve İşyurtları’na Pepsi, Fritolay ve Doğadan ürünleri ile satış ve dağıtım hizmetini vermekteyiz.
-                            </div>
+            <div class="card m-b-30">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h5>Verilen Görevler</h5>
                         </div>
                     </div>
                 </div>
-                <div class="card">
-                    <div class="card-header" id="headingTwoicon">
-                        <h2 class="mb-0">
-                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwoicon" aria-expanded="false" aria-controls="collapseTwoicon"><i class="ri-calendar-line mr-2"></i>Vizyon – Misyon</button>
-                        </h2>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered" id="edit-btn">
+                            <thead>
+                              <tr>
+                                <th>İsim</th>
+                                <th>Görevi Veren</th>
+                                <th>Görevli</th>
+                                <th>Durum</th>
+                                <th>Başlangıç Tarihi</th>
+                                <th>Bitiş Tarihi</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                                @if($otherjobs)
+                                    @forelse ($otherjobs->take(5) as $job)
+                                        <tr>
+                                            <td><a href="{{ route('admin.job.show',$job) }}">{{ $job->name }}</a></td>
+                                            <td>{{ $job->created_by }}</td>
+                                            <td>@foreach ($job->users  as $user)
+                                                {{ $user->name }}
+                                            @endforeach</td>
+                                            <td>{{ $job->status->name }}</td>
+                                            <td>{{ $job->created_at->format('d.m.Y') }}</td>
+                                            <td>{{ $job->deadline }}</td>
+                                        </tr>  
+                                    @empty
+                                        <tr>
+                                            <td colspan="99" class="text-center text-muted">
+                                                {{ __('No Jobs') }}
+                                            </td>
+                                        </tr>
+                                    @endforelse
+                                @endif
+                            </tbody>
+                        </table>
                     </div>
-                    <div id="collapseTwoicon" class="collapse" aria-labelledby="headingTwoicon" data-parent="#accordionwithicon">
-                        <div class="card-body">
-                            <div class="mb-3">
-                                Fırsatların ortaya çıkmasını beklemeden fırsatları yaratan bir kültüre sahibiz.
+                    @if($otherjobs)
+                        @if($otherjobs->count() > 5)
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="text-center">
+                                    <a href="{{ route('admin.job.index') }}">Tümünü gör</a>
+                                </div>
                             </div>
-                            goods solutions for goodness 
                         </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header" id="headingThreeicon">
-                        <h2 class="mb-0">
-                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThreeicon" aria-expanded="false" aria-controls="collapseThreeicon"><i class="ri-drop-line mr-2"></i>Üst Yönetim</button>
-                        </h2>
-                    </div>
-                    <div id="collapseThreeicon" class="collapse" aria-labelledby="headingThreeicon" data-parent="#accordionwithicon">
-                        <div class="card-body">
-                            <div class="mb-2">
-                                BAŞKAN - Sercan UYSAL
-                            </div>
-                            <div class="mb-2">
-                                YK ÜYESİ GENEL MÜDÜR - Ersin SANCAK 
-                            </div>
-                            <div class="mb-2">
-                                YK ÜYESİ - Didem UYSAL
-                            </div>
-                            <div class="mb-2">
-                                SATIŞ DİREKTÖRÜ - Bilgin ÖZTÜRK
-                            </div>
-                            <div class="mb-2">
-                                MALİ ve İDARİ İŞLER DİREKTÖRÜ - Serhat KELEŞ
-                            </div>
-                            <div class="mb-2">
-                                ÜRETİM ve PLANLAMA DİREKTÖRÜ
-                            </div>
-                            <div class="mb-2">
-                                WGS DİREKTÖRÜ
-                            </div>
-                        </div>
-                    </div>
+                        @endif
+                    @endif
                 </div>
             </div>
         </div>
 
     </div>
+
     <div class="row">
-        <!-- Start col -->
-        <div class="col-lg-6 my-4">
+        <div class="col-lg-7 my-4">
             <div class="card m-b-30">
                 <div class="card-header">
                     <div class="row">
                         <div class="col-md-8">
-                            <h5 class="card-title">Ödeme Talepleri</h5>
+                            <h5>Kullanıcı Bilgileri</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="col-md-12">
+                        <div>
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered" id="edit-btn">
+                                    <tbody>
+                                        <tr>
+                                            <td>Ad Soyad</td>
+                                            <td style="width: 60%">{{ $user->name }}</td>
+                                        </tr>  
+                                        <tr>
+                                            <td>Email</td>
+                                            <td style="width: 60%">{{ $user->email }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Avans Bakiyesi</td>
+                                            <td style="width: 60%">{{ $user->balance }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="mt-5">
+                            <a href="{{ route('admin.moneyrequest.index') }}"><button class="btn btn-primary btn-lg btn-block">Avans Talebi Oluştur</button></a>
+                            <a href="{{ route('admin.moneyrequest.index') }}"><button class="btn btn-primary btn-lg btn-block mt-2">Masraf Talebi Oluştur</button></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-5 my-4">
+            <div class="card m-b-30">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h5>Aylık Masraf Dağılım Grafiği</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="col-md-12">
+                        <img class="w-100" src="{{ asset('img/nopic.png') }}" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Start col -->
+        <div class="col-lg-12 my-4">
+            <div class="card m-b-30">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h5 class="card-title">Onay Bekleyen Avans/Masraf Taleplerim</h5>
                         </div>
                         <div class="col-md-4 text-right">
-                            <a href="{{ route('admin.moneyrequest.create') }}"><button class="btn btn-primary">Ödeme Talebi Oluştur</button></a>    
+                            <a href="{{ route('admin.moneyrequest.create') }}"><button class="btn btn-primary">Avans Talebi Oluştur</button></a>    
                         </div>
                     </div>
                 </div>
@@ -190,25 +309,36 @@ CRM
                 </div>
             </div>
         </div>
-        <div class="col-lg-6 my-4">
+        <!-- End col -->
+
+    </div>
+    <div class="row">
+        <div class="col-lg-12 my-4">
             <div class="card m-b-30">
                 <div class="card-header">
                     <div class="row">
                         <div class="col-md-8">
-                            <h5 class="card-title">Ödeme Grafiği</h5>
+                            <h5>İzinler</h5>
                         </div>
                     </div>
                 </div>
                 <div class="card-body">
-                    <canvas id="chartjs-bar-chart" class="chartjs-chart"></canvas>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5><a href="#">>İzin Yönetim Sistemi</a></h5>
+                            <h5><a href="#">>Ücretisiz İzin Talebi</a></h5>
+                        </div>
+                        <div class="col-md-6">
+                            <h5><a href="#">>Yıllık İzin Talebi</a></h5>
+                            <h6>Yıllık izin hakkı : 7 gün</h6>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        
-
-        <!-- End col -->
-
     </div>
+
+
 
 </div>
 <!-- End Contentbar -->

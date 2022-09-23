@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Information;
+use App\Models\Job;
 use App\Models\Message;
 use App\Models\MoneyRequest;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -18,7 +21,8 @@ class FrontController extends Controller
      */
     public function index()
     {
-        $message = Message::all()->first();
+        $messages = Message::all();
+        $informations = Information::all();
         $user = Auth::user();
         if($user->hasPermissionTo('Ödeme Talebi Kabul etme'))
         {
@@ -27,9 +31,27 @@ class FrontController extends Controller
             $moneyrequests = $user->moneyrequests;
         }
 
-        $birthday = User::whereDay('birthdate', Carbon::now()->format('d'))->get()->first();
+        if(Auth::user()->hasAnyPermission('Genel Görev Atama')) {
+            $jobs = Job::whereHas('users', function (Builder $query) {
+                $query->whereHas('department', function (Builder $query) {
+                    $query->where('name', Auth::user()->department->name);
+                });
+            })->get(); 
+            $jobs = $jobs->merge(Job::where('created_by',Auth::user()->name)->get());
+        }else {
+            $jobs = Auth::user()->jobs;
+        }         
+
         
-        return view('index',compact('message','moneyrequests','birthday'));
+        $jobs = $jobs->map(function($item){
+            $item->deadline = date('d.m.Y', strtotime($item->deadline));
+            return $item;
+        });
+
+        $myjobs = Auth::user()->jobs;
+        $otherjobs = $jobs->diff($myjobs);
+
+        return view('index',compact('messages','moneyrequests','myjobs','otherjobs','informations','user'));
     }
 
     /**

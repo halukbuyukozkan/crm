@@ -1,15 +1,19 @@
 <?php
 
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\Admin\StatusController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\FieldController;
 use App\Http\Controllers\FrontController;
+use App\Http\Controllers\InformationController;
+use App\Http\Controllers\JobController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\MoneyRequestController;
 use App\Http\Controllers\MoneyRequestItemController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\ShowController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,12 +41,17 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('user',UserController::class);
         Route::resource('about',AboutController::class);
         Route::resource('message',MessageController::class);
+        Route::resource('information',InformationController::class);
+        Route::resource('job',JobController::class);
+        Route::post('/completejob/{job}', [JobController::class, 'completejob'])->name('completejob');
+        Route::resource('status',StatusController::class);
         Route::resource('role', RoleController::class);
         Route::resource('permission', PermissionController::class);
         Route::resource('field', FieldController::class);
         Route::resource('department',DepartmentController::class);
         Route::resource('moneyrequest',MoneyRequestController::class);
         Route::resource('moneyrequestitem',MoneyRequestItemController::class);
+        Route::get('goodssol',[ShowController::class,'index'])->name('goodssol');
     });
 });
 

@@ -4,7 +4,7 @@
         <div class="row align-items-center">
             <div class="col-md-12">
                 <div class="mobile-logobar">
-                    <a href="{{url('/')}}" class="mobile-logo"><img src="assets/images/logo.svg" class="img-fluid" alt="logo"></a>
+                    <a href="{{url('/dashboard')}}" class="mobile-logo"><img src="assets/images/logo.svg" class="img-fluid" alt="logo"></a>
                 </div>
                 <div class="mobile-togglebar">
                     <ul class="list-inline mb-0">
@@ -40,7 +40,7 @@
                         <ul class="list-inline mb-0">
                             <li class="list-inline-item">
                                 <div class="logobar">
-                                    <a href="{{url('/')}}" class="logo logo-large"><img src="{{asset('img/logo.png')}}" class="img-fluid" alt="logo"></a>
+                                    <a href="{{url('/dashboard')}}" class="logo logo-large"><img src="{{asset('img/logo.png')}}" class="img-fluid" alt="logo"></a>
                                 </div>
                             </li>
                             <li class="list-inline-item">
@@ -103,6 +103,26 @@
                         <li>
                             <a href="{{ route('admin.front.index') }}"><i class="ri-file-info-line"></i></i>Anasayfa</a>
                         </li>
+                        <li>
+                            <a href="{{ route('admin.about.index') }}"><i class="ri-file-info-line"></i></i>Hakkımızda</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.field.index') }}"><i class="ri-building-line"></i></i>Faaliyetlerimiz</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.goodssol') }}"><i class="ri-file-info-line"></i></i>Goodssol Ailesi</a>
+                        </li>
+                        <li class="scroll dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="ri-pages-line"></i>Mevzuat</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Formlar</a></li>
+                                <li><a href="#">Talimatlar</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.job.index') }}"><i class="ri-checkbox-multiple-line"></i></i>Görevler</a>
+                        </li>
+                        @if(Auth::user()->hasAnyPermission('Sistem Yönetimi'))
                         <li class="scroll dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="ri-settings-2-fill"></i>Sistem</a>
                             <ul class="dropdown-menu">
@@ -111,21 +131,10 @@
                                 <li><a href="{{ route('admin.permission.index') }}">Yetkiler</a></li>
                                 <li><a href="{{ route('admin.department.index') }}">Departmanlar</a></li>
                                 <li><a href="{{ route('admin.message.index') }}">Sistem Mesajları</a></li>
+                                <li><a href="{{ route('admin.information.index') }}">Sistem Haberler</a></li>
                             </ul>
-                        </li>
-                        <li>
-                            <a href="{{ route('admin.about.index') }}"><i class="ri-file-info-line"></i></i>Hakkımızda</a>
-                        </li>
-                        <li>
-                            <a href="{{ route('admin.field.index') }}"><i class="ri-building-line"></i></i>Faaliyet Alanlarımız</a>
-                        </li>
-                        <li class="scroll dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="ri-pages-line"></i>Ödeme Talepleri&Kasa İşlemleri</a>
-                            <ul class="dropdown-menu">
-                                <li><a href="{{ route('admin.moneyrequest.index') }}">Ödeme Talepleri</a></li>
-                                <li><a href="{{ route('admin.permission.index') }}">Kasa İşlemleri</a></li>
-                            </ul>
-                        </li>
+                        </li>  
+                        @endif
                     </ul>
                 </div>
             </nav>

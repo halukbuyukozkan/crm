@@ -13,19 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('jobs', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('status_id')->constrained();
 
-            $table->foreignId('department_id')->constrained();
             $table->string('name');
-            $table->string('phone');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->timestamp('birthdate')->nullable();
-            $table->integer('balance')->nullable();
-            $table->string('password');
-            $table->rememberToken();
+            $table->text('description');
+            $table->date('deadline')->nullable();
 
+            $table->string('created_by');
+            $table->string('updated_by')->nullable();
             $table->timestamps();
         });
     }
@@ -37,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('jobs');
     }
 };

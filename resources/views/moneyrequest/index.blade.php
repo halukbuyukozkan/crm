@@ -23,7 +23,7 @@
                             <span>{{ Auth::user()->balance }}</span>
                         </div>
                         <div class="col-md-2 text-right">
-                            <a href="{{ route('admin.moneyrequest.create') }}"><button class="btn btn-primary">Ödeme Talebi Oluştur</button></a>    
+                            <a href="{{ route('admin.moneyrequest.create') }}"><button class="btn btn-primary">Avans Talebi Oluştur</button></a>    
                         </div>
                     </div>
                 </div>
