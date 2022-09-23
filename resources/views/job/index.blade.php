@@ -44,53 +44,59 @@ Görevler
                               </tr>
                             </thead>
                             <tbody>
-                                @foreach ($myjobs as $job)
-                                <tr>
-                                    <td><a href="{{ route('admin.job.show',$job) }}">{{ $job->name }}</a></td>
-                                    <td>{{ $job->created_by }}</td>
-                                    <td>@foreach ($job->users  as $user)
-                                        {{ $user->name }}
-                                    @endforeach</td>
-                                    <td>{{ $job->status->name }}</td>
-                                    <td>{{ $job->created_at->format('d.m.Y') }}</td>
-                                    <td>{{ $job->deadline }}</td>
-                                    <td>
-                                        @if(Auth::user()->hasAnyPermission('Görevde Değişiklik Yapma'))
-                                        <a href="{{ route('admin.job.edit',$job) }}"><button class="btn btn-sm btn-primary">
-                                            <i class="ri-pencil-line"></i>
-                                        </button></a>
-                                        <form action="{{ route('admin.job.destroy', $job) }}" method="POST"
-                                        class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
-                                        @csrf
-                                        @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-danger">
-                                                <i class="ri-delete-bin-line"></i>
-                                            </button>
-                                        </form>
-                                        @else
-                                        <form method="post" enctype="multipart/form-data" action="{{ route('admin.completejob',$job) }}">
+                                @forelse ($myjobs as $job)
+                                    <tr>
+                                        <td><a href="{{ route('admin.job.show',$job) }}">{{ $job->name }}</a></td>
+                                        <td>{{ $job->created_by }}</td>
+                                        <td>@foreach ($job->users  as $user)
+                                            {{ $user->name }}
+                                        @endforeach</td>
+                                        <td>{{ $job->status->name }}</td>
+                                        <td>{{ $job->created_at->format('d.m.Y') }}</td>
+                                        <td>{{ $job->deadline }}</td>
+                                        <td>
+                                            @if(Auth::user()->hasAnyPermission('Görevde Değişiklik Yapma'))
+                                            <a href="{{ route('admin.job.edit',$job) }}"><button class="btn btn-sm btn-primary">
+                                                <i class="ri-pencil-line"></i>
+                                            </button></a>
+                                            <form action="{{ route('admin.job.destroy', $job) }}" method="POST"
+                                            class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
                                             @csrf
-                                            <div class="form-group">
-                                                <select class="form-control" name="status_id" id="formControlSelect">
-                                                    @foreach ($statuses as $status)
-                                                        <option value="{{ $status->id }}">{{ $status->name }}</option>
-                                                    @endforeach
-                                                </select>
-                                                @error('status_id')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </div>
-                                            <button type="submit" class="btn btn-primary">
-                                                <i class="ri-save-line"></i>
-                                                {{ __('Kaydet') }}
-                                            </button>
-                                        </form>
-                                        @endif
-                                    </td>
-                                </tr>  
-                                @endforeach
+                                            @method('DELETE')
+                                                <button type="submit" class="btn btn-sm btn-danger">
+                                                    <i class="ri-delete-bin-line"></i>
+                                                </button>
+                                            </form>
+                                            @else
+                                            <form method="post" enctype="multipart/form-data" action="{{ route('admin.completejob',$job) }}">
+                                                @csrf
+                                                <div class="form-group">
+                                                    <select class="form-control" name="status_id" id="formControlSelect">
+                                                        @foreach ($statuses as $status)
+                                                            <option value="{{ $status->id }}">{{ $status->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    @error('status_id')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                                <button type="submit" class="btn btn-primary">
+                                                    <i class="ri-save-line"></i>
+                                                    {{ __('Kaydet') }}
+                                                </button>
+                                            </form>
+                                            @endif
+                                        </td>
+                                    </tr>  
+                                @empty
+                                    <tr>
+                                        <td colspan="99" class="text-center text-muted">
+                                            {{ __('No Jobs') }}
+                                        </td>
+                                    </tr>
+                                @endforelse
                             </tbody>
                         </table>
                     </div>
@@ -122,7 +128,7 @@ Görevler
                               </tr>
                             </thead>
                             <tbody>
-                                @foreach ($otherjobs as $job)
+                                @forelse ($otherjobs as $job)
                                 <tr>
                                     <td><a href="{{ route('admin.job.show',$job) }}">{{ $job->name }}</a></td>
                                     <td>{{ $job->created_by }}</td>
@@ -168,7 +174,13 @@ Görevler
                                         @endif
                                     </td>
                                 </tr>  
-                                @endforeach
+                                @empty
+                                    <tr>
+                                        <td colspan="99" class="text-center text-muted">
+                                            {{ __('No Jobs') }}
+                                        </td>
+                                    </tr>
+                                @endforelse
                             </tbody>
                         </table>
                     </div>

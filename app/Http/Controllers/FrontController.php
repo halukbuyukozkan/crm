@@ -37,10 +37,12 @@ class FrontController extends Controller
                     $query->where('name', Auth::user()->department->name);
                 });
             })->get(); 
+            $jobs = $jobs->merge(Job::where('created_by',Auth::user()->name)->get());
         }else {
-            $jobs = null;
+            $jobs = Auth::user()->jobs;
         }         
 
+        
         $jobs = $jobs->map(function($item){
             $item->deadline = date('d.m.Y', strtotime($item->deadline));
             return $item;
