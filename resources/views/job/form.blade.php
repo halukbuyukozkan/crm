@@ -62,7 +62,7 @@ Yeni Görev
             <h6 class="card-subtitle"><strong>Bitiş Tarihi</strong></h6>
             <div class="form-group mb-4">
                 <input type="date" class="form-control @error('deadline') is-invalid @enderror" id="deadline" name="deadline"
-                    value="{{ old('deadline', $job->deadline) }}" required>
+                    value="{{ old('deadline', $job->deadline) }}">
             </div>
         </div>
         <div class="card-footer">

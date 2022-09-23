@@ -95,8 +95,68 @@ CRM
                               </tr>
                             </thead>
                             <tbody>
-                                @if($jobs)
-                                @foreach ($jobs->take(5) as $job)
+                                @if($myjobs)
+                                @foreach ($myjobs->take(5) as $job)
+                                <tr>
+                                    <td><a href="{{ route('admin.job.show',$job) }}">{{ $job->name }}</a></td>
+                                    <td>@foreach ($job->users  as $user)
+                                        {{ $user->name }}
+                                    @endforeach</td>
+                                    <td>{{ $job->status->name }}</td>
+                                    <td>{{ $job->created_at->format('d.m.Y') }}</td>
+                                    <td>{{ $job->deadline }}</td>
+                                    <td>
+                                        <a href="{{ route('admin.job.edit',$job) }}"><button class="btn btn-sm btn-primary">
+                                            <i class="ri-pencil-line"></i>
+                                        </button></a>
+                                        <form action="{{ route('admin.job.destroy', $job) }}" method="POST"
+                                        class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
+                                        @csrf
+                                        @method('DELETE')
+                                            <button type="submit" class="btn btn-sm btn-danger">
+                                                <i class="ri-delete-bin-line"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>  
+                                @endforeach
+                                @endif
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="text-center">
+                                <a href="{{ route('admin.job.index') }}">Tümünü gör</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card m-b-30">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h5>Verilen Görevler</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered" id="edit-btn">
+                            <thead>
+                              <tr>
+                                <th>İsim</th>
+                                <th>Görevli</th>
+                                <th>Durum</th>
+                                <th>Başlangıç Tarihi</th>
+                                <th>Bitiş Tarihi</th>
+                                <th>İşlemler</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                                @if($otherjobs)
+                                @foreach ($otherjobs->take(5) as $job)
                                 <tr>
                                     <td><a href="{{ route('admin.job.show',$job) }}">{{ $job->name }}</a></td>
                                     <td>@foreach ($job->users  as $user)

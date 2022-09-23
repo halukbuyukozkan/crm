@@ -19,7 +19,7 @@ return new class extends Migration
 
             $table->string('name');
             $table->text('description');
-            $table->date('deadline');
+            $table->date('deadline')->nullable();
 
             $table->string('created_by');
             $table->string('updated_by')->nullable();

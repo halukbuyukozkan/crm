@@ -27,12 +27,31 @@ class JobController extends Controller
                     $query->where('name', Auth::user()->department->name);
                 });
             })->get(); 
+            $jobs = $jobs->merge(Job::where('created_by',Auth::user()->name)->get());
         }else{
             $jobs = Auth::user()->jobs;
         }
 
-        return view('job.index',compact('jobs'));
+        $jobs = $jobs->map(function($item){
+            $item->deadline = date('d.m.Y', strtotime($item->deadline));
+            return $item;
+        });
+
+        $myjobs = Auth::user()->jobs;
+        $otherjobs = $jobs->diff($myjobs);
+
+        $statuses = Status::all();
+
+        return view('job.index',compact('myjobs','otherjobs','statuses'));
     }
+
+    public function completejob(Request $request,Job $job)
+    {
+        $job->status_id = $request->status_id;
+        $job->save();
+
+        return redirect()->route('admin.job.index');
+    }   
 
     /**
      * Show the form for creating a new resource.
@@ -62,7 +81,6 @@ class JobController extends Controller
     public function store(JobRequest $request)
     {
         $data = $request->validated();
-        $data['deadline'] = Carbon::createFromFormat('Y-m-d', $data['deadline'])->format('d.m.Y');
         $job = Job::create($data);
 
         $job->users()->sync($data['users'] ?? []);

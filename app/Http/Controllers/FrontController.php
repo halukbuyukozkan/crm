@@ -31,19 +31,25 @@ class FrontController extends Controller
             $moneyrequests = $user->moneyrequests;
         }
 
-        if($user->hasAnyRole('Satış Direktörü'))
-        {
-            $jobs = Job::with(['users' => function($q) {
-                $q->whereHas('department', function($query) {
-                    $query->where('name', 'Satış Departmanı');
+        if(Auth::user()->hasAnyPermission('Genel Görev Atama')) {
+            $jobs = Job::whereHas('users', function (Builder $query) {
+                $query->whereHas('department', function (Builder $query) {
+                    $query->where('name', Auth::user()->department->name);
                 });
-            }])->get();
+            })->get(); 
         }else {
             $jobs = null;
-        }                               
+        }         
 
+        $jobs = $jobs->map(function($item){
+            $item->deadline = date('d.m.Y', strtotime($item->deadline));
+            return $item;
+        });
 
-        return view('index',compact('messages','moneyrequests','jobs','informations','user'));
+        $myjobs = Auth::user()->jobs;
+        $otherjobs = $jobs->diff($myjobs);
+
+        return view('index',compact('messages','moneyrequests','myjobs','otherjobs','informations','user'));
     }
 
     /**
