@@ -66,6 +66,9 @@ class JobController extends Controller
         $users = Auth::user()->department->users;
         $superiors = User::permission('Genel Görev Atama')->get();
         $users = $users->merge($superiors);
+        
+        $leader = User::role('Başkan')->get();
+        $users = $users->diff($leader);
 
         $departments = Department::all();
 
@@ -113,6 +116,9 @@ class JobController extends Controller
         $users = Auth::user()->department->users;
         $superiors = User::permission('Genel Görev Atama')->get();
         $users = $users->merge($superiors);
+
+        $leader = User::role('Başkan')->get();
+        $users = $users->diff($leader);
 
         $departments = Department::all();
 
