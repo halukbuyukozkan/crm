@@ -29,6 +29,11 @@ Yeni Ödeme Talebi
                 <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name"
                     value="{{ old('name', $moneyRequest->name) }}" required>
             </div>
+            <h6 class="card-subtitle"><strong>Açıklama</strong></h6>
+            <div class="form-group mb-4">
+                <input type="text" class="form-control @error('description') is-invalid @enderror" id="description" name="description"
+                    value="{{ old('description', $moneyRequest->description) }}" required>
+            </div>
             <h4 class="card-subtitle my-4 mt-5"><strong>Talep Edilen Tutar</strong></h4>
             @foreach ($types as $type)
             <h6 class="card-subtitle"><strong>{{ $type->name }}</strong></h6>

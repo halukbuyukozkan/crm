@@ -24,6 +24,7 @@
 - id 
 - user_id
 - name
+- description
 
 # MoneyRequestItem
 - id

@@ -21,7 +21,7 @@ class ModelHasRolesTableSeeder extends Seeder
         \DB::table('model_has_roles')->insert(array (
             0 => 
             array (
-                'role_id' => 8,
+                'role_id' => 1,
                 'model_type' => 'App\\Models\\User',
                 'model_id' => 1,
             ),
@@ -54,6 +54,12 @@ class ModelHasRolesTableSeeder extends Seeder
                 'role_id' => 14,
                 'model_type' => 'App\\Models\\User',
                 'model_id' => 8,
+            ),
+            6 => 
+            array (
+                'role_id' => 2,
+                'model_type' => 'App\\Models\\User',
+                'model_id' => 9,
             ),
         ));
         

@@ -124,6 +124,21 @@ class UsersTableSeeder extends Seeder
                 'created_at' => '2022-09-21 14:02:33',
                 'updated_at' => '2022-09-21 14:02:33',
             ),
+            7 => 
+            array (
+                'id' => 9,
+                'department_id' => 1,
+                'name' => 'Didem Uysal',
+                'phone' => '+905069685835',
+                'email' => 'didemuysal@gmail.com',
+                'email_verified_at' => NULL,
+                'birthdate' => NULL,
+                'balance' => NULL,
+                'password' => '$2y$10$HLNO7ifSzKocqvzM4OoOBurVArH/KRbdvnbLk.1OCXRWVpEgcS1bC',
+                'remember_token' => NULL,
+                'created_at' => '2022-09-23 18:03:46',
+                'updated_at' => '2022-09-23 18:03:46',
+            ),
         ));
         
         

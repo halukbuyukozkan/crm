@@ -30,15 +30,6 @@ class PermissionsTableSeeder extends Seeder
             ),
             1 => 
             array (
-                'id' => 2,
-                'name' => 'Satış Görev Atama',
-                'guard_name' => 'web',
-                'order' => 6,
-                'created_at' => '2022-09-21 13:17:03',
-                'updated_at' => '2022-09-22 11:41:18',
-            ),
-            2 => 
-            array (
                 'id' => 3,
                 'name' => 'Genel Görev Atama',
                 'guard_name' => 'web',
@@ -46,7 +37,7 @@ class PermissionsTableSeeder extends Seeder
                 'created_at' => '2022-09-21 13:24:29',
                 'updated_at' => '2022-09-22 11:41:21',
             ),
-            3 => 
+            2 => 
             array (
                 'id' => 5,
                 'name' => 'Sistem Yönetimi',
@@ -55,16 +46,7 @@ class PermissionsTableSeeder extends Seeder
                 'created_at' => '2022-09-21 14:05:38',
                 'updated_at' => '2022-09-21 14:05:49',
             ),
-            4 => 
-            array (
-                'id' => 6,
-                'name' => 'Muhasebe Görev Atama',
-                'guard_name' => 'web',
-                'order' => 5,
-                'created_at' => '2022-09-21 18:49:50',
-                'updated_at' => '2022-09-21 18:49:50',
-            ),
-            5 => 
+            3 => 
             array (
                 'id' => 7,
                 'name' => 'Görevde Değişiklik Yapma',

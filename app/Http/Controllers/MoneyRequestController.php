@@ -55,6 +55,7 @@ class MoneyRequestController extends Controller
         $moneyRequest = MoneyRequest::create([
             'user_id' => Auth::user()->id,
             'name' => $request->name,
+            'description' => $request->description,
         ]);
 
         $types = $request->type_id;
@@ -109,7 +110,11 @@ class MoneyRequestController extends Controller
      */
     public function update(Request $request, MoneyRequest $moneyRequest)
     {
-        $data = $request->validated();
+        $data = $request->validate([
+            
+            'name' => 'requider|string',
+            'description' => 'required|string',
+        ]);
 
         $moneyRequest->fill($data);
         $moneyRequest->save();
