@@ -20,30 +20,29 @@
 - email
 - balance
 
-# MoneyRequest
+
+////////// PROJECT
+# transection category
+- id
+- money_movement_id
+- name
+# Project
 - id 
 - user_id
 - name
 - description
 
-# MoneyRequestItem
-- id
-- money_request_id
-- type_id
-- price
-
-# Type
-- id 
-- name
-- type_id
-
 # MoneyMovement 
 - id 
-- money_request_id
+- project_id
+- category_id->nullable
+- type_id->enum (AVANS,MASRAF,İADE)
 - user_id 
 - user_id2
 - price
 - is_income
+
+////////// JOB
 
 # Job 
 - id 
@@ -70,3 +69,27 @@
 
 
 
+
+
+
+
+
+
+/////// ESKi
+
+# MoneyRequest
+- id 
+- user_id
+- name
+- description
+
+# MoneyRequestItem
+- id
+- money_request_id
+- type_id
+- price
+
+# Type
+- id 
+- name
+- type_id
