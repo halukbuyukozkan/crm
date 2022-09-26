@@ -2,15 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Information;
 use App\Models\Job;
 use App\Models\Message;
-use App\Models\MoneyRequest;
-use App\Models\User;
-use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Builder;
+use App\Models\Project;
+use App\Models\Information;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Builder;
 
 class FrontController extends Controller
 {
@@ -26,9 +24,9 @@ class FrontController extends Controller
         $user = Auth::user();
         if($user->hasPermissionTo('Ödeme Talebi Kabul etme'))
         {
-            $moneyrequests = MoneyRequest::all();
+            $projects = Project::all();
         }else{
-            $moneyrequests = $user->moneyrequests;
+            $projects = null;
         }
 
         if(Auth::user()->hasAnyPermission('Genel Görev Atama')) {
@@ -51,7 +49,8 @@ class FrontController extends Controller
         $myjobs = Auth::user()->jobs;
         $otherjobs = $jobs->diff($myjobs);
 
-        return view('index',compact('messages','moneyrequests','myjobs','otherjobs','informations','user'));
+
+        return view('index',compact('messages','projects','myjobs','otherjobs','informations','user'));
     }
 
     /**

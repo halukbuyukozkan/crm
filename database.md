@@ -24,15 +24,15 @@
 ////////// PROJECT
 # transection category
 - id
-- money_movement_id
 - name
+
 # Project
 - id 
 - user_id
 - name
 - description
 
-# MoneyMovement 
+# transection
 - id 
 - project_id
 - category_id->nullable

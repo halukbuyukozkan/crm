@@ -224,8 +224,8 @@ CRM
                             </div>
                         </div>
                         <div class="mt-5">
-                            <a href="{{ route('admin.moneyrequest.index') }}"><button class="btn btn-primary btn-lg btn-block">Avans Talebi Oluştur</button></a>
-                            <a href="{{ route('admin.moneyrequest.index') }}"><button class="btn btn-primary btn-lg btn-block mt-2">Masraf Talebi Oluştur</button></a>
+                            <a href="#"><button class="btn btn-primary btn-lg btn-block">Avans Talebi Oluştur</button></a>
+                            <a href="#"><button class="btn btn-primary btn-lg btn-block mt-2">Masraf Talebi Oluştur</button></a>
                         </div>
                     </div>
                 </div>
@@ -259,7 +259,7 @@ CRM
                             <h5 class="card-title">Onay Bekleyen Avans/Masraf Taleplerim</h5>
                         </div>
                         <div class="col-md-4 text-right">
-                            <a href="{{ route('admin.moneyrequest.create') }}"><button class="btn btn-primary">Avans Talebi Oluştur</button></a>    
+                            <a href="#"><button class="btn btn-primary">Avans Talebi Oluştur</button></a>    
                         </div>
                     </div>
                 </div>
@@ -270,38 +270,20 @@ CRM
                               <tr>
                                 <th>Başlık</th>
                                 <th>Kullanıcı</th>
-                                <th>İşlemler</th>
+                               
                               </tr>
                             </thead>
                             <tbody>
-                                @foreach ($moneyrequests as $request)
+                                @if($projects)
+                                @forelse ($projects as $project)
                                 <tr>
-                                    <td style="width: 40%">{{ $request->name }}</td>
-                                    <td>{{ $request->user->name }}</td>
-                                    <td style="width: 30%">
-                                        @if($request->user->id == Auth::user()->id)
-                                        <a href="{{ route('admin.moneyrequest.edit',$request) }}"><button class="btn btn-sm btn-primary">
-                                            <i class="ri-pencil-line"></i>
-                                        </button></a>
-                                        <form action="{{ route('admin.moneyrequest.destroy', $request) }}" method="POST"
-                                        class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
-                                        @csrf
-                                        @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-danger">
-                                                <i class="ri-delete-bin-line"></i>
-                                            </button>
-                                        </form>
-                                        @elseif(Auth::user()->hasRole('Başkan'))
-                                        <a href="{{ route('admin.moneyrequest.edit',$request) }}"><button class="btn btn-sm btn-primary">
-                                            <i class="ri-check-line"></i>
-                                        </button></a>
-                                        <a href="{{ route('admin.moneyrequest.edit',$request) }}"><button class="btn btn-sm btn-danger">
-                                            <i class="ri-close-line"></i>
-                                        </button></a>
-                                        @endif
-                                    </td>
+                                    <td style="width: 40%">{{ $project->name }}</td>
+                                    <td>{{ $project->user->name }}</td>
+                                    
                                 </tr>  
-                                @endforeach
+                                @empty
+                                @endforelse
+                                @endif
                             </tbody>
                         </table>
                     </div>
