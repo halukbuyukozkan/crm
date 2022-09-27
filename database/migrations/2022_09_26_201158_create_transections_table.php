@@ -16,14 +16,16 @@ return new class extends Migration
         Schema::create('transections', function (Blueprint $table) {
             $table->id();
             $table->foreignId('project_id');
-            $table->foreignId('category_id');
+            $table->foreignId('category_id')->nullable();
 
-            $table->string('payer');
-            $table->string('payee');
+            $table->string('payer')->nullable();
+            $table->string('payee')->nullable();
             $table->string('type');
             $table->integer('price');
-            $table->boolean('is_income');
+            $table->boolean('is_income')->nullable();
+            $table->boolean('is_completed')->default(0);
 
+            $table->date('completed_date')->nullable();
             $table->timestamps();
         });
     }

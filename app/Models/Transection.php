@@ -2,16 +2,27 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Observers\TransectionObserver;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Enum\TypeEnum;
 
 class Transection extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['project_id','categpry_id','payer','payee','price','is_income'];
+    protected $fillable = ['project_id','category_id','type','payer','payee','price','is_income','is_completed'];
 
+    protected $casts = [
+        'type' => TypeEnum::class
+    ];
+
+    public static function boot()
+    {
+        parent::boot();
+        Transection::observe(TransectionObserver::class);
+    }
     
     public function project(): BelongsTo
     {

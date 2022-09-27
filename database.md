@@ -22,10 +22,6 @@
 
 
 ////////// PROJECT
-# transection category
-- id
-- name
-
 # Project
 - id 
 - user_id
@@ -36,11 +32,16 @@
 - id 
 - project_id
 - category_id->nullable
-- type_id->enum (AVANS,MASRAF,İADE)
-- user_id
-- user_id2 nullable    // Parayı veren kişi
+- type->enum (AVANS,MASRAF,İADE)
+- payer nullable
+- payee nullable // Parayı alan kişi
 - price
 - is_income
+- is_completed
+
+# transection category
+- id
+- name
 
 ////////// JOB
 

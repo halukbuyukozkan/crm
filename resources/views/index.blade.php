@@ -224,7 +224,7 @@ CRM
                             </div>
                         </div>
                         <div class="mt-5">
-                            <a href="#"><button class="btn btn-primary btn-lg btn-block">Avans Talebi Oluştur</button></a>
+                            <a href="{{ route('admin.transection.create') }}"><button class="btn btn-primary btn-lg btn-block">Avans Talebi Oluştur</button></a>
                             <a href="#"><button class="btn btn-primary btn-lg btn-block mt-2">Masraf Talebi Oluştur</button></a>
                         </div>
                     </div>
@@ -249,6 +249,7 @@ CRM
         </div>
     </div>
 
+    @if(Auth::user()->hasAnyPermission('Ödeme Talebi Kabul etme'))
     <div class="row">
         <!-- Start col -->
         <div class="col-lg-12 my-4">
@@ -259,7 +260,7 @@ CRM
                             <h5 class="card-title">Onay Bekleyen Avans/Masraf Taleplerim</h5>
                         </div>
                         <div class="col-md-4 text-right">
-                            <a href="#"><button class="btn btn-primary">Avans Talebi Oluştur</button></a>    
+                            <a href="{{ route('admin.transection.create') }}"><button class="btn btn-primary">Avans Talebi Oluştur</button></a>    
                         </div>
                     </div>
                 </div>
@@ -270,16 +271,24 @@ CRM
                               <tr>
                                 <th>Başlık</th>
                                 <th>Kullanıcı</th>
-                               
+                                <th>Miktar</th>
+                                <th>Onay Durumu</th>
                               </tr>
                             </thead>
                             <tbody>
-                                @if($projects)
-                                @forelse ($projects as $project)
+                                @if($transections)
+                                @forelse ($transections as $transection)
                                 <tr>
-                                    <td style="width: 40%">{{ $project->name }}</td>
-                                    <td>{{ $project->user->name }}</td>
-                                    
+                                    <td style="width: 40%">{{ $transection->project->name }}</td>
+                                    <td>{{ $transection->project->user->name }}</td>
+                                    <td>{{ $transection->price }}</td>
+                                    <td>
+                                        @if($transection->is_completed == 1)
+                                        {{ 'Onaylandı' }}
+                                        @else
+                                        {{ 'Beklemede' }}
+                                        @endif
+                                    </td>
                                 </tr>  
                                 @empty
                                 @endforelse
@@ -294,6 +303,8 @@ CRM
         <!-- End col -->
 
     </div>
+    @endif
+
     <div class="row">
         <div class="col-lg-12 my-4">
             <div class="card m-b-30">
