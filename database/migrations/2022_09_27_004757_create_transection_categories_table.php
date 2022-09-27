@@ -13,17 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('transections', function (Blueprint $table) {
+        Schema::create('transection_categories', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('project_id');
-            $table->foreignId('category_id');
-
-            $table->string('payer');
-            $table->string('payee');
-            $table->string('type');
-            $table->integer('price');
-            $table->boolean('is_income');
-
             $table->timestamps();
         });
     }
@@ -35,6 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('transections');
+        Schema::dropIfExists('transection_categories');
     }
 };

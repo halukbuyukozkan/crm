@@ -37,8 +37,8 @@
 - project_id
 - category_id->nullable
 - type_id->enum (AVANS,MASRAF,İADE)
-- user_id 
-- user_id2
+- user_id
+- user_id2 nullable    // Parayı veren kişi
 - price
 - is_income
 
