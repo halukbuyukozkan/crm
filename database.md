@@ -37,7 +37,7 @@
 - payee nullable // Parayı alan kişi
 - price
 - is_income
-- is_completed
+- status->enum (WAITING,COMPLETED,CANCELLED)
 
 # transection category
 - id

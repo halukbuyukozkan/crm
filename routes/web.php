@@ -52,6 +52,7 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('field', FieldController::class);
         Route::resource('project', ProjectController::class);
         Route::resource('transection', TransectionController::class);
+        Route::post('transection/{transection}/accept',[TransectionController::class,'accept'])->name('transectionaccept');
         Route::resource('department',DepartmentController::class);
         
         Route::get('goodssol',[ShowController::class,'index'])->name('goodssol');

@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Enum\TypeEnum;
 use App\Models\Project;
+use App\Enum\StatusEnum;
 use App\Models\Transection;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\TransectionRequest;
 
 class TransectionController extends Controller
@@ -41,7 +44,7 @@ class TransectionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(TransectionRequest $request,Transection $transection)
+    public function store(TransectionRequest $request)
     {
         $data = $request->validated();
 
@@ -60,7 +63,7 @@ class TransectionController extends Controller
         ]);      
 
 
-        return redirect()->route('admin.transection.index')->with('success', 'Transection created successfully');
+        return redirect()->route('admin.front.index')->with('success', 'Transection created successfully');
     }
 
     /**
@@ -95,6 +98,19 @@ class TransectionController extends Controller
     public function update(Request $request, Transection $transection)
     {
         //
+    }
+
+    public function accept(Transection $transection)
+    {
+        $transection->status = StatusEnum::cases()[1]->value;
+        $transection->payer = Auth::user()->name;
+        $transection->update();
+
+        $user = $transection->project->user;
+        $user->balance = $transection->project->user->balance + $transection->price;
+        $user->save();
+
+        return redirect()->route('admin.front.index');
     }
 
     /**

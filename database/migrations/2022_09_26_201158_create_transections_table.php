@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('type');
             $table->integer('price');
             $table->boolean('is_income')->nullable();
-            $table->boolean('is_completed')->default(0);
+            $table->string('status')->default('beklemede');
 
             $table->date('completed_date')->nullable();
             $table->timestamps();

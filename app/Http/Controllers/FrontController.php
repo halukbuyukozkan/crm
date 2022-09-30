@@ -41,7 +41,6 @@ class FrontController extends Controller
             $jobs = Auth::user()->jobs;
         }         
 
-        
         $jobs = $jobs->map(function($item){
             $item->deadline = date('d.m.Y', strtotime($item->deadline));
             return $item;
@@ -50,9 +49,26 @@ class FrontController extends Controller
         $myjobs = Auth::user()->jobs;
         $otherjobs = $jobs->diff($myjobs);
 
-        $transections = Transection::all();
-
+        $transections = $this->transections($user);
+        
         return view('index',compact('messages','projects','myjobs','otherjobs','informations','user','transections'));
+    }
+
+    public function transections($user)
+    {
+        if($user->hasAnyPermission('Ödeme Talebi Kabul etme')){
+            $transections = Transection::all();
+        }else{
+            if($user->projects->count()!=0){
+                foreach($user->projects as $project){
+                    $transections = $project->transections;
+                }
+            }else {
+                $transections = null;
+            }
+        }
+         
+        return $transections;
     }
 
     /**

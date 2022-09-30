@@ -249,7 +249,6 @@ CRM
         </div>
     </div>
 
-    @if(Auth::user()->hasAnyPermission('Ödeme Talebi Kabul etme'))
     <div class="row">
         <!-- Start col -->
         <div class="col-lg-12 my-4">
@@ -273,6 +272,7 @@ CRM
                                 <th>Kullanıcı</th>
                                 <th>Miktar</th>
                                 <th>Onay Durumu</th>
+                                <th>Eylemler</th>
                               </tr>
                             </thead>
                             <tbody>
@@ -282,14 +282,29 @@ CRM
                                     <td style="width: 40%">{{ $transection->project->name }}</td>
                                     <td>{{ $transection->project->user->name }}</td>
                                     <td>{{ $transection->price }}</td>
+                                    <td>{{ $transection->status->value }}</td>
+                                    @if(Auth::user()->hasAnyPermission('Ödeme Talebi Kabul etme'))
                                     <td>
-                                        @if($transection->is_completed == 1)
-                                        {{ 'Onaylandı' }}
-                                        @else
-                                        {{ 'Beklemede' }}
+                                        @if($transection->status->value != 'tamamlandı')
+                                        <form action="{{ route('admin.transectionaccept',['transection' => $transection]) }}" method="POST"
+                                        class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
+                                        @csrf
+                                            <button type="submit" class="btn btn-sm btn-primary">
+                                                <i class="ri-check-line"></i>
+                                            </button>
+                                        </form>
                                         @endif
+                                        <form action="#" method="POST"
+                                        class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
+                                        @csrf
+                                        @method('PUT')
+                                            <button type="submit" class="btn btn-sm btn-danger">
+                                                <i class="ri-close-line"></i>
+                                            </button>
+                                        </form>
                                     </td>
-                                </tr>  
+                                    @endif
+                                </tr>
                                 @empty
                                 @endforelse
                                 @endif
@@ -301,9 +316,7 @@ CRM
             </div>
         </div>
         <!-- End col -->
-
     </div>
-    @endif
 
     <div class="row">
         <div class="col-lg-12 my-4">
