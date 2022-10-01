@@ -53,6 +53,7 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('project', ProjectController::class);
         Route::resource('transection', TransectionController::class);
         Route::post('transection/{transection}/accept',[TransectionController::class,'accept'])->name('transectionaccept');
+        Route::post('transection/{transection}/reject',[TransectionController::class,'reject'])->name('transectionreject');
         Route::resource('department',DepartmentController::class);
         
         Route::get('goodssol',[ShowController::class,'index'])->name('goodssol');

@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
-use App\Enum\TypeEnum;
+ use App\Enum\TypeEnum;
 use App\Models\Project;
 use App\Enum\StatusEnum;
 use App\Models\Transection;
@@ -110,6 +109,21 @@ class TransectionController extends Controller
         $user->balance = $transection->project->user->balance + $transection->price;
         $user->save();
 
+       
+    
+        return redirect()->route('admin.front.index');
+    }
+
+    public function reject(Transection $transection)
+    {
+        $transection->status = StatusEnum::cases()[0]->value;
+        $transection->payer = Auth::user()->name;
+        $transection->update();
+
+        $user = $transection->project->user;
+        $user->balance = $transection->project->user->balance - $transection->price;
+        $user->save();
+
         return redirect()->route('admin.front.index');
     }
 
@@ -121,6 +135,8 @@ class TransectionController extends Controller
      */
     public function destroy(Transection $transection)
     {
-        //
+        $transection->delete();
+
+        return redirect()->route('admin.front.index');
     }
 }

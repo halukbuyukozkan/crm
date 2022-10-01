@@ -285,23 +285,25 @@ CRM
                                     <td>{{ $transection->status->value }}</td>
                                     @if(Auth::user()->hasAnyPermission('Ödeme Talebi Kabul etme'))
                                     <td>
-                                        @if($transection->status->value != 'tamamlandı')
+                                        @if($transection->status->value == 'beklemede')
                                         <form action="{{ route('admin.transectionaccept',['transection' => $transection]) }}" method="POST"
                                         class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
                                         @csrf
                                             <button type="submit" class="btn btn-sm btn-primary">
                                                 <i class="ri-check-line"></i>
                                             </button>
-                                        </form>
-                                        @endif
-                                        <form action="#" method="POST"
+                                        </form>                                        
+                                        <form action="{{ route('admin.transection.destroy',['transection' => $transection]) }}" method="POST"
                                         class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
                                         @csrf
-                                        @method('PUT')
+                                        @method('DELETE')
                                             <button type="submit" class="btn btn-sm btn-danger">
-                                                <i class="ri-close-line"></i>
+                                                <i class="ri-delete-bin-line"></i>
                                             </button>
                                         </form>
+                                        @endif
+                                        @if($transection->status->value == 'tamamlandı')
+                                        @endif
                                     </td>
                                     @endif
                                 </tr>

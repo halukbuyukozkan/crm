@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('status')->default('beklemede');
 
             $table->date('completed_date')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }
