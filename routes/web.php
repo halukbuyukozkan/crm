@@ -54,6 +54,7 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('transection', TransectionController::class);
         Route::post('transection/{transection}/accept',[TransectionController::class,'accept'])->name('transectionaccept');
         Route::post('transection/{transection}/reject',[TransectionController::class,'reject'])->name('transectionreject');
+        Route::post('transection/{transection}/reverse',[TransectionController::class,'reverse'])->name('transectionreverse');
         Route::resource('department',DepartmentController::class);
         
         Route::get('goodssol',[ShowController::class,'index'])->name('goodssol');

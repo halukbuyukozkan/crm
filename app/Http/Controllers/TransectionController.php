@@ -116,13 +116,26 @@ class TransectionController extends Controller
 
     public function reject(Transection $transection)
     {
-        $transection->status = StatusEnum::cases()[0]->value;
+        $transection->status = StatusEnum::cases()[2]->value;
         $transection->payer = Auth::user()->name;
         $transection->update();
 
-        $user = $transection->project->user;
-        $user->balance = $transection->project->user->balance - $transection->price;
-        $user->save();
+        return redirect()->route('admin.front.index');
+    }
+
+    public function reverse(Transection $transection)
+    {
+        if($transection->status->name == 'COMPLETED') {
+            $transection->status = StatusEnum::cases()[0]->value;
+            $transection->save();
+
+            $user = $transection->project->user;
+            $user->balance = $transection->project->user->balance - $transection->price;
+            $user->save();
+        }elseif($transection->status->name == 'CANCELLED') {
+            $transection->status = StatusEnum::cases()[0]->value;
+            $transection->save();
+        }
 
         return redirect()->route('admin.front.index');
     }

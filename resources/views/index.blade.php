@@ -292,7 +292,14 @@ CRM
                                             <button type="submit" class="btn btn-sm btn-primary">
                                                 <i class="ri-check-line"></i>
                                             </button>
-                                        </form>                                        
+                                        </form>
+                                        <form action="{{ route('admin.transectionreject',['transection' => $transection]) }}" method="POST"
+                                            class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
+                                            @csrf
+                                            <button type="submit" class="btn btn-sm btn-danger">
+                                                <i class="ri-close-line"></i>
+                                            </button>
+                                        </form>                                     
                                         <form action="{{ route('admin.transection.destroy',['transection' => $transection]) }}" method="POST"
                                         class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
                                         @csrf
@@ -303,6 +310,30 @@ CRM
                                         </form>
                                         @endif
                                         @if($transection->status->value == 'tamamlandı')
+                                        <form action="{{ route('admin.transectionreverse',['transection' => $transection]) }}" method="POST"
+                                            class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
+                                            @csrf
+                                            <button type="submit" class="btn btn-sm btn-primary">
+                                                <i class="ri-arrow-go-back-line"></i>
+                                            </button>
+                                        </form>                                         
+                                        @endif
+                                        @if($transection->status->value == 'iptal edildi')
+                                        <form action="{{ route('admin.transection.destroy',['transection' => $transection]) }}" method="POST"
+                                            class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
+                                            @csrf
+                                            @method('DELETE')
+                                                <button type="submit" class="btn btn-sm btn-danger">
+                                                    <i class="ri-delete-bin-line"></i>
+                                                </button>
+                                        </form>
+                                        <form action="{{ route('admin.transectionreverse',['transection' => $transection]) }}" method="POST"
+                                            class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
+                                            @csrf
+                                            <button type="submit" class="btn btn-sm btn-primary">
+                                                <i class="ri-arrow-go-back-line"></i>
+                                            </button>
+                                        </form>                                          
                                         @endif
                                     </td>
                                     @endif
