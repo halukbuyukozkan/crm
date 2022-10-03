@@ -9,6 +9,7 @@ use App\Models\Transection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\TransectionRequest;
+use App\Models\TransectionCategory;
 
 class TransectionController extends Controller
 {
@@ -35,6 +36,17 @@ class TransectionController extends Controller
         $types = TypeEnum::cases();
 
         return view('transection.form',compact('transection','project','types'));
+    }
+
+    public function create2(Request $request)
+    {
+        $transection = new Transection($request->old());
+        $project = $transection->project;
+
+        $types = TypeEnum::cases();
+        $categories = TransectionCategory::all();
+
+        return view('transection.form2',compact('transection','project','types','categories'));
     }
 
     /**

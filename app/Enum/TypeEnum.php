@@ -2,8 +2,8 @@
 namespace App\Enum;
 
 enum TypeEnum:string{
-    case AVANS = 'avans';
-    case MASRAF = 'masraf';
-    case İADE = 'iade';
+    case AVANS = 'Avans Talebi';
+    case MASRAF = 'Masraf Talebi';
+    case İADE = 'İade';
 }
  

@@ -8,7 +8,6 @@ use App\Models\Project;
 use App\Models\Information;
 use App\Models\Transection;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -62,7 +61,8 @@ class FrontController extends Controller
         }else{
             if($user->projects->count()!=0){
                 foreach($user->projects as $project){
-                    $transections = $project->transections;
+                    if($project->transections->first() != null)
+                    $transections[] = $project->transections->first();
                 }
             }else {
                 $transections = null;

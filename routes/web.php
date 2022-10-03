@@ -15,6 +15,7 @@ use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ShowController;
+use App\Http\Controllers\TransectionCategoryController;
 use App\Http\Controllers\TransectionController;
 use Illuminate\Support\Facades\Route;
 
@@ -52,9 +53,11 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('field', FieldController::class);
         Route::resource('project', ProjectController::class);
         Route::resource('transection', TransectionController::class);
+        Route::get('transection/cost/create', [TransectionController::class,'create2'])->name('costtransection');
         Route::post('transection/{transection}/accept',[TransectionController::class,'accept'])->name('transectionaccept');
         Route::post('transection/{transection}/reject',[TransectionController::class,'reject'])->name('transectionreject');
         Route::post('transection/{transection}/reverse',[TransectionController::class,'reverse'])->name('transectionreverse');
+        Route::resource('transectioncategory',TransectionCategoryController::class);
         Route::resource('department',DepartmentController::class);
         
         Route::get('goodssol',[ShowController::class,'index'])->name('goodssol');
