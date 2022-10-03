@@ -121,7 +121,6 @@ return [
 
         'transection' => [
             'driver' => 'single',
-            'tap' => [Formatter::class],
             'path' => storage_path('logs/transection.log'),
             'level' => 'debug',
         ],

@@ -9,14 +9,12 @@ use App\Http\Controllers\FrontController;
 use App\Http\Controllers\InformationController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\MessageController;
-use App\Http\Controllers\MoneyRequestController;
-use App\Http\Controllers\MoneyRequestItemController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ShowController;
 use App\Http\Controllers\TransectionCategoryController;
-use App\Http\Controllers\TransectionController;
+use App\Http\Controllers\ProjectTransectionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -52,12 +50,12 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('permission', PermissionController::class);
         Route::resource('field', FieldController::class);
         Route::resource('project', ProjectController::class);
-        Route::resource('transection', TransectionController::class);
-        Route::get('transection/cost/create', [TransectionController::class,'create2'])->name('costtransection');
-        Route::post('transection/{transection}/accept',[TransectionController::class,'accept'])->name('transectionaccept');
-        Route::post('transection/{transection}/reject',[TransectionController::class,'reject'])->name('transectionreject');
-        Route::post('transection/{transection}/reverse',[TransectionController::class,'reverse'])->name('transectionreverse');
-        Route::resource('transectioncategory',TransectionCategoryController::class);
+        Route::resource('project.transection', ProjectTransectionController::class);
+        Route::get('project/{project}/transection/cost/create', [ProjectTransectionController::class,'create2'])->name('costtransection');
+        Route::post('project.transection/{transection}/accept',[ProjectTransectionController::class,'accept'])->name('transectionaccept');
+        Route::post('project.transection/{transection}/reject',[ProjectTransectionController::class,'reject'])->name('transectionreject');
+        Route::post('project.transection/{transection}/reverse',[ProjectTransectionController::class,'reverse'])->name('transectionreverse');
+        Route::resource('project.transectioncategory',TransectionCategoryController::class);
         Route::resource('department',DepartmentController::class);
         
         Route::get('goodssol',[ShowController::class,'index'])->name('goodssol');

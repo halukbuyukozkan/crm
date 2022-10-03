@@ -20,7 +20,7 @@ Kategori Oluştur
         </div>
     </div>
     <form method="post" enctype="multipart/form-data"
-    action="{{ $category->exists ? route('admin.transectioncategory.update', $category) : route('admin.transectioncategory.store') }}">
+    action="{{ $category->exists ? route('admin.project.transectioncategory.update',$category) : route('admin.project.transectioncategory.store',$project) }}">
     @csrf
     @if ($category->exists)
         @method('PUT')

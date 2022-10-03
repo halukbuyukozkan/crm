@@ -42,7 +42,7 @@ class ProjectController extends Controller
         $project->fill($data);
         $project->save();
 
-        return redirect()->route('admin.transection.create')->with('success', 'Project created successfully');
+        return redirect()->route('admin.front.index')->with('success', 'Project created successfully');
     }
 
     /**
@@ -53,7 +53,9 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
-        //
+        $transections = $project->transections;
+
+        return view('transection.index',compact('transections','project'));
     }
 
     /**

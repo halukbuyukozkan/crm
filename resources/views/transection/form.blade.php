@@ -24,7 +24,7 @@ Avans Talebi Oluştur
         </div>
     </div>
     <form method="post" enctype="multipart/form-data"
-    action="{{ $transection->exists ? route('admin.transection.update', $transection) : route('admin.transection.store') }}">
+    action="{{ $transection->exists ? route('admin.project.transection.update',['project' => $project,'transection' => $transection]) : route('admin.project.transection.store',$project) }}">
     @csrf
     @if ($transection->exists)
         @method('PUT')

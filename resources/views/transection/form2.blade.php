@@ -19,12 +19,12 @@ Masraf Talebi Oluştur
                 <h5 class="card-title">Masraf Talebi Oluştur</h5>
             </div>
             <div class="col-md-2 text-right">
-                <a href="{{ route('admin.transectioncategory.create') }}"><button class="btn btn-primary">Kategori Oluştur</button></a>    
+                <a href="{{ route('admin.project.transectioncategory.create',$project) }}"><button class="btn btn-primary">Kategori Oluştur</button></a>    
             </div>
         </div>
     </div>
     <form method="post" enctype="multipart/form-data"
-    action="{{ $transection->exists ? route('admin.transection.update', $transection) : route('admin.transection.store') }}">
+    action="{{ $transection->exists ? route('admin.project.transection.update',['project' => $project,'transection' => $transection]) : route('admin.project.transection.store',$project) }}">
     @csrf
     @if ($transection->exists)
         @method('PUT')

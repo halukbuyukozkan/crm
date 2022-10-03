@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Project;
 use App\Models\TransectionCategory;
 use Illuminate\Http\Request;
 
@@ -22,11 +23,11 @@ class TransectionCategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create(Request $request,Project $project)
     {
         $category = new TransectionCategory($request->old());
 
-        return view('transection.transection_category.form',compact('category'));
+        return view('transection.transection_category.form',compact('category','project'));
     }
 
     /**
@@ -35,15 +36,15 @@ class TransectionCategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request,TransectionCategory $category)
+    public function store(Request $request,Project $project)
     {
         $data = $request->validate([
-            'name' => 'string|required|',
+            'name' => 'string|required|unique:transection_categories,name',
         ]);
 
-        $category = TransectionCategory::create($data);;
+        $category = TransectionCategory::create($data);
 
-        return redirect()->route('admin.costtransection')->with('success', 'Category created successfully');
+        return redirect()->route('admin.costtransection',$project)->with('success', 'Category created successfully');
     }
 
     /**

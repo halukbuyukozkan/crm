@@ -22,7 +22,7 @@ class PermissionsTableSeeder extends Seeder
             0 => 
             array (
                 'id' => 1,
-                'name' => 'Ödeme Talebi Kabul etme',
+                'name' => 'Ödeme Talebi Kabul Etme',
                 'guard_name' => 'web',
                 'order' => 4,
                 'created_at' => '2022-09-13 12:36:06',
@@ -54,6 +54,15 @@ class PermissionsTableSeeder extends Seeder
                 'order' => 3,
                 'created_at' => '2022-09-22 11:52:35',
                 'updated_at' => '2022-09-22 11:52:35',
+            ),
+            4 => 
+            array (
+                'id' => 8,
+                'name' => 'İş Yönetimi',
+                'guard_name' => 'web',
+                'order' => 5,
+                'created_at' => '2022-10-03 12:27:55',
+                'updated_at' => '2022-10-03 12:27:55',
             ),
         ));
         

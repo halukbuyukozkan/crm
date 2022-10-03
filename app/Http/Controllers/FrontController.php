@@ -23,11 +23,11 @@ class FrontController extends Controller
         $messages = Message::all();
         $informations = Information::all();
         $user = Auth::user();
-        if($user->hasPermissionTo('Ödeme Talebi Kabul etme'))
+        if($user->hasPermissionTo('Ödeme Talebi Kabul Etme'))
         {
             $projects = Project::all();
         }else{
-            $projects = null;
+            $projects = $user->projects;
         }
 
         if(Auth::user()->hasAnyPermission('Genel Görev Atama')) {
@@ -48,28 +48,8 @@ class FrontController extends Controller
 
         $myjobs = Auth::user()->jobs;
         $otherjobs = $jobs->diff($myjobs);
-
-        $transections = $this->transections($user);
         
-        return view('index',compact('messages','projects','myjobs','otherjobs','informations','user','transections'));
-    }
-
-    public function transections($user)
-    {
-        if($user->hasAnyPermission('Ödeme Talebi Kabul etme')){
-            $transections = Transection::all();
-        }else{
-            if($user->projects->count()!=0){
-                foreach($user->projects as $project){
-                    if($project->transections->first() != null)
-                    $transections[] = $project->transections->first();
-                }
-            }else {
-                $transections = null;
-            }
-        }
-         
-        return $transections;
+        return view('index',compact('messages','projects','myjobs','otherjobs','informations','user'));
     }
 
     /**

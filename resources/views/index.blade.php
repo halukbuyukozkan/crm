@@ -224,8 +224,8 @@ CRM
                             </div>
                         </div>
                         <div class="mt-5">
-                            <a href="{{ route('admin.transection.create') }}"><button class="btn btn-primary btn-lg btn-block">Avans Talebi Oluştur</button></a>
-                            <a href="{{ route('admin.costtransection') }}"><button class="btn btn-primary btn-lg btn-block mt-2">Masraf Talebi Oluştur</button></a>
+                            <a href="#"><button class="btn btn-primary btn-lg btn-block">Avans Talebi Oluştur</button></a>
+                            <a href="#"><button class="btn btn-primary btn-lg btn-block mt-2">Masraf Talebi Oluştur</button></a>
                         </div>
                     </div>
                 </div>
@@ -259,7 +259,7 @@ CRM
                             <h5 class="card-title">Onay Bekleyen Avans/Masraf Taleplerim</h5>
                         </div>
                         <div class="col-md-4 text-right">
-                            <a href="{{ route('admin.transection.create') }}"><button class="btn btn-primary">Avans Talebi Oluştur</button></a>    
+                            <a href="{{ route('admin.project.create') }}"><button class="btn btn-primary">İş Oluştur</button></a>    
                         </div>
                     </div>
                 </div>
@@ -269,40 +269,22 @@ CRM
                             <thead>
                               <tr>
                                 <th>Başlık</th>
-                                <th>Tip</th>
-                                <th>Kullanıcı</th>
-                                <th>Miktar</th>
-                                <th>Onay Durumu</th>
+                                <th>Açıklama</th>
                                 <th>Eylemler</th>
                               </tr>
                             </thead>
                             <tbody>
-                                @if($transections)
-                                    @forelse ($transections as $transection)
+                                @if($projects)
+                                    @forelse ($projects as $project)
                                     <tr>
-                                        <td style="width: 40%">{{ $transection->project->name }}</td>
-                                        <td>{{ $transection->type->value }}</td>
-                                        <td>{{ $transection->project->user->name }}</td>
-                                        <td>{{ $transection->price }}</td>
-                                        <td>{{ $transection->status->value }}</td>
-                                        @if(Auth::user()->hasAnyPermission('Ödeme Talebi Kabul etme'))
-                                        <td>
-                                            @if($transection->status->value == 'beklemede')
-                                            <form action="{{ route('admin.transectionaccept',['transection' => $transection]) }}" method="POST"
-                                            class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
-                                            @csrf
-                                                <button type="submit" class="btn btn-sm btn-primary">
-                                                    <i class="ri-check-line"></i>
-                                                </button>
-                                            </form>
-                                            <form action="{{ route('admin.transectionreject',['transection' => $transection]) }}" method="POST"
-                                                class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
-                                                @csrf
-                                                <button type="submit" class="btn btn-sm btn-danger">
-                                                    <i class="ri-close-line"></i>
-                                                </button>
-                                            </form>                                     
-                                            <form action="{{ route('admin.transection.destroy',['transection' => $transection]) }}" method="POST"
+                                        <td style="width: 20%"><a href="{{ route('admin.project.show',$project) }}">{{ $project->name }}</a></td>
+                                        <td>{{ $project->description }}</td>
+                                        <td style="width: 15%">
+                                            @if(Auth::user()->hasAnyPermission('Ödeme Talebi Kabul Etme'))
+                                            <a href="{{ route('admin.project.edit',$project) }}"><button class="btn btn-sm btn-primary">
+                                                <i class="ri-pencil-line"></i>
+                                            </button></a>
+                                            <form action="{{ route('admin.project.destroy', $project) }}" method="POST"
                                             class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
                                             @csrf
                                             @method('DELETE')
@@ -311,36 +293,10 @@ CRM
                                                 </button>
                                             </form>
                                             @endif
-                                            @if($transection->status->value == 'tamamlandı')
-                                            <form action="{{ route('admin.transectionreverse',['transection' => $transection]) }}" method="POST"
-                                                class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
-                                                @csrf
-                                                <button type="submit" class="btn btn-sm btn-primary">
-                                                    <i class="ri-arrow-go-back-line"></i>
-                                                </button>
-                                            </form>                                         
-                                            @endif
-                                            @if($transection->status->value == 'iptal edildi')
-                                            <form action="{{ route('admin.transection.destroy',['transection' => $transection]) }}" method="POST"
-                                                class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
-                                                @csrf
-                                                @method('DELETE')
-                                                    <button type="submit" class="btn btn-sm btn-danger">
-                                                        <i class="ri-delete-bin-line"></i>
-                                                    </button>
-                                            </form>
-                                            <form action="{{ route('admin.transectionreverse',['transection' => $transection]) }}" method="POST"
-                                                class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
-                                                @csrf
-                                                <button type="submit" class="btn btn-sm btn-primary">
-                                                    <i class="ri-arrow-go-back-line"></i>
-                                                </button>
-                                            </form>                                          
-                                            @endif
                                         </td>
-                                        @endif
                                     </tr>
                                     @empty
+                                    
                                     @endforelse
                                 @endif
                             </tbody>

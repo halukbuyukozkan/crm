@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\TransectionRequest;
 use App\Models\TransectionCategory;
 
-class TransectionController extends Controller
+class ProjectTransectionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -28,20 +28,17 @@ class TransectionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create(Request $request,Project $project)
     {
         $transection = new Transection($request->old());
-        $project = $transection->project;
-
         $types = TypeEnum::cases();
 
         return view('transection.form',compact('transection','project','types'));
     }
 
-    public function create2(Request $request)
+    public function create2(Request $request,Project $project)
     {
         $transection = new Transection($request->old());
-        $project = $transection->project;
 
         $types = TypeEnum::cases();
         $categories = TransectionCategory::all();
@@ -55,14 +52,9 @@ class TransectionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(TransectionRequest $request)
+    public function store(TransectionRequest $request,Project $project)
     {
         $data = $request->validated();
-
-        $project = Project::create([
-            'name' => $request->project_name,
-            'description' => $request->description,
-        ]);
 
         $transection = Transection::create([
             'project_id' => $project->id,
@@ -71,8 +63,11 @@ class TransectionController extends Controller
             'is_income' => $data['is_income'],
             'is_completed' => $data['is_completed'],
             'type' => $data['type'],
-        ]);      
-
+        ]);
+        if($transection->is_income == 0) {
+            $transection->price = $transection->price * -1;
+            $transection->update();
+        }
 
         return redirect()->route('admin.front.index')->with('success', 'Transection created successfully');
     }
