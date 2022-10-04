@@ -270,35 +270,32 @@ CRM
                               <tr>
                                 <th>Başlık</th>
                                 <th>Açıklama</th>
+                                <th>Toplam Tutar</th>
                                 <th>Eylemler</th>
                               </tr>
                             </thead>
                             <tbody>
-                                @if($projects)
-                                    @forelse ($projects as $project)
-                                    <tr>
-                                        <td style="width: 20%"><a href="{{ route('admin.project.show',$project) }}">{{ $project->name }}</a></td>
-                                        <td>{{ $project->description }}</td>
-                                        <td style="width: 15%">
-                                            @if(Auth::user()->hasAnyPermission('Ödeme Talebi Kabul Etme'))
-                                            <a href="{{ route('admin.project.edit',$project) }}"><button class="btn btn-sm btn-primary">
-                                                <i class="ri-pencil-line"></i>
-                                            </button></a>
-                                            <form action="{{ route('admin.project.destroy', $project) }}" method="POST"
-                                            class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
-                                            @csrf
-                                            @method('DELETE')
-                                                <button type="submit" class="btn btn-sm btn-danger">
-                                                    <i class="ri-delete-bin-line"></i>
-                                                </button>
-                                            </form>
-                                            @endif
-                                        </td>
-                                    </tr>
-                                    @empty
-                                    
-                                    @endforelse
-                                @endif
+                                @forelse ($projects as $project)
+                                <tr>
+                                    <td style="width: 20%"><a href="{{ route('admin.project.show',$project) }}">{{ $project->name }}</a></td>
+                                    <td>{{ $project->description }}</td>
+                                    <td>{{ $project->total }}</td>
+                                    <td style="width: 15%">
+                                        @if(Auth::user()->hasAnyPermission('Ödeme Talebi Kabul Etme'))
+                                        <form action="{{ route('admin.project.destroy', $project) }}" method="POST"
+                                        class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
+                                        @csrf
+                                        @method('DELETE')
+                                            <button type="submit" class="btn btn-sm btn-danger">
+                                                <i class="ri-delete-bin-line"></i>
+                                            </button>
+                                        </form>
+                                        @endif
+                                    </td>
+                                </tr>
+                                @empty
+                                
+                                @endforelse
                             </tbody>
                         </table>
                     </div>

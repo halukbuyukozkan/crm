@@ -69,7 +69,7 @@ class ProjectTransectionController extends Controller
             $transection->update();
         }
 
-        return redirect()->route('admin.front.index')->with('success', 'Transection created successfully');
+        return redirect()->route('admin.project.show',$project)->with('success', 'Transection created successfully');
     }
 
     /**

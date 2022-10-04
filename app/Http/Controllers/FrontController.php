@@ -48,8 +48,28 @@ class FrontController extends Controller
 
         $myjobs = Auth::user()->jobs;
         $otherjobs = $jobs->diff($myjobs);
+
+        $this->totalprice($projects);
+        
         
         return view('index',compact('messages','projects','myjobs','otherjobs','informations','user'));
+    }
+
+    public function totalprice($projects)
+    {
+        
+        $totals = $projects->map(function($project){
+            $transections = $project->transections->filter(function($value){
+                return $value->status->value == 'tamamlandı';
+            });
+            $price = $transections->map(function($transection){
+                return ($transection->price);
+            });
+            $price = $price->sum();
+            $project->total = $price;
+            $project->update();
+        });        
+        
     }
 
     /**
