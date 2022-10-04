@@ -99,7 +99,11 @@ class JobController extends Controller
      */
     public function show(Job $job)
     {
-        //
+        $date = Carbon::parse($job->deadline );
+        $now = Carbon::now();
+        $daysleft = $date->diffInDays($now);
+
+        return view('job.show',compact('job','daysleft'));
     }
 
     /**
