@@ -109,7 +109,7 @@ CRM
                                 @empty
                                     <tr>
                                         <td colspan="99" class="text-center text-muted">
-                                            {{ __('No Jobs') }}
+                                            {{ __('Görev Bulunamadı') }}
                                         </td>
                                     </tr>
                                 @endforelse
@@ -166,7 +166,7 @@ CRM
                                     @empty
                                         <tr>
                                             <td colspan="99" class="text-center text-muted">
-                                                {{ __('No Jobs') }}
+                                                {{ __('Görev Bulunamadı') }}
                                             </td>
                                         </tr>
                                     @endforelse
@@ -270,15 +270,17 @@ CRM
                               <tr>
                                 <th>Başlık</th>
                                 <th>Açıklama</th>
+                                <th>Oluşturan</th>
                                 <th>Toplam Tutar</th>
                                 <th>Eylemler</th>
                               </tr>
                             </thead>
                             <tbody>
-                                @forelse ($projects as $project)
+                                @forelse ($projects->take(5) as $project)
                                 <tr>
                                     <td style="width: 20%"><a href="{{ route('admin.project.show',$project) }}">{{ $project->name }}</a></td>
                                     <td>{{ $project->description }}</td>
+                                    <td>{{ $project->user->name }}</td>
                                     <td>{{ $project->total }}</td>
                                     <td style="width: 15%">
                                         @if(Auth::user()->hasAnyPermission('Ödeme Talebi Kabul Etme'))
@@ -294,12 +296,26 @@ CRM
                                     </td>
                                 </tr>
                                 @empty
-                                
+                                <tr>
+                                    <td colspan="99" class="text-center text-muted">
+                                        {{ __('İş Bulunamadı') }}
+                                    </td>
+                                </tr>
                                 @endforelse
                             </tbody>
                         </table>
                     </div>
-
+                    @if($projects)
+                        @if($projects->count() > 5)
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="text-center">
+                                    <a href="{{ route('admin.project.index') }}">Tümünü gör</a>
+                                </div>
+                            </div>
+                        </div>
+                        @endif
+                    @endif
                 </div>
             </div>
         </div>

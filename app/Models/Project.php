@@ -3,10 +3,12 @@
 namespace App\Models;
 
 use App\Observers\ProjectObserver;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Project extends Model
 {
@@ -28,5 +30,18 @@ class Project extends Model
     public function transections(): HasMany
     {
         return $this->hasMany(Transection::class);
+    }
+    
+    public function scopeOfProject(Builder $query)
+    {
+        if(Auth::user()->hasPermissionTo('Ödeme Talebi Kabul Etme'))
+        {
+            return $query;
+        }elseif(Auth::user()->hasPermissionTo('Ödeme Gerçekleştirme'))
+        {
+            return $query;
+        }else {
+            return $query->where('user_id',Auth::user()->id);
+        }
     }
 }

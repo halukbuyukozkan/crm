@@ -22,14 +22,26 @@ class FrontController extends Controller
     {
         $messages = Message::all();
         $informations = Information::all();
-        $user = Auth::user();
-        if($user->hasPermissionTo('Ödeme Talebi Kabul Etme'))
-        {
-            $projects = Project::all();
-        }else{
-            $projects = $user->projects;
-        }
+        $user = Auth::user();      
 
+        $jobs = $this->job($user);
+        $jobs = $jobs->map(function($item){
+            $item->deadline = date('d.m.Y', strtotime($item->deadline));
+            return $item;
+        });
+
+        $myjobs = Auth::user()->jobs;
+        $otherjobs = $jobs->diff($myjobs);
+
+        $projects = Project::OfProject()->get();
+
+        $this->totalprice($projects);
+        
+        return view('index',compact('messages','projects','myjobs','otherjobs','informations','user'));
+    }
+
+    public function job($user)
+    {
         if(Auth::user()->hasAnyPermission('Genel Görev Atama')) {
             $jobs = Job::whereHas('users', function (Builder $query) {
                 $query->whereHas('department', function (Builder $query) {
@@ -39,25 +51,13 @@ class FrontController extends Controller
             $jobs = $jobs->merge(Job::where('created_by',Auth::user()->name)->get());
         }else {
             $jobs = Auth::user()->jobs;
-        }         
-
-        $jobs = $jobs->map(function($item){
-            $item->deadline = date('d.m.Y', strtotime($item->deadline));
-            return $item;
-        });
-
-        $myjobs = Auth::user()->jobs;
-        $otherjobs = $jobs->diff($myjobs);
-
-        $this->totalprice($projects);
+        }   
         
-        
-        return view('index',compact('messages','projects','myjobs','otherjobs','informations','user'));
+        return $jobs;
     }
 
     public function totalprice($projects)
     {
-        
         $totals = $projects->map(function($project){
             $transections = $project->transections->filter(function($value){
                 return $value->status->value == 'tamamlandı';
@@ -69,7 +69,6 @@ class FrontController extends Controller
             $project->total = $price;
             $project->update();
         });        
-        
     }
 
     /**

@@ -35,7 +35,7 @@
                         <table class="table table-striped table-bordered" id="edit-btn">
                             <thead>
                               <tr>
-                                <th>Ödeme Yapan</th>
+                                <th>Onaylayan</th>
                                 <th>Tip</th>
                                 <th>Kullanıcı</th>
                                 <th>Miktar</th>
@@ -55,7 +55,7 @@
                                         <td>
                                             @if(Auth::user()->hasAnyPermission('Ödeme Talebi Kabul Etme'))
                                             @if($transection->status->value == 'beklemede')
-                                            <form action="{{ route('admin.transectionaccept',['transection' => $transection]) }}" method="POST"
+                                            <form action="{{ route('admin.transectionapprove',['transection' => $transection]) }}" method="POST"
                                             class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
                                             @csrf
                                                 <button type="submit" class="btn btn-sm btn-primary">
@@ -78,6 +78,7 @@
                                                 </button>
                                             </form>
                                             @endif
+
                                             @if($transection->status->value == 'tamamlandı')
                                             <form action="{{ route('admin.transectionreverse',['transection' => $transection]) }}" method="POST"
                                                 class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
@@ -85,8 +86,9 @@
                                                 <button type="submit" class="btn btn-sm btn-primary">
                                                     <i class="ri-arrow-go-back-line"></i>
                                                 </button>
-                                            </form>                                         
+                                            </form>
                                             @endif
+
                                             @if($transection->status->value == 'iptal edildi')
                                             <form action="{{ route('admin.project.transection.destroy',['transection' => $transection,'project' => $project]) }}" method="POST"
                                                 class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
@@ -103,6 +105,33 @@
                                                     <i class="ri-arrow-go-back-line"></i>
                                                 </button>
                                             </form>                                          
+                                            @endif
+                                        @endif
+
+                                        @if(Auth::user()->hasAnyPermission('Ödeme Gerçekleştirme'))
+                                            @if($transection->status->value == 'onaylandı')
+                                                <a href="{{ route('admin.transectionPayBack',['project' => $transection->project,'transection' => $transection]) }}">
+                                                    <button type="submit" class="btn btn-sm btn-primary">
+                                                        <i class="ri-check-double-line"></i>
+                                                    </button>
+                                                </a>
+                                            
+                                                <form action="{{ route('admin.transectionreverse',['transection' => $transection]) }}" method="POST"
+                                                    class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-sm btn-primary">
+                                                        <i class="ri-arrow-go-back-line"></i>
+                                                    </button>
+                                                </form>
+                                            @endif
+                                            @if($transection->status->value == 'tamamlandı')
+                                            <form action="{{ route('admin.transectionreverse',['transection' => $transection]) }}" method="POST"
+                                                class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
+                                                @csrf
+                                                <button type="submit" class="btn btn-sm btn-primary">
+                                                    <i class="ri-arrow-go-back-line"></i>
+                                                </button>
+                                            </form>
                                             @endif
                                         @endif
                                         </td>

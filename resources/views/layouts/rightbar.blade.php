@@ -122,6 +122,9 @@
                         <li>
                             <a href="{{ route('admin.job.index') }}"><i class="ri-checkbox-multiple-line"></i></i>Görevler</a>
                         </li>
+                        <li>
+                            <a href="{{ route('admin.project.index') }}"><i class="ri-checkbox-multiple-line"></i></i>İşler</a>
+                        </li>
                         @if(Auth::user()->hasAnyPermission('Sistem Yönetimi'))
                         <li class="scroll dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="ri-settings-2-fill"></i>Sistem</a>

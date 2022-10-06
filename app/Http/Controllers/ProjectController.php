@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProjectRequest;
 use App\Models\Project;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\ProjectRequest;
 
 class ProjectController extends Controller
 {
@@ -15,7 +16,9 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        //
+        $projects = Project::OfProject()->get();
+        
+        return view('project.index',compact('projects'));
     }
 
     /**
@@ -42,7 +45,7 @@ class ProjectController extends Controller
         $project->fill($data);
         $project->save();
 
-        return redirect()->route('admin.front.index')->with('success', 'Project created successfully');
+        return redirect()->route('admin.project.index')->with('success', 'Project created successfully');
     }
 
     /**
@@ -91,6 +94,6 @@ class ProjectController extends Controller
     {
         $project->delete();
 
-        return redirect()->route('admin.front.index')->with('succes','Proje Başarıyla Silindi');
+        return redirect()->route('admin.project.index')->with('succes','Proje Başarıyla Silindi');
     }
 }

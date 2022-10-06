@@ -46,19 +46,26 @@ class ProjectTransectionController extends Controller
         return view('transection.form2',compact('transection','project','types','categories'));
     }
 
+    public function createPayBack(Request $request,Project $project,Transection $transection)
+    {
+        $types = TypeEnum::cases();
+
+        return view('transection.paybackform',compact('transection','project','types'));
+    }
+
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(TransectionRequest $request,Project $project)
+    public function store(TransectionRequest $request,Project $project,Transection $transection)
     {
         $data = $request->validated();
-
         $transection = Transection::create([
             'project_id' => $project->id,
             'category_id' => null,
+            'status' => 'beklemede',
             'price' => $data['price'],
             'is_income' => $data['is_income'],
             'is_completed' => $data['is_completed'],
@@ -106,15 +113,40 @@ class ProjectTransectionController extends Controller
         //
     }
 
-    public function accept(Transection $transection)
+    public function approve(Transection $transection)
     {
-        $transection->status = StatusEnum::cases()[1]->value;
+        $transection->status = StatusEnum::cases()[1]->value; //onaylandı
         $transection->payer = Auth::user()->name;
         $transection->update();
 
         $user = $transection->project->user;
+
         $user->balance = $transection->project->user->balance + $transection->price;
-        $user->save();
+        $user->update();
+       
+
+        $project = $transection->project;
+    
+        return redirect()->route('admin.project.show',$project);
+    }
+
+    public function complete(Transection $transection)
+    {
+        $transection->status = StatusEnum::cases()[2]->value; //tamamlandı
+        $transection->payer = Auth::user()->name;
+        $transection->update();
+
+        $user = $transection->project->user;
+        
+        if($transection->type->value == 'Masraf Talebi') {
+            $user->balance = $transection->project->user->balance - $transection->price;
+            $user->update();
+
+            return redirect()->route('admin.transectionPayBack');
+        }else{
+            $user->balance = $transection->project->user->balance + $transection->price;
+            $user->save();
+        }
 
         $project = $transection->project;
     
@@ -123,7 +155,7 @@ class ProjectTransectionController extends Controller
 
     public function reject(Transection $transection)
     {
-        $transection->status = StatusEnum::cases()[2]->value;
+        $transection->status = StatusEnum::cases()[3]->value; //iptal edildi
         $transection->payer = Auth::user()->name;
         $transection->update();
 
@@ -135,13 +167,17 @@ class ProjectTransectionController extends Controller
     public function reverse(Transection $transection)
     {
         if($transection->status->name == 'COMPLETED') {
-            $transection->status = StatusEnum::cases()[0]->value;
+            $transection->status = StatusEnum::cases()[0]->value; //beklemede
             $transection->save();
 
             $user = $transection->project->user;
             $user->balance = $transection->project->user->balance - $transection->price;
             $user->save();
-        }elseif($transection->status->name == 'CANCELLED') {
+        }elseif($transection->status->name == 'APPROVED'){
+            $transection->status = StatusEnum::cases()[0]->value; //beklemede
+            $transection->save();
+        }
+        elseif($transection->status->name == 'CANCELLED') {
             $transection->status = StatusEnum::cases()[0]->value;
             $transection->save();
         }

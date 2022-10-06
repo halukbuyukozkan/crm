@@ -24,7 +24,6 @@ class TransectionRequest extends FormRequest
     public function rules()
     {
         return [
-            'project_name' => 'required|string|max:255',
             'description' => 'nullable',
             'price' => 'required|integer',
             'type' => 'required|string',

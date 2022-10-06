@@ -1,21 +1,22 @@
 <?php
 
-use App\Http\Controllers\AboutController;
-use App\Http\Controllers\Admin\StatusController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\DepartmentController;
-use App\Http\Controllers\FieldController;
-use App\Http\Controllers\FrontController;
-use App\Http\Controllers\InformationController;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\JobController;
-use App\Http\Controllers\MessageController;
-use App\Http\Controllers\PermissionController;
-use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ShowController;
-use App\Http\Controllers\TransectionCategoryController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\AboutController;
+use App\Http\Controllers\FieldController;
+use App\Http\Controllers\FrontController;
+use App\Http\Controllers\MessageController;
+use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\InformationController;
+use App\Http\Controllers\Admin\StatusController;
 use App\Http\Controllers\ProjectTransectionController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TransectionCategoryController;
+use App\Http\Controllers\ProjectTransectionPayBackController;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,12 +51,19 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('permission', PermissionController::class);
         Route::resource('field', FieldController::class);
         Route::resource('project', ProjectController::class);
+
         Route::resource('project.transection', ProjectTransectionController::class);
         Route::get('project/{project}/transection/cost/create', [ProjectTransectionController::class,'create2'])->name('costtransection');
-        Route::post('project.transection/{transection}/accept',[ProjectTransectionController::class,'accept'])->name('transectionaccept');
+
+        Route::get('project/{project}/transection/{transection}/payback/create', [ProjectTransectionController::class,'createPayBack'])->name('transectionPayBack');
+        Route::post('project/{project}/transection/{transection}/payback/store', [ProjectTransectionPayBackController::class,'storePayBack'])->name('payBack');
+
+        Route::post('project.transection/{transection}/approve',[ProjectTransectionController::class,'approve'])->name('transectionapprove');
+        Route::post('project.transection/{transection}/complete',[ProjectTransectionController::class,'complete'])->name('transectioncomplete');
         Route::post('project.transection/{transection}/reject',[ProjectTransectionController::class,'reject'])->name('transectionreject');
         Route::post('project.transection/{transection}/reverse',[ProjectTransectionController::class,'reverse'])->name('transectionreverse');
         Route::resource('project.transectioncategory',TransectionCategoryController::class);
+
         Route::resource('department',DepartmentController::class);
         
         Route::get('goodssol',[ShowController::class,'index'])->name('goodssol');

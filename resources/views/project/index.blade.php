@@ -32,6 +32,7 @@
                             <thead>
                               <tr>
                                 <th>İsim</th>
+                                <th>Oluşturan</th>
                                 <th>tarih</th>
                                 <th>İşlemler</th>
                               </tr>
@@ -40,6 +41,7 @@
                                 @foreach ($projects as $project)
                                 <tr>
                                     <td><a href="{{ route('admin.project.show',$project) }}">{{ $project->name }}</a></td>
+                                    <td>{{ $project->user->name }}</td>
                                     <td>{{ $project->created_at }}</td>
                                     <td>
                                         <a href="{{ route('admin.project.edit',$project) }}"><button class="btn btn-sm btn-primary">
