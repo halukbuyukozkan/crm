@@ -29,6 +29,7 @@ class JobRequest extends FormRequest
             'description' => 'nullable|string',
             'deadline' => 'nullable|date',
             'users' => 'array|required',
-        ];
+            'images' => 'nullable',
+        ]; 
     }
 }

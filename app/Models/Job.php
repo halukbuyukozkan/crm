@@ -22,4 +22,9 @@ class Job extends Model
     {
         return $this->belongsToMany(User::class);
     }
+
+    public function images()
+    {
+        return $this->hasMany(Image::class);
+    }
 }

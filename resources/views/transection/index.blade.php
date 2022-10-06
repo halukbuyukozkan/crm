@@ -20,6 +20,7 @@
                     <div class="row">
                         <div class="col-md-8">
                             <h5 class="card-title">{{ $project->name }} Ödeme Talepleri</h5>
+                            <span>Bakiye: {{$project->total}}</span>
                         </div>
                         <div class="col-md-4 text-right">
                             <a href="{{ route('admin.project.transection.create',$project) }}"><button class="btn btn-primary">Avans Talebi Oluştur</button></a> 

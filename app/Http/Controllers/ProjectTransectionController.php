@@ -116,9 +116,9 @@ class ProjectTransectionController extends Controller
         $user->balance = $transection->project->user->balance + $transection->price;
         $user->save();
 
-       
+        $project = $transection->project;
     
-        return redirect()->route('admin.front.index');
+        return redirect()->route('admin.project.show',$project);
     }
 
     public function reject(Transection $transection)
@@ -127,7 +127,9 @@ class ProjectTransectionController extends Controller
         $transection->payer = Auth::user()->name;
         $transection->update();
 
-        return redirect()->route('admin.front.index');
+        $project = $transection->project;
+
+        return redirect()->route('admin.project.show',$project);
     }
 
     public function reverse(Transection $transection)
@@ -144,7 +146,9 @@ class ProjectTransectionController extends Controller
             $transection->save();
         }
 
-        return redirect()->route('admin.front.index');
+        $project = $transection->project;
+
+        return redirect()->route('admin.project.show',$project);
     }
 
     /**

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\Job;
 use App\Models\User;
+use App\Models\Image;
 use App\Models\Status;
 use App\Models\Department;
 use Illuminate\Http\Request;
@@ -87,6 +88,14 @@ class JobController extends Controller
         $job = Job::create($data);
 
         $job->users()->sync($data['users'] ?? []);
+
+        foreach ($request->file('images') as $imagefile) {
+            $image = new Image;
+            $path = $imagefile->store('/images/resource', ['disk' =>   'my_files']);
+            $image->url = $path;
+            $image->job_id = $job->id;
+            $image->save();
+        }
 
         return redirect()->route('admin.job.index')->with('success', 'Görev başarıyla oluşturuldu.');
     }
