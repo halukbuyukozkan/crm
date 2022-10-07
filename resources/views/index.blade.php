@@ -259,7 +259,7 @@ CRM
                             <h5 class="card-title">Onay Bekleyen Avans/Masraf Taleplerim</h5>
                         </div>
                         <div class="col-md-4 text-right">
-                            <a href="{{ route('admin.project.create') }}"><button class="btn btn-primary">İş Oluştur</button></a>    
+                            <a href="{{ route('admin.project.create') }}"><button class="btn btn-primary">Talep Adı Oluştur</button></a>    
                         </div>
                     </div>
                 </div>

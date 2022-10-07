@@ -54,6 +54,7 @@ Route::middleware(['auth'])->group(function () {
 
         Route::resource('project.transection', ProjectTransectionController::class);
         Route::get('project/{project}/transection/cost/create', [ProjectTransectionController::class,'create2'])->name('costtransection');
+        Route::get('project/{project}/transection/return/create', [ProjectTransectionController::class,'create3'])->name('returntransection');
 
         Route::get('project/{project}/transection/{transection}/payback/create', [ProjectTransectionController::class,'createPayBack'])->name('transectionPayBack');
         Route::post('project/{project}/transection/{transection}/payback/store', [ProjectTransectionPayBackController::class,'storePayBack'])->name('payBack');

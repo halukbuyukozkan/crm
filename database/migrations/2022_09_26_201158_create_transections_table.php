@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('transections', function (Blueprint $table) {
             $table->id();
             $table->foreignId('project_id');
-            $table->foreignId('category_id')->nullable();
+            $table->foreignId('category_id')->nullable()->constrained();
 
             $table->string('payer')->nullable();
             $table->string('payee')->nullable();

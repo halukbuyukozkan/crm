@@ -26,7 +26,7 @@ class ProjectTransectionPayBackController extends Controller
             'type' => $data['type'],
         ]);
 
-        if($data['type'] == 'Masraf Fark Kapatma'){
+        if($data['type'] == 'Ödeme'){
             $project->user->balance = $project->user->balance + $transection->price;
             $project->user->update();
         }

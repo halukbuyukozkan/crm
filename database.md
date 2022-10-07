@@ -26,6 +26,7 @@
 - id 
 - user_id
 - name
+- type enum(AVANS,MASRAF)
 - description
 
 # transection

@@ -18,16 +18,15 @@
             <div class="card m-b-30">
                 <div class="card-header">
                     <div class="row">
-                        <div class="col-md-8">
+                        <div class="col-md-6">
                             <h5 class="card-title">{{ $project->name }} Ödeme Talepleri</h5>
                             <span>Bakiye: {{$project->total}}</span>
                         </div>
-                        <div class="col-md-4 text-right">
+                        <div class="col-md-6 text-right">
                             <a href="{{ route('admin.project.transection.create',$project) }}"><button class="btn btn-primary">Avans Talebi Oluştur</button></a> 
                             <a href="{{ route('admin.costtransection',$project) }}"><button class="btn btn-primary">Masraf Talebi Oluştur</button></a>    
-
+                            <a href="{{ route('admin.returntransection',$project) }}"><button class="btn btn-primary">İade Talebi Oluştur</button></a>    
                         </div>
-                     
                     </div>
                 </div>
                 <div class="card-body">
@@ -36,6 +35,7 @@
                             <thead>
                               <tr>
                                 <th>Onaylayan</th>
+                                <th>Kategori</th>
                                 <th>Tip</th>
                                 <th>Kullanıcı</th>
                                 <th>Miktar</th>
@@ -48,6 +48,7 @@
                                     @forelse ($transections as $transection)
                                     <tr>
                                         <td style="width: 40%">{{ $transection->payer ? $transection->payer : '-' }}</td>
+                                        <td>-</td>
                                         <td>{{ $transection->type->value }}</td>
                                         <td>{{ $transection->project->user->name }}</td>
                                         <td>{{ $transection->price }}</td>

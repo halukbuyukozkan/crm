@@ -1,5 +1,5 @@
 @section('title') 
-Talep Oluştur
+İade Talebi Oluştur
 @endsection 
 @extends('layouts.main')
 @section('style')
@@ -16,28 +16,34 @@ Talep Oluştur
     <div class="card-header">
         <div class="row">
             <div class="col-md-10">
-                <h5 class="card-title">Talep Oluştur</h5>
+                <h5 class="card-title">İade Talebi Oluştur</h5>
             </div>
         </div>
     </div>
     <form method="post" enctype="multipart/form-data"
-    action="{{ $project->exists ? route('admin.project.update', $project) : route('admin.project.store') }}">
+    action="{{ route('admin.project.transection.store',$project) }}">
     @csrf
-    @if ($project->exists)
+    @if ($transection->exists)
         @method('PUT')
     @endif
     <div class="card m-b-30">
         <div class="card-body ">
-            <h6 class="card-subtitle"><strong>İsim</strong></h6>
-            <div class="form-group mb-4">
-                <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name"
-                    value="{{ old('name', $project->name) }}" required>
-            </div>
             <h6 class="card-subtitle"><strong>Açıklama</strong></h6>
             <div class="form-group mb-4">
                 <input type="text" class="form-control @error('description') is-invalid @enderror" id="description" name="description"
-                    value="{{ old('description', $project->description) }}" required>
-            </div> 
+                    value="{{ old('description', $transection->description) }}" required>
+            </div>
+            <h6 class="card-subtitle"><strong>Miktar</strong></h6>
+            <div class="form-group mb-4">
+                <input type="integer" class="form-control @error('price') is-invalid @enderror" id="price" name="price"
+                    value="{{ old('price', $transection->price) }}" required>
+            </div>
+            <input type="hidden" class="form-control @error('type') is-invalid @enderror" id="type" name="type"
+                    value="{{ $types[3]->value }}" required>
+            <input type="hidden" class="form-control @error('is_income') is-invalid @enderror" id="is_income" name="is_income"
+                    value="0" required>
+            <input type="hidden" class="form-control @error('is_completed') is-invalid @enderror" id="is_completed" name="is_completed"
+                    value="0" required>
         </div>
         <div class="card-footer">
             <button type="submit" class="btn btn-primary">

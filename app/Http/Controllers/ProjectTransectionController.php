@@ -46,6 +46,14 @@ class ProjectTransectionController extends Controller
         return view('transection.form2',compact('transection','project','types','categories'));
     }
 
+    public function create3(Request $request,Project $project)
+    {
+        $transection = new Transection($request->old());
+        $types = TypeEnum::cases();
+
+        return view('transection.form3',compact('transection','project','types'));
+    }
+
     public function createPayBack(Request $request,Project $project,Transection $transection)
     {
         $types = TypeEnum::cases();

@@ -25,6 +25,7 @@ class TransectionRequest extends FormRequest
     {
         return [
             'description' => 'nullable',
+            'category_id' => 'nullable',
             'price' => 'required|integer',
             'type' => 'required|string',
             'is_income' => 'required',
