@@ -121,9 +121,10 @@ class ProjectTransectionController extends Controller
 
         $user = $transection->project->user;
 
+        if($transection->type->value == 'Masraf Talebi') {
         $user->balance = $transection->project->user->balance + $transection->price;
         $user->update();
-       
+        }
 
         $project = $transection->project;
     
@@ -137,16 +138,9 @@ class ProjectTransectionController extends Controller
         $transection->update();
 
         $user = $transection->project->user;
-        
-        if($transection->type->value == 'Masraf Talebi') {
-            $user->balance = $transection->project->user->balance - $transection->price;
-            $user->update();
-
-            return redirect()->route('admin.transectionPayBack');
-        }else{
-            $user->balance = $transection->project->user->balance + $transection->price;
-            $user->save();
-        }
+    
+        $user->balance = $transection->project->user->balance + $transection->price;
+        $user->save();
 
         $project = $transection->project;
     

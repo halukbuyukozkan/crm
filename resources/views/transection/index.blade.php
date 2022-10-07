@@ -110,11 +110,22 @@
 
                                         @if(Auth::user()->hasAnyPermission('Ödeme Gerçekleştirme'))
                                             @if($transection->status->value == 'onaylandı')
+                                                @if($transection->type->value == 'Masraf Talebi')
                                                 <a href="{{ route('admin.transectionPayBack',['project' => $transection->project,'transection' => $transection]) }}">
                                                     <button type="submit" class="btn btn-sm btn-primary">
                                                         <i class="ri-check-double-line"></i>
                                                     </button>
                                                 </a>
+                                                @else
+                                                <form action="{{ route('admin.transectioncomplete',['transection' => $transection,'project' => $project]) }}" method="POST"
+                                                    class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-sm btn-primary">
+                                                        <i class="ri-check-double-line"></i>
+                                                    </button>
+                                                </form>
+                                                @endif
+                                                    
                                             
                                                 <form action="{{ route('admin.transectionreverse',['transection' => $transection]) }}" method="POST"
                                                     class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
