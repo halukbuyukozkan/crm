@@ -32,6 +32,7 @@
                             <thead>
                               <tr>
                                 <th>İsim</th>
+                                <th>Tür</th>
                                 <th>Oluşturan</th>
                                 <th>tarih</th>
                                 <th>İşlemler</th>
@@ -41,6 +42,7 @@
                                 @foreach ($projects as $project)
                                 <tr>
                                     <td><a href="{{ route('admin.project.show',$project) }}">{{ $project->name }}</a></td>
+                                    <td>{{ $project->type }}</td>
                                     <td>{{ $project->user->name }}</td>
                                     <td>{{ $project->created_at }}</td>
                                     <td>

@@ -270,6 +270,7 @@ CRM
                               <tr>
                                 <th>Başlık</th>
                                 <th>Açıklama</th>
+                                <th>Tür</th>
                                 <th>Oluşturan</th>
                                 <th>Toplam Tutar</th>
                                 <th>Eylemler</th>
@@ -280,6 +281,7 @@ CRM
                                 <tr>
                                     <td style="width: 20%"><a href="{{ route('admin.project.show',$project) }}">{{ $project->name }}</a></td>
                                     <td>{{ $project->description }}</td>
+                                    <td>{{ $project->type }}</td>
                                     <td>{{ $project->user->name }}</td>
                                     <td>{{ $project->total }}</td>
                                     <td style="width: 15%">

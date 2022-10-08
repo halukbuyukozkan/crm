@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Enum\ProjectTypeEnum;
+use App\Enum\TypeEnum;
 use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -29,7 +31,9 @@ class ProjectController extends Controller
     public function create(Request $request)
     {
         $project = new Project($request->old());
-        return view('project.form',compact('project'));
+        $types = ProjectTypeEnum::cases();
+
+        return view('project.form',compact('project','types'));
     }
 
     /**
@@ -57,8 +61,9 @@ class ProjectController extends Controller
     public function show(Project $project)
     {
         $transections = $project->transections;
+        $types = TypeEnum::cases();
 
-        return view('transection.index',compact('transections','project'));
+        return view('transection.index',compact('transections','project','types'));
     }
 
     /**

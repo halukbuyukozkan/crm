@@ -37,6 +37,22 @@ Talep Oluştur
             <div class="form-group mb-4">
                 <input type="text" class="form-control @error('description') is-invalid @enderror" id="description" name="description"
                     value="{{ old('description', $project->description) }}" required>
+            </div>
+            <h6 class="card-subtitle"><strong>Talep Türü</strong></h6>
+            <div class="form-group">
+                <select class="form-control @error('type') is-invalid @enderror" id="type"
+                    name="type">
+                    @foreach ($types as $type)
+                        <option value="{{ $type->value }}">
+                            {{ $type->value }}
+                        </option>
+                    @endforeach
+                </select>
+                @error('type')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
             </div> 
         </div>
         <div class="card-footer">

@@ -23,9 +23,12 @@
                             <span>Bakiye: {{$project->total}}</span>
                         </div>
                         <div class="col-md-6 text-right">
-                            <a href="{{ route('admin.project.transection.create',$project) }}"><button class="btn btn-primary">Avans Talebi Oluştur</button></a> 
-                            <a href="{{ route('admin.costtransection',$project) }}"><button class="btn btn-primary">Masraf Talebi Oluştur</button></a>    
-                            <a href="{{ route('admin.returntransection',$project) }}"><button class="btn btn-primary">İade Talebi Oluştur</button></a>    
+                            @if($project->type == 'Avans')
+                            <a href="{{ route('admin.transection.create',['project' => $project,'type' => $types[0]]) }}"><button class="btn btn-primary">Avans Talebi Oluştur</button></a> 
+                            <a href="{{ route('admin.transection.create',['project' => $project,'type' => $types[1]]) }}"><button class="btn btn-primary">İade Talebi Oluştur</button></a> 
+                            @elseif($project->type == 'Masraf')   
+                            <a href="{{ route('admin.transection.create',['project' => $project,'type' => $types[2]]) }}"><button class="btn btn-primary">Masraf Talebi Oluştur</button></a> 
+                            @endif   
                         </div>
                     </div>
                 </div>

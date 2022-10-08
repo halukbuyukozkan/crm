@@ -1,5 +1,9 @@
 @section('title') 
+@if($type == $types[0]->value)
 Avans Talebi Oluştur
+@elseif($type == $types[2]->value)
+Masraf Talebi Oluştur
+@endif
 @endsection 
 @extends('layouts.main')
 @section('style')
@@ -12,14 +16,14 @@ Avans Talebi Oluştur
 @section('rightbar-content')
 <!-- Start Contentbar -->    
 <div class="contentbar">   
-    
     <div class="card-header">
         <div class="row">
             <div class="col-md-10">
+                @if($type == $types[0]->value)
                 <h5 class="card-title">Avans Talebi Oluştur</h5>
-            </div>
-            <div class="col-md-2 text-right">
-                <a href="{{ route('admin.project.create') }}"><button class="btn btn-primary">İş Oluştur</button></a>    
+                @elseif($type == $types[2]->value)
+                <h5 class="card-title">Masraf Talebi Oluştur</h5>
+                @endif
             </div>
         </div>
     </div>
@@ -41,13 +45,32 @@ Avans Talebi Oluştur
                 <input type="text" class="form-control @error('description') is-invalid @enderror" id="description" name="description"
                     value="{{ old('description', $transection->description) }}" required>
             </div>
+            @if($type == $types[2]->value)
+            <h6 class="card-subtitle"><strong>Kategori</strong></h6>
+            <div class="form-group">
+                <select class="form-control @error('category_id') is-invalid @enderror" id="category_id"
+                    name="category_id">
+                    @foreach ($categories as $category)
+                        <option value="{{ $category->id }}"
+                            @if ($transection->transection_category) {{ $transection->transection_category->contains($category) ? 'selected' : '' }}@endif>
+                            {{ $category->name }}
+                        </option>
+                    @endforeach
+                </select>
+                @error('category_id')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div> 
+            @endif
             <h6 class="card-subtitle"><strong>Miktar</strong></h6>
             <div class="form-group mb-4">
                 <input type="integer" class="form-control @error('price') is-invalid @enderror" id="price" name="price"
                     value="{{ old('price', $transection->price) }}" required>
             </div>
             <input type="hidden" class="form-control @error('type') is-invalid @enderror" id="type" name="type"
-                    value="{{ $types[0]->value }}" required>
+                    @if($type == $types[0]->value) value="{{ $types[0]->value }}" @elseif($type == $types[2]->value) value="{{ $types[2]->value }}"  @endif required>
             <input type="hidden" class="form-control @error('is_income') is-invalid @enderror" id="is_income" name="is_income"
                     value="1" required>
             <input type="hidden" class="form-control @error('is_completed') is-invalid @enderror" id="is_completed" name="is_completed"

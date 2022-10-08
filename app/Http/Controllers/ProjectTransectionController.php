@@ -28,37 +28,13 @@ class ProjectTransectionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request,Project $project)
+    public function create(Request $request,Project $project,$type)
     {
         $transection = new Transection($request->old());
-        $types = TypeEnum::cases();
-
-        return view('transection.form',compact('transection','project','types'));
-    }
-
-    public function create2(Request $request,Project $project)
-    {
-        $transection = new Transection($request->old());
-
-        $types = TypeEnum::cases();
         $categories = TransectionCategory::all();
-
-        return view('transection.form2',compact('transection','project','types','categories'));
-    }
-
-    public function create3(Request $request,Project $project)
-    {
-        $transection = new Transection($request->old());
         $types = TypeEnum::cases();
 
-        return view('transection.form3',compact('transection','project','types'));
-    }
-
-    public function createPayBack(Request $request,Project $project,Transection $transection)
-    {
-        $types = TypeEnum::cases();
-
-        return view('transection.paybackform',compact('transection','project','types'));
+        return view('transection.form',compact('transection','project','categories','type','types'));
     }
 
     /**

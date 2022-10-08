@@ -19,6 +19,7 @@ return new class extends Migration
 
             $table->string('name');
             $table->text('description');
+            $table->string('type');
             $table->integer('total')->nullable();
 
             $table->timestamps();
