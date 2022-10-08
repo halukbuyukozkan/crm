@@ -8,6 +8,7 @@ use App\Observers\TransectionObserver;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Transection extends Model
@@ -35,6 +36,11 @@ class Transection extends Model
     public function transection_category(): BelongsTo
     {
         return $this->belongsTo(TransectionCategory::class);
+    }
+
+    public function transection_item():HasMany
+    {
+        return $this->hasMany(TransectionItem::class);
     }
 
 }
