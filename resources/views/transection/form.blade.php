@@ -1,6 +1,8 @@
 @section('title') 
 @if($type == $types[0]->value)
 Avans Talebi Oluştur
+@elseif($type == $types[1]->value)
+Avans Kapatma Talebi Oluştur
 @elseif($type == $types[2]->value)
 Masraf Talebi Oluştur
 @endif
@@ -21,6 +23,8 @@ Masraf Talebi Oluştur
             <div class="col-md-10">
                 @if($type == $types[0]->value)
                 <h5 class="card-title">Avans Talebi Oluştur</h5>
+                @elseif($type == $types[1]->value)
+                <h5 class="card-title">Avans Kapatma Talebi Oluştur</h5>
                 @elseif($type == $types[2]->value)
                 <h5 class="card-title">Masraf Talebi Oluştur</h5>
                 @endif
