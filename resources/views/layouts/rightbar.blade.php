@@ -43,18 +43,6 @@
                                     <a href="{{url('/dashboard')}}" class="logo logo-large"><img src="{{asset('img/logo.png')}}" class="img-fluid" alt="logo"></a>
                                 </div>
                             </li>
-                            <li class="list-inline-item">
-                                <div class="searchbar">
-                                    <form>
-                                        <div class="input-group">
-                                          <input type="search" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="button-addon2">
-                                          <div class="input-group-append">
-                                            <button class="btn" type="submit" id="button-addon2"><i class="ri-search-2-line"></i></button>
-                                          </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </li>
                         </ul>
                     </div>
                     <div class="infobar">
