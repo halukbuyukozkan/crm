@@ -73,6 +73,23 @@ Masraf Talebi Oluştur
                 <input type="integer" class="form-control @error('price') is-invalid @enderror" id="price" name="price"
                     value="{{ old('price', $transection->price) }}" required>
             </div>
+            @if($type == $types[1]->value || $type == $types[2]->value)
+            <div class="form-group">
+                <label for="filename">{{ __('Dosya Ekle') }}</label>
+                <input id="filename" type="file" class="form-control" name="filename[]" value="{{ $transection->files }}" autocomplete="filename" multiple>
+
+                @if ($transection->files)
+                    @foreach ($transection->files as $file)
+                        <img src="{{ asset($file->name) }}" alt="{{ $file->name}}"
+                        class="mx-3 my-2" style="max-height: 100px">
+                    @endforeach
+                @endif
+
+                @error('filename')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
+            </div>
+            @endif
             <input type="hidden" class="form-control @error('type') is-invalid @enderror" id="type" name="type"
                     @if($type == $types[0]->value) value="{{ $types[0]->value }}" @elseif($type == $types[2]->value) value="{{ $types[2]->value }}"  @endif required>
             <input type="hidden" class="form-control @error('is_income') is-invalid @enderror" id="is_income" name="is_income"

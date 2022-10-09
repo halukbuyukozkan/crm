@@ -38,7 +38,7 @@ class Transection extends Model
         return $this->belongsTo(TransectionCategory::class);
     }
 
-    public function transection_item():HasMany
+    public function transection_items():HasMany
     {
         return $this->hasMany(TransectionItem::class);
     }

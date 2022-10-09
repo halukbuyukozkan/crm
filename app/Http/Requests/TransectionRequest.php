@@ -30,6 +30,7 @@ class TransectionRequest extends FormRequest
             'type' => 'required|string',
             'is_income' => 'required',
             'is_completed' => 'required',
+            'filename.*' => 'nullable|mimes:doc,pdf,docx,zip,jpg,png,jpeg',
         ];
     }
 }

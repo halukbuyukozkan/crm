@@ -39,6 +39,7 @@
                         <table class="table table-striped table-bordered" id="edit-btn">
                             <thead>
                               <tr>
+                                <th>test</th>
                                 <th>Onaylayan</th>
                                 <th>Kategori</th>
                                 <th>Tip</th>
@@ -52,6 +53,7 @@
                                 @if($transections)
                                     @forelse ($transections as $transection)
                                     <tr>
+                                        <td><a href="{{ route('admin.project.transection.show',['project' => $project,'transection' => $transection]) }}">test</a></td>
                                         <td style="width: 40%">{{ $transection->payer ? $transection->payer : '-' }}</td>
                                         <td>-</td>
                                         <td>{{ $transection->type->value }}</td>

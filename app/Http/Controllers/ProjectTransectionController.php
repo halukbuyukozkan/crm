@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\TransectionRequest;
 use App\Models\TransectionCategory;
+use App\Models\TransectionItem;
 
 class ProjectTransectionController extends Controller
 {
@@ -55,11 +56,29 @@ class ProjectTransectionController extends Controller
             'is_completed' => $data['is_completed'],
             'type' => $data['type'],
         ]);
+
         if($transection->is_income == 0) {
             $transection->price = $transection->price * -1;
             $transection->update();
         }
 
+        if($request->hasfile('filename'))
+        {
+
+        foreach($request->file('filename') as $file)
+        {
+            $name=$file->getClientOriginalName();
+            $name = md5($name) . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path().'/files/', $name);   
+
+            $file= new TransectionItem();
+            $file->transection_id=$transection->id;
+            $file->filename= $name;
+             
+            $file->save();
+        }
+        }
+        
         return redirect()->route('admin.project.show',$project)->with('success', 'Transection created successfully');
     }
 
@@ -69,9 +88,9 @@ class ProjectTransectionController extends Controller
      * @param  \App\Models\Transection  $transection
      * @return \Illuminate\Http\Response
      */
-    public function show(Transection $transection)
+    public function show(Project $project,Transection $transection)
     {
-        //
+        return view('transection.show',compact('transection'));
     }
 
     /**
