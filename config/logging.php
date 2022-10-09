@@ -1,5 +1,6 @@
 <?php
 
+use App\Logging\Formatter;
 use Monolog\Handler\NullHandler;
 use Monolog\Handler\StreamHandler;
 use Monolog\Handler\SyslogUdpHandler;
@@ -116,6 +117,12 @@ return [
 
         'emergency' => [
             'path' => storage_path('logs/laravel.log'),
+        ],
+
+        'transection' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/transection.log'),
+            'level' => 'debug',
         ],
     ],
 

@@ -20,29 +20,31 @@
 - email
 - balance
 
-# MoneyRequest
+
+////////// PROJECT
+# Project
 - id 
 - user_id
 - name
+- type enum(AVANS,MASRAF)
+- description
 
-# MoneyRequestItem
-- id
-- money_request_id
-- type_id
-- price
-
-# Type
+# transection
 - id 
-- name
-- type_id
-
-# MoneyMovement 
-- id 
-- money_request_id
-- user_id 
-- user_id2
+- project_id
+- category_id->nullable
+- type->enum (AVANS,MASRAF,İADE)
+- payer nullable
+- payee nullable // Parayı alan kişi
 - price
 - is_income
+- status->enum (WAITING,COMPLETED,CANCELLED)
+
+# transection category
+- id
+- name
+
+////////// JOB
 
 # Job 
 - id 
@@ -69,3 +71,27 @@
 
 
 
+
+
+
+
+
+
+/////// ESKi
+
+# MoneyRequest
+- id 
+- user_id
+- name
+- description
+
+# MoneyRequestItem
+- id
+- money_request_id
+- type_id
+- price
+
+# Type
+- id 
+- name
+- type_id

@@ -109,7 +109,7 @@ CRM
                                 @empty
                                     <tr>
                                         <td colspan="99" class="text-center text-muted">
-                                            {{ __('No Jobs') }}
+                                            {{ __('Görev Bulunamadı') }}
                                         </td>
                                     </tr>
                                 @endforelse
@@ -166,7 +166,7 @@ CRM
                                     @empty
                                         <tr>
                                             <td colspan="99" class="text-center text-muted">
-                                                {{ __('No Jobs') }}
+                                                {{ __('Görev Bulunamadı') }}
                                             </td>
                                         </tr>
                                     @endforelse
@@ -224,8 +224,8 @@ CRM
                             </div>
                         </div>
                         <div class="mt-5">
-                            <a href="{{ route('admin.moneyrequest.index') }}"><button class="btn btn-primary btn-lg btn-block">Avans Talebi Oluştur</button></a>
-                            <a href="{{ route('admin.moneyrequest.index') }}"><button class="btn btn-primary btn-lg btn-block mt-2">Masraf Talebi Oluştur</button></a>
+                            <a href="#"><button class="btn btn-primary btn-lg btn-block">Avans Talebi Oluştur</button></a>
+                            <a href="#"><button class="btn btn-primary btn-lg btn-block mt-2">Masraf Talebi Oluştur</button></a>
                         </div>
                     </div>
                 </div>
@@ -259,7 +259,7 @@ CRM
                             <h5 class="card-title">Onay Bekleyen Avans/Masraf Taleplerim</h5>
                         </div>
                         <div class="col-md-4 text-right">
-                            <a href="{{ route('admin.moneyrequest.create') }}"><button class="btn btn-primary">Avans Talebi Oluştur</button></a>    
+                            <a href="{{ route('admin.project.create') }}"><button class="btn btn-primary">Talep Adı Oluştur</button></a>    
                         </div>
                     </div>
                 </div>
@@ -269,21 +269,24 @@ CRM
                             <thead>
                               <tr>
                                 <th>Başlık</th>
-                                <th>Kullanıcı</th>
-                                <th>İşlemler</th>
+                                <th>Açıklama</th>
+                                <th>Tür</th>
+                                <th>Oluşturan</th>
+                                <th>Toplam Tutar</th>
+                                <th>Eylemler</th>
                               </tr>
                             </thead>
                             <tbody>
-                                @foreach ($moneyrequests as $request)
+                                @forelse ($projects->take(5) as $project)
                                 <tr>
-                                    <td style="width: 40%">{{ $request->name }}</td>
-                                    <td>{{ $request->user->name }}</td>
-                                    <td style="width: 30%">
-                                        @if($request->user->id == Auth::user()->id)
-                                        <a href="{{ route('admin.moneyrequest.edit',$request) }}"><button class="btn btn-sm btn-primary">
-                                            <i class="ri-pencil-line"></i>
-                                        </button></a>
-                                        <form action="{{ route('admin.moneyrequest.destroy', $request) }}" method="POST"
+                                    <td style="width: 20%"><a href="{{ route('admin.project.show',$project) }}">{{ $project->name }}</a></td>
+                                    <td>{{ $project->description }}</td>
+                                    <td>{{ $project->type }}</td>
+                                    <td>{{ $project->user->name }}</td>
+                                    <td>{{ $project->total }}</td>
+                                    <td style="width: 15%">
+                                        @if(Auth::user()->hasAnyPermission('Ödeme Talebi Kabul Etme'))
+                                        <form action="{{ route('admin.project.destroy', $project) }}" method="POST"
                                         class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
                                         @csrf
                                         @method('DELETE')
@@ -291,27 +294,36 @@ CRM
                                                 <i class="ri-delete-bin-line"></i>
                                             </button>
                                         </form>
-                                        @elseif(Auth::user()->hasRole('Başkan'))
-                                        <a href="{{ route('admin.moneyrequest.edit',$request) }}"><button class="btn btn-sm btn-primary">
-                                            <i class="ri-check-line"></i>
-                                        </button></a>
-                                        <a href="{{ route('admin.moneyrequest.edit',$request) }}"><button class="btn btn-sm btn-danger">
-                                            <i class="ri-close-line"></i>
-                                        </button></a>
                                         @endif
                                     </td>
-                                </tr>  
-                                @endforeach
+                                </tr>
+                                @empty
+                                <tr>
+                                    <td colspan="99" class="text-center text-muted">
+                                        {{ __('İş Bulunamadı') }}
+                                    </td>
+                                </tr>
+                                @endforelse
                             </tbody>
                         </table>
                     </div>
-
+                    @if($projects)
+                        @if($projects->count() > 5)
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="text-center">
+                                    <a href="{{ route('admin.project.index') }}">Tümünü gör</a>
+                                </div>
+                            </div>
+                        </div>
+                        @endif
+                    @endif
                 </div>
             </div>
         </div>
         <!-- End col -->
-
     </div>
+
     <div class="row">
         <div class="col-lg-12 my-4">
             <div class="card m-b-30">

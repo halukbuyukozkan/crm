@@ -17,7 +17,7 @@ Görevler
         <div class="col-lg-12">
             @if(Auth::user()->hasAnyPermission('Genel Görev Atama'))
             <div class="text-right mb-4">
-                <a href="{{ route('admin.job.create') }}"><button class="btn btn-primary">Görevi Oluştur</button></a> 
+                <a href="{{ route('admin.job.create') }}"><button class="btn btn-primary">Görev Oluştur</button></a> 
                 <a href="{{ route('admin.status.index') }}"><button class="btn btn-primary">Durumlar</button></a>    
             </div>
             @endif
@@ -105,7 +105,7 @@ Görevler
                                 @empty
                                     <tr>
                                         <td colspan="99" class="text-center text-muted">
-                                            {{ __('No Jobs') }}
+                                            {{ __('Görev Bulunamadı') }}
                                         </td>
                                     </tr>
                                 @endforelse
@@ -199,7 +199,7 @@ Görevler
                                 @empty
                                     <tr>
                                         <td colspan="99" class="text-center text-muted">
-                                            {{ __('No Jobs') }}
+                                            {{ __('Görev Bulunamadı') }}
                                         </td>
                                     </tr>
                                 @endforelse
@@ -289,7 +289,7 @@ Görevler
                                 @empty
                                     <tr>
                                         <td colspan="99" class="text-center text-muted">
-                                            {{ __('No Jobs') }}
+                                            {{ __('Görev Bulunamadı') }}
                                         </td>
                                     </tr>
                                 @endforelse
@@ -375,7 +375,7 @@ Görevler
                                 @empty
                                     <tr>
                                         <td colspan="99" class="text-center text-muted">
-                                            {{ __('No Jobs') }}
+                                            {{ __('Görev Bulunamadı') }}
                                         </td>
                                     </tr>
                                 @endforelse

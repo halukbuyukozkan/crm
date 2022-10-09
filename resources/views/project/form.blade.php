@@ -1,5 +1,5 @@
 @section('title') 
-Yeni Ödeme Talebi
+Talep Oluştur
 @endsection 
 @extends('layouts.main')
 @section('style')
@@ -13,31 +13,47 @@ Yeni Ödeme Talebi
 <!-- Start Contentbar -->    
 <div class="contentbar">   
     
+    <div class="card-header">
+        <div class="row">
+            <div class="col-md-10">
+                <h5 class="card-title">Talep Oluştur</h5>
+            </div>
+        </div>
+    </div>
     <form method="post" enctype="multipart/form-data"
-    action="{{ $moneyRequestItem->exists ? route('admin.moneyrequest.update', $moneyRequestItem) : route('admin.moneyrequest.store') }}">
+    action="{{ $project->exists ? route('admin.project.update', $project) : route('admin.project.store') }}">
     @csrf
-    @if ($moneyRequestItem->exists)
+    @if ($project->exists)
         @method('PUT')
     @endif
     <div class="card m-b-30">
-        <div class="card-header">
-            <h5 class="card-title">Ödeme Talebi Formu</h5>
-        </div>
         <div class="card-body ">
             <h6 class="card-subtitle"><strong>İsim</strong></h6>
             <div class="form-group mb-4">
                 <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name"
-                    value="{{ old('name', $moneyRequest->name) }}" required>
+                    value="{{ old('name', $project->name) }}" required>
             </div>
-            <h4 class="card-subtitle my-4 mt-5"><strong>Talep Edilen Tutar</strong></h4>
-            @foreach ($types as $type)
-            <h6 class="card-subtitle"><strong>{{ $type->name }}</strong></h6>
+            <h6 class="card-subtitle"><strong>Açıklama</strong></h6>
             <div class="form-group mb-4">
-                <input type="number" class="form-control @error('price') is-invalid @enderror" id="price" name="price[]"
-                    value="{{ old('price', $moneyRequestItem->price) }}">
+                <input type="text" class="form-control @error('description') is-invalid @enderror" id="description" name="description"
+                    value="{{ old('description', $project->description) }}" required>
             </div>
-            <input name="type_id[]" type="hidden" value="{{ $type->id }}">
-            @endforeach
+            <h6 class="card-subtitle"><strong>Talep Türü</strong></h6>
+            <div class="form-group">
+                <select class="form-control @error('type') is-invalid @enderror" id="type"
+                    name="type">
+                    @foreach ($types as $type)
+                        <option value="{{ $type->value }}">
+                            {{ $type->value }}
+                        </option>
+                    @endforeach
+                </select>
+                @error('type')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div> 
         </div>
         <div class="card-footer">
             <button type="submit" class="btn btn-primary">

@@ -64,6 +64,21 @@ Yeni Görev
                 <input type="date" class="form-control @error('deadline') is-invalid @enderror" id="deadline" name="deadline"
                     value="{{ old('deadline', $job->deadline) }}">
             </div>
+            <div class="form-group">
+                <label for="images">{{ __('Dosya Ekle') }}</label>
+                <input id="images" type="file" class="form-control" name="images[]" value="{{ $job->images }}" autocomplete="images" multiple>
+
+                @if ($job->images)
+                    @foreach ($job->images as $image)
+                        <img src="{{ asset($image->url) }}" alt="{{ $image->url}}"
+                        class="mx-3 my-2" style="max-height: 100px">
+                    @endforeach
+                @endif
+
+                @error('image')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
+            </div>
         </div>
         <div class="card-footer">
             <button type="submit" class="btn btn-primary">

@@ -13,12 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('money_request_items', function (Blueprint $table) {
+        Schema::create('transection_categories', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('money_request_id')->constrained();
-            $table->foreignId('type_id')->constrained();
 
-            $table->integer('price');
+            $table->string('name');
 
             $table->timestamps();
         });
@@ -31,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('money_request_items');
+        Schema::dropIfExists('transection_categories');
     }
 };

@@ -2,15 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Information;
 use App\Models\Job;
 use App\Models\Message;
-use App\Models\MoneyRequest;
-use App\Models\User;
-use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Builder;
+use App\Models\Project;
+use App\Models\Information;
+use App\Models\Transection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Builder;
 
 class FrontController extends Controller
 {
@@ -23,14 +22,26 @@ class FrontController extends Controller
     {
         $messages = Message::all();
         $informations = Information::all();
-        $user = Auth::user();
-        if($user->hasPermissionTo('Ödeme Talebi Kabul etme'))
-        {
-            $moneyrequests = MoneyRequest::all();
-        }else{
-            $moneyrequests = $user->moneyrequests;
-        }
+        $user = Auth::user();      
 
+        $jobs = $this->job($user);
+        $jobs = $jobs->map(function($item){
+            $item->deadline = date('d.m.Y', strtotime($item->deadline));
+            return $item;
+        });
+
+        $myjobs = Auth::user()->jobs;
+        $otherjobs = $jobs->diff($myjobs);
+
+        $projects = Project::OfProject()->get();
+
+        $this->totalprice($projects);
+        
+        return view('index',compact('messages','projects','myjobs','otherjobs','informations','user'));
+    }
+
+    public function job($user)
+    {
         if(Auth::user()->hasAnyPermission('Genel Görev Atama')) {
             $jobs = Job::whereHas('users', function (Builder $query) {
                 $query->whereHas('department', function (Builder $query) {
@@ -40,18 +51,24 @@ class FrontController extends Controller
             $jobs = $jobs->merge(Job::where('created_by',Auth::user()->name)->get());
         }else {
             $jobs = Auth::user()->jobs;
-        }         
-
+        }   
         
-        $jobs = $jobs->map(function($item){
-            $item->deadline = date('d.m.Y', strtotime($item->deadline));
-            return $item;
-        });
+        return $jobs;
+    }
 
-        $myjobs = Auth::user()->jobs;
-        $otherjobs = $jobs->diff($myjobs);
-
-        return view('index',compact('messages','moneyrequests','myjobs','otherjobs','informations','user'));
+    public function totalprice($projects)
+    {
+        $totals = $projects->map(function($project){
+            $transections = $project->transections->filter(function($value){
+                return $value->status->value == 'tamamlandı';
+            });
+            $price = $transections->map(function($transection){
+                return ($transection->price);
+            });
+            $price = $price->sum();
+            $project->total = $price;
+            $project->update();
+        });        
     }
 
     /**
