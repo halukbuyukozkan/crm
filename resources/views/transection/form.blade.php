@@ -5,7 +5,9 @@ Avans Talebi Oluştur
 Avans Kapatma Talebi Oluştur
 @elseif($type == $types[2]->value)
 Masraf Talebi Oluştur
-@elseif($type == $types[2]->value)
+@elseif($type == $types[3]->value)
+Ödeme Oluştur
+@elseif($type == $types[4]->value)
 İade Talebi Oluştur
 @endif
 @endsection 
@@ -30,6 +32,8 @@ Masraf Talebi Oluştur
                 @elseif($type == $types[2]->value)
                 <h5 class="card-title">Masraf Talebi Oluştur</h5>
                 @elseif($type == $types[3]->value)
+                <h5 class="card-title">Ödeme Oluştur</h5>
+                @elseif($type == $types[4]->value)
                 <h5 class="card-title">İade Talebi Oluştur</h5>
                 @endif
             </div>
@@ -82,11 +86,18 @@ Masraf Talebi Oluştur
                 @enderror
             </div> 
             @endif
+
             <h6 class="card-subtitle"><strong>Miktar</strong></h6>
             <div class="form-group mb-4">
                 <input type="integer" class="form-control @error('price') is-invalid @enderror" id="price" name="price"
                     value="{{ old('price', $transection->price) }}" required>
+                @error('price')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
             </div>
+
             @if($type == $types[1]->value || $type == $types[2]->value)
             <div class="form-group">
                 <label for="filename">{{ __('Dosya Ekle') }}</label>
@@ -105,7 +116,12 @@ Masraf Talebi Oluştur
             </div>
             @endif
             <input type="hidden" class="form-control @error('type') is-invalid @enderror" id="type" name="type"
-                    @if($type == $types[0]->value) value="{{ $types[0]->value }}" @elseif($type == $types[2]->value) value="{{ $types[2]->value }}" @elseif($type == $types[1]->value) value="{{ $types[1]->value }}" @elseif($type == $types[3]->value) value="{{ $types[3]->value }}" @endif required>
+                    @if($type == $types[0]->value) value="{{ $types[0]->value }}" 
+                    @elseif($type == $types[2]->value) value="{{ $types[2]->value }}" 
+                    @elseif($type == $types[1]->value) value="{{ $types[1]->value }}" 
+                    @elseif($type == $types[3]->value) value="{{ $types[3]->value }}" 
+                    @elseif($type == $types[4]->value) value="{{ $types[4]->value }}" 
+                    @endif required>
             <input type="hidden" class="form-control @error('is_income') is-invalid @enderror" id="is_income" name="is_income"
                     @if($type == $types[0]->value || $type == $types[2]->value) value="1" @elseif($type == $types[1]->value || $type == $types[3]->value) value="0" @endif  required>
             <input type="hidden" class="form-control @error('is_completed') is-invalid @enderror" id="is_completed" name="is_completed"
