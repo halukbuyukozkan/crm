@@ -54,13 +54,13 @@
                                     @forelse ($transections as $transection)
                                     <tr>
                                         <td><a href="{{ route('admin.project.transection.show',['project' => $project,'transection' => $transection]) }}">test</a></td>
-                                        <td style="width: 40%">{{ $transection->payer ? $transection->payer : '-' }}</td>
+                                        <td style="width: 25%">{{ $transection->payer ? $transection->payer : '-' }}</td>
                                         <td>-</td>
                                         <td>{{ $transection->type->value }}</td>
                                         <td>{{ $transection->project->user->name }}</td>
                                         <td>{{ $transection->price }}</td>
                                         <td>{{ $transection->status->value }}</td>
-                                        <td>
+                                        <td style="width: 20%">
                                             @if(Auth::user()->hasAnyPermission('Ödeme Talebi Kabul Etme'))
                                             @if($transection->status->value == 'beklemede')
                                             <form action="{{ route('admin.transectionapprove',['transection' => $transection]) }}" method="POST"

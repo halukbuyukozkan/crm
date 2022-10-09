@@ -57,14 +57,16 @@ class ProjectTransectionController extends Controller
             'type' => $data['type'],
         ]);
 
+        if(Auth::user()->hasAnyPermission('Ödeme Gerçekleştirme')){
+            $transection->status = 'onaylandı';
+        }
+
         if($transection->is_income == 0) {
             $transection->price = $transection->price * -1;
             $transection->update();
         }
 
-        if($request->hasfile('filename'))
-        {
-
+        if($request->hasfile('filename')) {
         foreach($request->file('filename') as $file)
         {
             $name=$file->getClientOriginalName();
@@ -76,8 +78,7 @@ class ProjectTransectionController extends Controller
             $file->filename= $name;
              
             $file->save();
-        }
-        }
+        }}
         
         return redirect()->route('admin.project.show',$project)->with('success', 'Transection created successfully');
     }
