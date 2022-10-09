@@ -65,17 +65,17 @@ Yeni Görev
                     value="{{ old('deadline', $job->deadline) }}">
             </div>
             <div class="form-group">
-                <label for="images">{{ __('Dosya Ekle') }}</label>
-                <input id="images" type="file" class="form-control" name="images[]" value="{{ $job->images }}" autocomplete="images" multiple>
+                <label for="filename">{{ __('Dosya Ekle') }}</label>
+                <input id="filename" type="file" class="form-control" name="filename[]" value="{{ $job->filename }}" autocomplete="filename" multiple>
 
-                @if ($job->images)
-                    @foreach ($job->images as $image)
-                        <img src="{{ asset($image->url) }}" alt="{{ $image->url}}"
+                @if ($job->filename)
+                    @foreach ($job->filename as $file)
+                        <img src="{{ asset($file->name) }}" alt="{{ $file->name}}"
                         class="mx-3 my-2" style="max-height: 100px">
                     @endforeach
                 @endif
 
-                @error('image')
+                @error('filename')
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
             </div>

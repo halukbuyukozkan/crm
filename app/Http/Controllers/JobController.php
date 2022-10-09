@@ -10,6 +10,7 @@ use App\Models\Status;
 use App\Models\Department;
 use Illuminate\Http\Request;
 use App\Http\Requests\JobRequest;
+use App\Models\JobItem;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -89,13 +90,21 @@ class JobController extends Controller
 
         $job->users()->sync($data['users'] ?? []);
 
-        foreach ($request->file('images') as $imagefile) {
-            $image = new Image;
-            $path = $imagefile->store('/images/resource', ['disk' =>   'my_files']);
-            $image->url = $path;
-            $image->job_id = $job->id;
-            $image->save();
-        }
+        if($request->hasfile('filename')) {
+        foreach($request->file('filename') as $file)
+        {
+            $name=$file->getClientOriginalName();
+            $name = md5($name) . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path().'/files/job/', $name);   
+
+            $file= new JobItem();
+            $file->job_id = $job->id;
+            $file->filename= $name;
+                
+            $file->save();
+        }}
+
+    
 
         return redirect()->route('admin.job.index')->with('success', 'Görev başarıyla oluşturuldu.');
     }

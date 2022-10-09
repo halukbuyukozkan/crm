@@ -300,7 +300,7 @@ CRM
                                 @empty
                                 <tr>
                                     <td colspan="99" class="text-center text-muted">
-                                        {{ __('İş Bulunamadı') }}
+                                        {{ __('Talep Bulunamadı') }}
                                     </td>
                                 </tr>
                                 @endforelse

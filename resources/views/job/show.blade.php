@@ -45,13 +45,14 @@ Görevler
                     </div>
                 </div>
                 <div class="card-body">
-                    @if ($job->images)
-                        @foreach ($job->images as $image)
-                            <img src="{{ asset($image->url) }}" alt="{{ $image->url}}"
+                    @if($job->job_items)
+                        @foreach ($job->job_items as $item)
+                        <a href="{{ asset('files/job/'.$item->filename) }}" download="{{ $item->filename }}">
+                            <img src="{{ asset('files/job/'.$item->filename) }}" alt="{{ $item->filename}}"
                             class="mx-3" style="max-height: 100px">
+                        </a>
                         @endforeach
                     @endif
-                    
                 </div>
             </div>
         </div>
