@@ -36,11 +36,19 @@ class Project extends Model
     {
         if(Auth::user()->hasPermissionTo('Ödeme Talebi Kabul Etme'))
         {
-            return $query;
+            return $query->whereHas('user',function(Builder $query){
+                $query->whereHas('department',function(Builder $query){
+                    $query->where('name',Auth::user()->department->name);
+                });
+            });
         }elseif(Auth::user()->hasPermissionTo('Ödeme Gerçekleştirme'))
         {
             return $query;
-        }else {
+        }elseif(Auth::user()->hasPermissionTo('Yetkili Ödeme Talep Kabul Etme'))
+        {
+            return $query;
+        }else
+        {
             return $query->where('user_id',Auth::user()->id);
         }
     }

@@ -8,6 +8,7 @@ use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\ProjectRequest;
+use Illuminate\Database\Eloquent\Builder;
 
 class ProjectController extends Controller
 {
@@ -19,7 +20,15 @@ class ProjectController extends Controller
     public function index()
     {
         $projects = Project::OfProject()->get();
-        
+
+        $superior_projects = Project::whereHas('user', function (Builder $query) {
+            $query->permission('Ödeme Talebi Kabul Etme');
+        })->get(); 
+
+        if(Auth::user()->hasAnyPermission('Yetkili Ödeme Talep Kabul Etme')){
+            $projects = $superior_projects;
+        }
+
         return view('project.index',compact('projects'));
     }
 

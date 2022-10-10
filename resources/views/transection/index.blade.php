@@ -64,9 +64,9 @@
                                         <td>{{ $transection->status->value }}</td>
                                         <td style="width: 20%">
 
-                                        @if(Auth::user()->hasAnyPermission('Ödeme Talebi Kabul Etme'))
+                                        @if(Auth::user()->hasAnyPermission('Ödeme Talebi Kabul Etme') || Auth::user()->hasAnyPermission('Yetkili Ödeme Talep Kabul Etme' ))
 
-                                            @if($transection->status->value == 'beklemede')
+                                            @if($transection->status->value == 'beklemede' && $transection->project->user->id != Auth::user()->id)
                                             <form action="{{ route('admin.transectionapprove',['transection' => $transection]) }}" method="POST"
                                             class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
                                             @csrf
