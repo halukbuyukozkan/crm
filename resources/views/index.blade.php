@@ -270,7 +270,8 @@ CRM
                                 <th>Açıklama</th>
                                 <th>Tür</th>
                                 <th>Oluşturan</th>
-                                <th>Toplam Tutar</th>
+                                <th>Talep Edilen Tutar</th>
+                                <th>Onaylanan Tutar</th>
                                 <th>Eylemler</th>
                               </tr>
                             </thead>
@@ -282,6 +283,7 @@ CRM
                                     <td>{{ $project->type }}</td>
                                     <td>{{ $project->user->name }}</td>
                                     <td style="width: 10%">{{ $project->total }}</td>
+                                    <td style="width: 10%">{{ $project->completedtotal }}</td>
                                     <td style="width: 15%">
                                         @if(Auth::user()->hasAnyPermission('Ödeme Talebi Kabul Etme'))
                                         <form action="{{ route('admin.project.destroy', $project) }}" method="POST"

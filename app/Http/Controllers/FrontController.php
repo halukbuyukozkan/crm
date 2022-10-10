@@ -46,7 +46,7 @@ class FrontController extends Controller
             $projects = $superior_projects;
         }
         //
-        $this->totalprice($projects);
+        $this->completedtotalprice($projects);
         
         return view('index',compact('messages','projects','myjobs','otherjobs','informations','user'));
     }
@@ -67,18 +67,15 @@ class FrontController extends Controller
         return $jobs;
     }
 
-    public function totalprice($projects)
+    public function completedtotalprice($projects)
     {
-        $totals = $projects->map(function($project){
-            $transections = $project->transections->filter(function($value){
-                return $value->status->value == 'tamamlandı';
-            });
-            $price = $transections->map(function($transection){
-                return ($transection->price);
-            });
-            $price = $price->sum();
-            $project->total = $price;
-            $project->update();
+        $projects->map(function($item) {
+            $project = new Project;
+            $completedtotal = $project->completedtotalprice($item);
+            $totalprice = $project->totalprice($item);
+            $item->completedtotal = $completedtotal;
+            $item->total = $totalprice;
+            $item->update();
         });        
     }
 

@@ -83,7 +83,7 @@ Görevler
                 <div class="card-header">
                     <div class="row">
                         <div class="col-md-8">
-                            <h5>Kullanıcı Bilgileri</h5>
+                            <h5>Durum Bilgisi</h5>
                         </div>
                     </div>
                 </div>

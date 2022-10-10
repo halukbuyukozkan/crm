@@ -3,18 +3,20 @@
 namespace App\Models;
 
 use App\Observers\ProjectObserver;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Symfony\Component\CssSelector\Node\FunctionNode;
 
 class Project extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id','name','description','type','total'];
+    protected $fillable = ['user_id','name','description','type','total','completedtotal'];
 
     public static function boot()
     {
@@ -52,4 +54,34 @@ class Project extends Model
             return $query->where('user_id',Auth::user()->id);
         }
     }
+
+    public function scopeOfCompleted(Builder $query)
+    {
+        return $query->whereHas('transections', function(Builder $query){
+            $query->where('status','tamamlandı');
+        });
+    }
+
+    public function completedtotalprice($project)
+    {
+        $completed = $project->transections->filter(function($item){
+            return $item->status->value == 'tamamlandı';
+        });
+
+        $price = $completed->map(function($transection){
+            return ($transection->price);
+        });
+        $price = $price->sum();
+        
+        return $price;
+    }
+    
+    public function totalprice($project)
+    {
+        $price = $project->transections->map(function($transection){
+            return ($transection->price);
+        });
+        $price = $price->sum();
+        return $price;
+    }   
 }

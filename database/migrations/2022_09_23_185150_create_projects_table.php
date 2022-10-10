@@ -21,6 +21,7 @@ return new class extends Migration
             $table->text('description');
             $table->string('type');
             $table->integer('total')->nullable();
+            $table->integer('completedtotal')->nullable();
 
             $table->timestamps();
         });

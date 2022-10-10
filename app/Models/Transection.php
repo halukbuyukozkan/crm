@@ -6,16 +6,18 @@ use App\Enum\TypeEnum;
 use App\Enum\StatusEnum;
 use App\Observers\TransectionObserver;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Transection extends Model
 {
     use HasFactory, SoftDeletes;
 
     protected $fillable = ['project_id','transection_category_id','type','payer','payee','price','is_income','status'];
+    protected $appends = ['total_price'];
 
     protected $casts = [
         'type' => TypeEnum::class,
@@ -41,6 +43,14 @@ class Transection extends Model
     public function transection_items():HasMany
     {
         return $this->hasMany(TransectionItem::class);
+    }
+
+    public function scopeOfCompleted(Builder $query,Project $project)
+    {
+        return $query->whereHas('project', function($query) use($project) {
+            $query->where('id',$project->id)
+            ->where('status','tamamlandı');
+        })->get();
     }
 
 }
