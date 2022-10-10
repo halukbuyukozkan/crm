@@ -45,7 +45,7 @@
                                 <th>Onaylayan</th>
                                 <th>Kategori</th>
                                 <th>Tip</th>
-                                <th>Kullanıcı</th>
+                                <th>Talep Eden</th>
                                 <th>Miktar</th>
                                 <th>Onay Durumu</th>
                                 <th>Eylemler</th>

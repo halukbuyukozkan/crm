@@ -24,6 +24,7 @@ class JobController extends Controller
     public function index()
     {
         $jobs = Job::OfJob()->get();
+
         if(Auth::user()->hasAnyPermission('Genel Görev Atama')) {
             $jobs = $jobs->merge(Job::where('created_by',Auth::user()->name)->get());
         }
@@ -35,7 +36,6 @@ class JobController extends Controller
 
         $myjobs = Auth::user()->jobs;
         $otherjobs = $jobs->diff($myjobs);
-
         $statuses = Status::all();
 
         return view('job.index',compact('myjobs','otherjobs','statuses'));

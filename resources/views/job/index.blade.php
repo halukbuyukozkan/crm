@@ -52,7 +52,7 @@ Görevler
                             <table class="table table-striped table-bordered" id="edit-btn">
                                 <thead>
                                   <tr>
-                                    <th>İsim</th>
+                                    <th>Görev Adı</th>
                                     <th>Görevi Veren</th>
                                     <th>Görevli</th>
                                     <th>Durum</th>

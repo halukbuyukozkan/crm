@@ -41,7 +41,7 @@ class Job extends Model
             }); 
         }else{
             return $query->whereHas('users',function (Builder $query) {
-                $query->where('id',Auth::user()->id);
+                $query->where('users.id',Auth::user()->id);
             });
         }
     }

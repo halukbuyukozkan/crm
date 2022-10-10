@@ -72,87 +72,34 @@ CRM
 
     <div class="row">
         <!-- Start col -->
-        <div class="col-lg-12 my-4">
+        <div class="col-lg-12">
             <div class="card m-b-30">
-                <div class="card-header">
-                    <div class="row">
-                        <div class="col-md-8">
-                            <h5>Görevlerim</h5>
-                        </div>
-                    </div>
-                </div>
                 <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-striped table-bordered" id="edit-btn">
-                            <thead>
-                              <tr>
-                                <th>İsim</th>
-                                <th>Görevi Veren</th>
-                                <th>Görevli</th>
-                                <th>Durum</th>
-                                <th>Başlangıç Tarihi</th>
-                                <th>Bitiş Tarihi</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                                @forelse ($myjobs->take(5) as $job)
-                                <tr>
-                                    <td><a href="{{ route('admin.job.show',$job) }}">{{ $job->name }}</a></td>
-                                    <td>{{ $job->created_by }}</td>
-                                    <td>@foreach ($job->users  as $user)
-                                        {{ $user->name }}
-                                    @endforeach</td>
-                                    <td>{{ $job->status->name }}</td>
-                                    <td>{{ $job->created_at->format('d.m.Y') }}</td>
-                                    <td>{{ $job->deadline }}</td>
-                                </tr>  
-                                @empty
+                    <ul class="nav nav-tabs custom-tab-line mb-3" id="defaultTabLine" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="home-tab-line" data-toggle="tab" href="#home-line" role="tab" aria-controls="home-line" aria-selected="true"><i class="ri-check-line"></i>Görevlerim</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="profile-tab-line" data-toggle="tab" href="#profile-line" role="tab" aria-controls="profile-line" aria-selected="false"><i class="ri-check-double-line mr-2"></i>Verilen Görevler</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="defaultTabContentLine">
+    
+                        <div class="tab-pane fade show active" id="home-line" role="tabpanel" aria-labelledby="home-tab-line">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered" id="edit-btn">
+                                    <thead>
                                     <tr>
-                                        <td colspan="99" class="text-center text-muted">
-                                            {{ __('Görev Bulunamadı') }}
-                                        </td>
+                                        <th>Görev Adı</th>
+                                        <th>Görevi Veren</th>
+                                        <th>Görevli</th>
+                                        <th>Durum</th>
+                                        <th>Başlangıç Tarihi</th>
+                                        <th>Bitiş Tarihi</th>
                                     </tr>
-                                @endforelse
-                            </tbody>
-                        </table>
-                    </div>
-                    @if($otherjobs)
-                        @if($otherjobs->count() > 5)
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="text-center">
-                                    <a href="{{ route('admin.job.index') }}">Tümünü gör</a>
-                                </div>
-                            </div>
-                        </div>
-                        @endif
-                    @endif
-                </div>
-            </div>
-            <div class="card m-b-30">
-                <div class="card-header">
-                    <div class="row">
-                        <div class="col-md-8">
-                            <h5>Verilen Görevler</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-striped table-bordered" id="edit-btn">
-                            <thead>
-                              <tr>
-                                <th>İsim</th>
-                                <th>Görevi Veren</th>
-                                <th>Görevli</th>
-                                <th>Durum</th>
-                                <th>Başlangıç Tarihi</th>
-                                <th>Bitiş Tarihi</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                                @if($otherjobs)
-                                    @forelse ($otherjobs->take(5) as $job)
+                                    </thead>
+                                    <tbody>
+                                        @forelse ($myjobs->take(5) as $job)
                                         <tr>
                                             <td><a href="{{ route('admin.job.show',$job) }}">{{ $job->name }}</a></td>
                                             <td>{{ $job->created_by }}</td>
@@ -163,32 +110,83 @@ CRM
                                             <td>{{ $job->created_at->format('d.m.Y') }}</td>
                                             <td>{{ $job->deadline }}</td>
                                         </tr>  
-                                    @empty
-                                        <tr>
-                                            <td colspan="99" class="text-center text-muted">
-                                                {{ __('Görev Bulunamadı') }}
-                                            </td>
-                                        </tr>
-                                    @endforelse
-                                @endif
-                            </tbody>
-                        </table>
-                    </div>
-                    @if($otherjobs)
-                        @if($otherjobs->count() > 5)
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="text-center">
-                                    <a href="{{ route('admin.job.index') }}">Tümünü gör</a>
-                                </div>
+                                        @empty
+                                            <tr>
+                                                <td colspan="99" class="text-center text-muted">
+                                                    {{ __('Görev Bulunamadı') }}
+                                                </td>
+                                            </tr>
+                                        @endforelse
+                                    </tbody>
+                                </table>
                             </div>
+                            @if($otherjobs)
+                                @if($otherjobs->count() > 5)
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="text-center">
+                                            <a href="{{ route('admin.job.index') }}">Tümünü gör</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                @endif
+                            @endif
                         </div>
-                        @endif
-                    @endif
+    
+                        <div class="tab-pane fade" id="profile-line" role="tabpanel" aria-labelledby="profile-tab-line">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered" id="edit-btn">
+                                    <thead>
+                                    <tr>
+                                        <th>Görev Adı</th>
+                                        <th>Görevi Veren</th>
+                                        <th>Görevli</th>
+                                        <th>Durum</th>
+                                        <th>Başlangıç Tarihi</th>
+                                        <th>Bitiş Tarihi</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if($otherjobs)
+                                            @forelse ($otherjobs->take(5) as $job)
+                                                <tr>
+                                                    <td><a href="{{ route('admin.job.show',$job) }}">{{ $job->name }}</a></td>
+                                                    <td>{{ $job->created_by }}</td>
+                                                    <td>@foreach ($job->users  as $user)
+                                                        {{ $user->name }}
+                                                    @endforeach</td>
+                                                    <td>{{ $job->status->name }}</td>
+                                                    <td>{{ $job->created_at->format('d.m.Y') }}</td>
+                                                    <td>{{ $job->deadline }}</td>
+                                                </tr>  
+                                            @empty
+                                                <tr>
+                                                    <td colspan="99" class="text-center text-muted">
+                                                        {{ __('Görev Bulunamadı') }}
+                                                    </td>
+                                                </tr>
+                                            @endforelse
+                                        @endif
+                                    </tbody>
+                                </table>
+                            </div>
+                            @if($otherjobs)
+                                @if($otherjobs->count() > 5)
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="text-center">
+                                            <a href="{{ route('admin.job.index') }}">Tümünü gör</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                @endif
+                            @endif
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-
+        
     </div>
 
     <div class="row">
@@ -280,10 +278,10 @@ CRM
                                 @forelse ($projects->take(5) as $project)
                                 <tr>
                                     <td style="width: 20%"><a href="{{ route('admin.project.show',$project) }}">{{ $project->name }}</a></td>
-                                    <td>{{ $project->description }}</td>
+                                    <td style="width: 30%">{{ $project->description }}</td>
                                     <td>{{ $project->type }}</td>
                                     <td>{{ $project->user->name }}</td>
-                                    <td>{{ $project->total }}</td>
+                                    <td style="width: 10%">{{ $project->total }}</td>
                                     <td style="width: 15%">
                                         @if(Auth::user()->hasAnyPermission('Ödeme Talebi Kabul Etme'))
                                         <form action="{{ route('admin.project.destroy', $project) }}" method="POST"

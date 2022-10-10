@@ -61,28 +61,6 @@ Talep detayları
             <div class="card m-b-30">
                 <div class="card-header">
                     <div class="row">
-                        <div class="col-md-12">
-                            <h6 class="card-title text-center">Kalan Gün Sayısı</h6>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-12 text-center">
-                            <h1>test</h1>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12 text-center">
-                            <h5>Teslim Tarihi</h5>
-                            <span>test</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card m-b-30">
-                <div class="card-header">
-                    <div class="row">
                         <div class="col-md-8">
                             <h5>Kullanıcı Bilgileri</h5>
                         </div>

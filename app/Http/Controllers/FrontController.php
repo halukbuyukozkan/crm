@@ -24,17 +24,28 @@ class FrontController extends Controller
         $informations = Information::all();
         $user = Auth::user();      
 
-        $jobs = $this->job($user);
+        // JOBS
+        $jobs = Job::OfJob()->get();
+        if(Auth::user()->hasAnyPermission('Genel Görev Atama')) {
+            $jobs = $jobs->merge(Job::where('created_by',Auth::user()->name)->get());
+        }
         $jobs = $jobs->map(function($item){
             $item->deadline = date('d.m.Y', strtotime($item->deadline));
             return $item;
         });
-
         $myjobs = Auth::user()->jobs;
         $otherjobs = $jobs->diff($myjobs);
 
+        // PROJECTS 
         $projects = Project::OfProject()->get();
+        $superior_projects = Project::whereHas('user', function (Builder $query) {
+            $query->permission('Ödeme Talebi Kabul Etme');
+        })->get(); 
 
+        if(Auth::user()->hasAnyPermission('Yetkili Ödeme Talep Kabul Etme')){
+            $projects = $superior_projects;
+        }
+        //
         $this->totalprice($projects);
         
         return view('index',compact('messages','projects','myjobs','otherjobs','informations','user'));
