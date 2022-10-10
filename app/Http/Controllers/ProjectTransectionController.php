@@ -165,17 +165,12 @@ class ProjectTransectionController extends Controller
     public function reverse(Transection $transection)
     {
         if($transection->status->name == 'COMPLETED') {
-            if($transection->type->value == 'Masraf Talebi') {
                 $user = $transection->project->user;
                 $user->balance = $transection->project->user->balance - $transection->price;
                 $user->save();
 
                 $transection->status = StatusEnum::cases()[1]->value; //onaylandı
                 $transection->save();
-            }else{
-                $transection->status = StatusEnum::cases()[0]->value; //beklemede
-                $transection->save();
-            }
         }
 
         elseif($transection->status->name == 'APPROVED'){
