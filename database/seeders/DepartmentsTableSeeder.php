@@ -33,6 +33,13 @@ class DepartmentsTableSeeder extends Seeder
                 'created_at' => '2022-09-21 10:34:34',
                 'updated_at' => '2022-09-21 10:34:34',
             ),
+            2 => 
+            array (
+                'id' => 3,
+                'name' => 'Mali ve İdari İşler',
+                'created_at' => '2022-10-10 10:14:27',
+                'updated_at' => '2022-10-10 10:14:27',
+            ),
         ));
         
         

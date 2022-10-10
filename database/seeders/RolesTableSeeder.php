@@ -58,7 +58,7 @@ class RolesTableSeeder extends Seeder
             4 => 
             array (
                 'id' => 8,
-                'name' => 'Mali ve İdari İşler Müdürü',
+                'name' => 'Mali ve İdari İşler Direktörü',
                 'guard_name' => 'web',
                 'order' => 8,
                 'created_at' => '2022-09-12 18:37:37',

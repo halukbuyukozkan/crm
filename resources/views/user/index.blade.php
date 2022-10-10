@@ -22,7 +22,7 @@ Kullanıcılar
                             <h5 class="card-title">Kullanıcılar</h5>
                         </div>
                         <div class="col-md-2 text-right">
-                            <a href="{{ route('admin.role.create') }}"><button class="btn btn-primary">Kullanıcı Oluştur</button></a>    
+                            <a href="{{ route('admin.user.create') }}"><button class="btn btn-primary">Kullanıcı Oluştur</button></a>    
                         </div>
                     </div>
                 </div>

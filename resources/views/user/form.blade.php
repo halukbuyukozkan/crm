@@ -34,8 +34,7 @@ Yeni Kullanıcı
                     </span>
                 @enderror
             </div>
-            <h6 class="card-subtitle"><strong>Email</strong></h6>
-            <div class="form-group">
+            <div class="form-group mb-4">
                 <label for="email">{{ __('Email') }}</label>
                 <input type="email" class="form-control @error('email') is-invalid @enderror" id="email"
                     name="email" value="{{ $user->email }}" required>
@@ -45,13 +44,12 @@ Yeni Kullanıcı
                     </span>
                 @enderror
             </div>
-            <h6 class="card-subtitle"><strong>Doğum Tarihi</strong></code></h6>
-            <div class="form-group mb-0">
+            <div class="form-group mb-4">
+                <label for="email">{{ __('Doğum Tarihi') }}</label>
                 <input type="date" class="form-control" name="birthdate" id="birthdate">
             </div>
-            <h6 class="card-subtitle"><strong>Şifre</strong></h6>
-            <div class="form-group">
-                <label for="password">{{ __('Password') }}</label>
+            <div class="form-group mb-4">
+                <label for="password">{{ __('Şifre') }}</label>
                 <input type="password" class="form-control @error('password') is-invalid @enderror" id="password"
                     name="password">
                 @error('password')
@@ -60,9 +58,8 @@ Yeni Kullanıcı
                     </span>
                 @enderror
             </div>
-            <h6 class="card-subtitle"><strong>Şifre Doğrulama</strong></h6>
-            <div class="form-group">
-                <label for="password_confirmation">{{ __('Password Confirmation') }}</label>
+            <div class="form-group mb-4">
+                <label for="password_confirmation">{{ __('Şifre Doğrulama') }}</label>
                 <input type="password" class="form-control @error('password_confirmation') is-invalid @enderror"
                     id="password_confirmation" name="password_confirmation">
                 @error('password_confirmation')
@@ -71,9 +68,29 @@ Yeni Kullanıcı
                     </span>
                 @enderror
             </div>
-            <h6 class="card-subtitle"><strong>Roller</strong></h6>
-            <div class="form-group">
-                <label for="roles">{{ __('Roles') }}</label>
+
+            <div class="form-group mb-4">
+                <label for="phone">{{ __('Telefon') }}</label>
+                <input type="phone" class="form-control @error('phone') is-invalid @enderror" id="email"
+                    name="phone" value="{{ $user->phone }}">
+                @error('phone')
+                    <span class="invalid-feedback" user="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
+
+            <div class="form-group mb-4">
+                <label for="password_confirmation">{{ __('Departman') }}</label>
+                <select class="form-control" name="department_id" id="department">
+                    @foreach ($departments as $department)
+                        <option value="{{ $department->id }}">{{ $department->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div class="form-group mb-4">
+                <label for="roles">{{ __('Roller') }}</label>
                 <select class="form-control @error('roles') is-invalid @enderror" id="roles" name="roles[]"
                     multiple>
                     @foreach ($roles as $role)
@@ -89,9 +106,8 @@ Yeni Kullanıcı
                     </span>
                 @enderror
             </div>
-            <h6 class="card-subtitle"><strong>Yetkiler</strong></h6>
-            <div class="form-group">
-                <label for="permissions">{{ __('Permissions') }}</label>
+            <div class="form-group mb-4">
+                <label for="permissions">{{ __('Yetkiler') }}</label>
                 <select class="form-control @error('permissions') is-invalid @enderror" id="permissions" name="permissions[]"
                     multiple>
                     @foreach ($permissions as $permission)

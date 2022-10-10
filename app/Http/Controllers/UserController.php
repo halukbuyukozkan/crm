@@ -9,6 +9,7 @@ use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\UserUpdateRequest;
+use App\Models\Department;
 use Spatie\Permission\Models\Permission;
 
 class UserController extends Controller
@@ -40,8 +41,9 @@ class UserController extends Controller
         $user = new User($request->old());
         $roles = Role::all();
         $permissions = Permission::all();
+        $departments = Department::all();
 
-        return view('user.form', compact('user', 'roles','permissions'));
+        return view('user.form', compact('user', 'roles','permissions','departments'));
     }
 
     /**
@@ -53,7 +55,6 @@ class UserController extends Controller
     public function store(UserRequest $request)
     {
         $data = $request->validated();
-
         $data['password'] = Hash::make($data['password']);
 
         $user = User::create($data);
