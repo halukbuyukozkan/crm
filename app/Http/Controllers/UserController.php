@@ -85,8 +85,9 @@ class UserController extends Controller
         $user->fill($request->old());
         $roles = Role::all();
         $permissions = Permission::all();
+        $departments = Department::all();
 
-        return view('user.form', compact('user', 'roles','permissions'));
+        return view('user.form', compact('user', 'roles','permissions','departments'));
     }
 
     /**
