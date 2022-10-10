@@ -3,10 +3,12 @@
 namespace App\Models;
 
 use App\Observers\JobObserver;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Job extends Model
 {
@@ -27,5 +29,20 @@ class Job extends Model
     public function job_items(): HasMany
     {
         return $this->hasMany(JobItem::class);
+    }
+
+    public function scopeOfJob(Builder $query)
+    {
+        if(Auth::user()->hasAnyPermission('Genel Görev Atama')) {
+            return $query->whereHas('users', function (Builder $query) {
+                $query->whereHas('department', function (Builder $query) {
+                    $query->where('name', Auth::user()->department->name);
+                });
+            }); 
+        }else{
+            return $query->whereHas('users',function (Builder $query) {
+                $query->where('id',Auth::user()->id);
+            });
+        }
     }
 }

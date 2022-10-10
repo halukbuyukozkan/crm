@@ -73,6 +73,24 @@ class PermissionsTableSeeder extends Seeder
                 'order' => 5,
                 'updated_at' => '2022-10-06 10:04:17',
             ),
+            6 => 
+            array (
+                'created_at' => '2022-10-06 10:04:05',
+                'guard_name' => 'web',
+                'id' => 10,
+                'name' => 'Yetkili Ödeme Talep Kabul Etme',
+                'order' => 6,
+                'updated_at' => '2022-10-06 10:04:17',
+            ),
+            7 => 
+            array (
+                'created_at' => '2022-10-06 10:04:05',
+                'guard_name' => 'web',
+                'id' => 11,
+                'name' => 'test',
+                'order' => 7,
+                'updated_at' => '2022-10-06 10:04:17',
+            ),
         ));
         
         

@@ -92,7 +92,7 @@ class UsersTableSeeder extends Seeder
                 'password' => '$2y$10$l5JFs91a7JqW4mDVtTB/seX00xSPiUwNs.602y2IqZLSh7i5tWYI6',
                 'remember_token' => NULL,
                 'created_at' => '2022-09-21 08:51:55',
-                'updated_at' => '2022-09-21 08:51:55',
+                'updated_at' => '2022-10-10 12:58:13',
             ),
             5 => 
             array (
@@ -122,7 +122,7 @@ class UsersTableSeeder extends Seeder
                 'password' => '$2y$10$OGeyhvIvpl1tKuWqXEwrx.IoUDChRiTO7KJ3Fcg2MiwMl3DOXZzP2',
                 'remember_token' => NULL,
                 'created_at' => '2022-09-21 14:02:33',
-                'updated_at' => '2022-09-21 14:02:33',
+                'updated_at' => '2022-10-10 13:04:08',
             ),
             7 => 
             array (
