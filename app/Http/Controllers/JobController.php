@@ -88,7 +88,8 @@ class JobController extends Controller
         foreach($request->file('filename') as $file)
         {
             $name=$file->getClientOriginalName();
-            $name = md5($name) . '.' . $file->getClientOriginalExtension();
+            $slugname = str_replace(' ', '', $job->name);
+            $name = '('.$slugname.')' . md5($name) . '.' . $file->getClientOriginalExtension();
             $file->move(public_path().'/files/job/', $name);   
 
             $file= new JobItem();

@@ -70,7 +70,8 @@ class ProjectTransectionController extends Controller
         foreach($request->file('filename') as $file)
         {
             $name=$file->getClientOriginalName();
-            $name = md5($name) . '.' . $file->getClientOriginalExtension();
+            $slugname = str_replace(' ', '', $transection->project->name);
+            $name = '('.$slugname.')' . md5($name) . '.' . $file->getClientOriginalExtension();
             $file->move(public_path().'/files/', $name);   
 
             $file= new TransectionItem();
