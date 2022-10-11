@@ -40,6 +40,30 @@ Görevler
                         <div class="col-md-8">
                             <h3>Belgeler</h3>
                         </div>
+                        <div class="col-md-4">
+                            <form method="post" enctype="multipart/form-data" action="{{ route('admin.jobaddfile', $job) }}">
+                            @csrf
+                            <div class="form-group">
+                                <label for="filename">{{ __('Dosya Ekle') }}</label>
+                                <input id="filename" type="file" class="form-control" name="filename[]" value="{{ $job->filename }}" autocomplete="filename" multiple>
+                
+                                @if ($job->filename)
+                                    @foreach ($job->filename as $file)
+                                        <img src="{{ asset($file->name) }}" alt="{{ $file->name}}"
+                                        class="mx-3 my-2" style="max-height: 100px">
+                                    @endforeach
+                                @endif
+                
+                                @error('filename')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="ri-save-line"></i>
+                                {{ __('Save') }}
+                            </button>
+                            </form>
+                        </div>
                         @if(Auth::user()->hasAnyPermission(['Genel Görev Atama']))
                         @endif
                     </div>

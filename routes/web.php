@@ -44,8 +44,11 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('about',AboutController::class);
         Route::resource('message',MessageController::class);
         Route::resource('information',InformationController::class);
+
         Route::resource('job',JobController::class);
         Route::post('/completejob/{job}', [JobController::class, 'completejob'])->name('completejob');
+        Route::post('/addfile/{job}', [JobController::class, 'addfile'])->name('jobaddfile');
+
         Route::resource('status',StatusController::class);
         Route::resource('role', RoleController::class);
         Route::resource('permission', PermissionController::class);

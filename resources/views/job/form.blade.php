@@ -32,7 +32,7 @@ Yeni Görev
             <h6 class="card-subtitle"><strong>Durum seçin</strong></h6>
             <div class="form-group">
                 <select class="form-control" name="status_id" id="formControlSelect">
-                    @foreach ($statuses as $status)
+                    @foreach ($jobstatuses as $status)
                         <option value="{{ $status->id }}">{{ $status->name }}</option>
                     @endforeach
                 </select>

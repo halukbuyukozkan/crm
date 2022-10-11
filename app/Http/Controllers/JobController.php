@@ -57,7 +57,7 @@ class JobController extends Controller
     public function create(Request $request)
     {
         $job = new Job($request->old());
-        $statuses = Status::all();
+        $jobstatuses = Status::all();
 
         $users = Auth::user()->department->users;
         $superiors = User::permission('Genel Görev Atama')->get();
@@ -68,7 +68,7 @@ class JobController extends Controller
 
         $departments = Department::all();
 
-        return view('job.form',compact('job','statuses','users','departments'));
+        return view('job.form',compact('job','jobstatuses','users','departments'));
     }
 
     /**
@@ -79,6 +79,7 @@ class JobController extends Controller
      */
     public function store(JobRequest $request)
     {
+        dd($request->all());
         $data = $request->validated();
         $job = Job::create($data);
 
@@ -98,11 +99,29 @@ class JobController extends Controller
             $file->filename= $name;
                 
             $file->save();
-        }}
-
-    
+        }}    
 
         return redirect()->route('admin.job.index')->with('success', 'Görev başarıyla oluşturuldu.');
+    }
+
+    public function addfile(Job $job,Request $request)
+    {
+        foreach($request->filename as $file)
+        {   
+            $name=$file->getClientOriginalName();
+            $filename = pathinfo($name, PATHINFO_FILENAME);
+            $slugname = str_replace(' ', '', $job->name);
+            $name = '('.$slugname.')' . $filename . md5($name) . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path().'/files/job/', $name);   
+
+            $file= new JobItem();
+            $file->job_id = $job->id;
+            $file->filename= $name;
+                
+            $file->save();
+        }
+
+        return redirect()->route('admin.job.index')->with('success', 'Dosya başarıyla Eklendi.');
     }
 
     /**
@@ -129,7 +148,7 @@ class JobController extends Controller
     public function edit(Job $job,Request $request)
     {
         $job->fill($request->old());
-        $statuses = Status::all();
+        $jobstatuses = Status::all();
 
         $users = Auth::user()->department->users;
         $superiors = User::permission('Genel Görev Atama')->get();
@@ -140,7 +159,7 @@ class JobController extends Controller
 
         $departments = Department::all();
 
-        return view('job.form', compact('job','statuses','users','departments'));
+        return view('job.form', compact('job','jobstatuses','users','departments'));
     }
 
     /**
