@@ -68,7 +68,7 @@
                                         <td>@if($transection->approved_at) {{ $transection->approved_at->format('d.m.Y') }} @else - @endif</td>
                                         <td>@if($transection->completed_at) {{ $transection->completed_at->format('d.m.Y') }} @else - @endif</td>
                                         <td>{{ $transection->status->value }}</td>
-                                        <td style="width: 15%">
+                                        <td style="width: 18%">
 
                                         @if(Auth::user()->hasAnyPermission('Ödeme Talebi Kabul Etme') || Auth::user()->hasAnyPermission('Yetkili Ödeme Talep Kabul Etme' ))
 
@@ -125,6 +125,15 @@
                                             </form>                                          
                                             @endif
 
+                                        @elseif($transection->status == $statuses[0])
+                                            <form action="{{ route('admin.project.transection.destroy',['transection' => $transection,'project' => $project]) }}" method="POST"
+                                                class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
+                                                @csrf
+                                                @method('DELETE')
+                                                    <button type="submit" class="btn btn-sm btn-danger">
+                                                        <i class="ri-delete-bin-line"></i>
+                                                    </button>
+                                            </form>
                                         @endif
 
                                         @if(Auth::user()->hasAnyPermission('Ödeme Gerçekleştirme'))
