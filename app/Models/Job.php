@@ -31,6 +31,11 @@ class Job extends Model
         return $this->hasMany(JobItem::class);
     }
 
+    public function comments(): HasMany
+    {
+        return $this->hasMany(JobComment::class);
+    }
+
     public function scopeOfJob(Builder $query)
     {
         if(Auth::user()->hasAnyPermission('Genel Görev Atama')) {

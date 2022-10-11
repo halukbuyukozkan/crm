@@ -14,6 +14,7 @@ use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\InformationController;
 use App\Http\Controllers\Admin\StatusController;
+use App\Http\Controllers\JobCommentController;
 use App\Http\Controllers\ProjectTransectionController;
 use App\Http\Controllers\TransectionCategoryController;
 use App\Http\Controllers\ProjectTransectionPayBackController;
@@ -48,6 +49,8 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('job',JobController::class);
         Route::post('/completejob/{job}', [JobController::class, 'completejob'])->name('completejob');
         Route::post('/addfile/{job}', [JobController::class, 'addfile'])->name('jobaddfile');
+
+        Route::resource('job.comment',JobCommentController::class);
 
         Route::resource('status',StatusController::class);
         Route::resource('role', RoleController::class);

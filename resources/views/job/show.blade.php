@@ -34,6 +34,38 @@ Görevler
                     </div>
                 </div>
             </div>
+
+            <div class="card m-b-30">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h3>Yorumlar</h3>
+                        </div>
+                    </div>
+                </div>
+                <form method="post" enctype="multipart/form-data"
+                action="{{ route('admin.job.comment.store',$job) }}">
+                @csrf
+                <div class="card-body">
+                    @foreach($job->comments as $comment)
+                    <div>
+                        <h6>{{ $comment->user->name }}:</h6>
+                        <p>{{ $comment->comment }}</p>
+                    </div>
+                    @endforeach
+                    <div class="form-group mb-4">
+                        <input type="text" class="form-control @error('comment') is-invalid @enderror" id="comment" name="comment" required>
+                    </div>
+                    <div class="text-right">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="ri-save-line"></i>
+                            {{ __('Gönder') }}
+                        </button>
+                    </div>
+                </div>
+                </form>
+            </div>
+
             <div class="card m-b-30">
                 <div class="card-header">
                     <div class="row">
