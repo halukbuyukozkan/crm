@@ -285,7 +285,7 @@ CRM
                                     <td style="width: 10%">{{ $project->total }}</td>
                                     <td style="width: 10%">{{ $project->completedtotal }}</td>
                                     <td style="width: 15%">
-                                        @if(Auth::user()->hasAnyPermission('Ödeme Talebi Kabul Etme'))
+                                        @if(Auth::user()->hasAnyPermission('Ödeme Talebi Kabul Etme') && !$project->transections->contains('status',$statuses[2]) && !$project->transections->contains('status',$statuses[1]))
                                         <form action="{{ route('admin.project.destroy', $project) }}" method="POST"
                                         class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
                                         @csrf

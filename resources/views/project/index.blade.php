@@ -49,6 +49,7 @@
                                         <a href="{{ route('admin.project.edit',$project) }}"><button class="btn btn-sm btn-primary">
                                             <i class="ri-pencil-line"></i>
                                         </button></a>
+                                        @if(!$project->transections->contains('status',$statuses[2]) && !$project->transections->contains('status',$statuses[1]))
                                         <form action="{{ route('admin.project.destroy', $project) }}" method="POST"
                                         class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
                                         @csrf
@@ -57,6 +58,7 @@
                                                 <i class="ri-delete-bin-line"></i>
                                             </button>
                                         </form>
+                                        @endif
                                     </td>
                                 </tr>  
                                 @endforeach

@@ -6,7 +6,6 @@ use App\Models\Job;
 use App\Models\Message;
 use App\Models\Project;
 use App\Models\Information;
-use App\Models\Transection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Builder;
