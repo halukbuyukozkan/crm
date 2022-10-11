@@ -25,7 +25,8 @@ return new class extends Migration
             $table->boolean('is_income')->nullable();
             $table->string('status')->default('beklemede');
 
-            $table->date('completed_date')->nullable();
+            $table->date('approved_at')->nullable();
+            $table->date('completed_at')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

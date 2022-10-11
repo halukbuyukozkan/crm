@@ -47,6 +47,9 @@
                                 <th>Tip</th>
                                 <th>Talep Eden</th>
                                 <th>Miktar</th>
+                                <th>Talep Tarihi</th>
+                                <th>Onay Tarihi</th>
+                                <th>Ödeme Tarihi</th>
                                 <th>Onay Durumu</th>
                                 <th>Eylemler</th>
                               </tr>
@@ -56,13 +59,16 @@
                                     @forelse ($transections as $transection)
                                     <tr>
                                         <td><a href="{{ route('admin.project.transection.show',['project' => $project,'transection' => $transection]) }}">test</a></td>
-                                        <td style="width: 25%">{{ $transection->payer ? $transection->payer : '-' }}</td>
+                                        <td style="width: 20%">{{ $transection->payer ? $transection->payer : '-' }}</td>
                                         <td>-</td>
                                         <td>{{ $transection->type->value }}</td>
                                         <td>{{ $transection->project->user->name }}</td>
                                         <td>{{ $transection->price }}</td>
+                                        <td>{{ $transection->created_at->format('d.m.Y') }}</td>
+                                        <td>@if($transection->approved_at) {{ $transection->approved_at->format('d.m.Y') }} @else - @endif</td>
+                                        <td>@if($transection->completed_at) {{ $transection->completed_at->format('d.m.Y') }} @else - @endif</td>
                                         <td>{{ $transection->status->value }}</td>
-                                        <td style="width: 20%">
+                                        <td style="width: 15%">
 
                                         @if(Auth::user()->hasAnyPermission('Ödeme Talebi Kabul Etme') || Auth::user()->hasAnyPermission('Yetkili Ödeme Talep Kabul Etme' ))
 

@@ -47,10 +47,19 @@ Talep detayları
                 <div class="card-body">
                     @if ($transection->transection_items)
                         @foreach ($transection->transection_items as $item)
-                        <a href="{{ asset('files/'.$item->filename) }}" download="{{ $item->filename }}">
-                            <img src="{{ asset('files/'.$item->filename) }}" alt="{{ $item->filename}}"
-                            class="mx-3" style="max-height: 100px">
-                        </a>
+                        <div class="mb-2">
+                            <a href="{{ asset('files/'.$item->filename) }}" download="{{ $item->filename }}">
+                                @if(Str::contains($item->filename,'.jpeg'))
+                                    <img src="{{ asset('files/'.$item->filename) }}" alt="{{ $item->filename}}"
+                                    class="mx-3" style="max-height: 70px">
+                                    <span>{{ Str::limit($item->filename, 25) }}</span>
+                                @elseif(Str::contains($item->filename,'.pdf'))
+                                    <img src="{{ asset('img/PDF.png') }}" alt="{{ $item->filename}}"
+                                    class="mx-3" style="max-height: 70px">
+                                    <span>{{ Str::limit($item->filename, 25) }}</span>               
+                                @endif
+                            </a>
+                        </div>
                         @endforeach
                     @endif
                     

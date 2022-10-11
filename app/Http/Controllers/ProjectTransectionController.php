@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\TransectionRequest;
 use App\Models\TransectionCategory;
 use App\Models\TransectionItem;
+use Carbon\Carbon;
 
 class ProjectTransectionController extends Controller
 {
@@ -70,8 +71,9 @@ class ProjectTransectionController extends Controller
         foreach($request->file('filename') as $file)
         {
             $name=$file->getClientOriginalName();
+            $filename = pathinfo($name, PATHINFO_FILENAME);
             $slugname = str_replace(' ', '', $transection->project->name);
-            $name = '('.$slugname.')' . md5($name) . '.' . $file->getClientOriginalExtension();
+            $name = '('.$slugname.')' . $filename . md5($name) . '.' . $file->getClientOriginalExtension();
             $file->move(public_path().'/files/', $name);   
 
             $file= new TransectionItem();
@@ -122,6 +124,7 @@ class ProjectTransectionController extends Controller
     {
         $transection->status = StatusEnum::cases()[1]->value; //onaylandı
         $transection->payer = Auth::user()->name;
+        $transection->approved_at = Carbon::now();
         $transection->update();
 
         $user = $transection->project->user;
@@ -140,6 +143,7 @@ class ProjectTransectionController extends Controller
     {
         $transection->status = StatusEnum::cases()[2]->value; //tamamlandı
         $transection->payer = Auth::user()->name;
+        $transection->completed_at = Carbon::now();
         $transection->update();
 
         $user = $transection->project->user;
