@@ -28,7 +28,6 @@ class ProjectController extends Controller
         if(Auth::user()->hasAnyPermission('Yetkili Ödeme Talep Kabul Etme')){
             $projects = $superior_projects;
         }
-
         return view('project.index',compact('projects'));
     }
 
@@ -40,9 +39,9 @@ class ProjectController extends Controller
     public function create(Request $request)
     {
         $project = new Project($request->old());
-        $types = ProjectTypeEnum::cases();
+        $projecttypes = ProjectTypeEnum::cases();
 
-        return view('project.form',compact('project','types'));
+        return view('project.form',compact('project','projecttypes'));
     }
 
     /**

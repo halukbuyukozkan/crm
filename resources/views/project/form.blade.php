@@ -42,7 +42,7 @@ Talep Oluştur
             <div class="form-group">
                 <select class="form-control @error('type') is-invalid @enderror" id="type"
                     name="type">
-                    @foreach ($types as $type)
+                    @foreach ($projecttypes as $type)
                         <option value="{{ $type->value }}">
                             {{ $type->value }}
                         </option>

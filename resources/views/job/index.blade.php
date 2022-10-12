@@ -87,33 +87,6 @@ Görevler
                                                         <i class="ri-delete-bin-line"></i>
                                                     </button>
                                                 </form>
-                                                @else
-                                                <form method="post" enctype="multipart/form-data" action="{{ route('admin.completejob',$job) }}">
-                                                    @csrf
-                                                    <div class="form-group">
-                                                        <div class="row">
-                                                            <div class="col-8 pr-0">
-                                                                <select class="form-control" name="status_id" id="formControlSelect">
-                                                                    @foreach ($statuses as $status)
-                                                                        <option value="{{ $status->id }}" {{ $job->status_id == $status->id ? 'selected' : '' }}>{{ $status->name }}</option>
-                                                                    @endforeach
-                                                                </select>
-                                                            </div>
-                                                            <div class="col-4">
-                                                                <button type="submit" class="btn btn-primary">
-                                                                    <i class="ri-save-line"></i>
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                        @error('status_id')
-                                                            <span class="invalid-feedback" role="alert">
-                                                                <strong>{{ $message }}</strong>
-                                                            </span>
-                                                        @enderror
-                                                    </div>
-                                                    
-                                                    
-                                                </form>
                                                 @endif
                                             </td>
                                         </tr>  

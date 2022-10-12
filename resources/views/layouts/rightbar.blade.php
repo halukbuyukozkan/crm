@@ -52,12 +52,9 @@
                                     <div class="dropdown">
                                       <a class="dropdown-toggle" href="#" role="button" id="profilelink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="{{asset('assets/images/users/profile.svg')}}" class="img-fluid" alt="profile"><span class="live-icon">{{ Auth::user()->name}}</span></a>
                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="profilelink">
-                                            <a class="dropdown-item" href="#"><i class="ri-user-6-line"></i>My Profile</a>
-                                            <a class="dropdown-item" href="#"><i class="ri-mail-line"></i>Email</a>
-                                            <a class="dropdown-item" href="#"><i class="ri-settings-3-line"></i>Settings</a>
                                             <form action="{{ route('logout')}}" method="POST">
                                             @csrf
-                                                <button class="dropdown-item text-danger"><i class="ri-shut-down-line"></i>Logout</button>
+                                                <button class="dropdown-item text-danger"><i class="ri-shut-down-line"></i>Çıkış Yap</button>
                                             </form>
                                         </div>
                                     </div>
@@ -111,7 +108,7 @@
                             <a href="{{ route('admin.job.index') }}"><i class="ri-checkbox-multiple-line"></i></i>Görevler</a>
                         </li>
                         <li>
-                            <a href="{{ route('admin.project.index') }}"><i class="ri-checkbox-multiple-line"></i></i>İşler</a>
+                            <a href="{{ route('admin.project.index') }}"><i class="ri-checkbox-multiple-line"></i></i>Talepler</a>
                         </li>
                         @if(Auth::user()->hasAnyPermission('Sistem Yönetimi'))
                         <li class="scroll dropdown">

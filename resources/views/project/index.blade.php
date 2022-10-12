@@ -46,7 +46,7 @@
                                     <td>{{ $project->user->name }}</td>
                                     <td>{{ $project->created_at }}</td>
                                     <td>
-                                        @if(Auth::user()->hasAnyPermission('Ödeme Talebi Kabul Etme') && $project->transections->contains('status',$statuses[0]))
+                                        @if(Auth::user()->hasAnyPermission('Ödeme Talebi Kabul Etme') && !$project->transections->contains('status',$statuses[1]) && !$project->transections->contains('status',$statuses[2])))
                                         <form action="{{ route('admin.project.destroy', $project) }}" method="POST"
                                         class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
                                         @csrf
@@ -55,7 +55,7 @@
                                                 <i class="ri-delete-bin-line"></i>
                                             </button>
                                         </form>
-                                        @elseif($project->user->id == Auth::user()->id && $project->transections->contains('status',$statuses[0]))
+                                        @elseif($project->user->id == Auth::user()->id && !$project->transections->contains('status',$statuses[1]) && !$project->transections->contains('status',$statuses[2]))
                                         <form action="{{ route('admin.project.destroy', $project) }}" method="POST"
                                         class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
                                         @csrf

@@ -67,41 +67,12 @@ Görevler
             </div>
 
             <div class="card m-b-30">
-                <div class="card-header">
-                    <div class="row">
-                        <div class="col-md-8">
-                            <h3>Belgeler</h3>
-                        </div>
-                        <div class="col-md-4">
-                            <form method="post" enctype="multipart/form-data" action="{{ route('admin.jobaddfile', $job) }}">
-                            @csrf
-                            <div class="form-group">
-                                <label for="filename">{{ __('Dosya Ekle') }}</label>
-                                <input id="filename" type="file" class="form-control" name="filename[]" value="{{ $job->filename }}" autocomplete="filename" multiple>
-                
-                                @if ($job->filename)
-                                    @foreach ($job->filename as $file)
-                                        <img src="{{ asset($file->name) }}" alt="{{ $file->name}}"
-                                        class="mx-3 my-2" style="max-height: 100px">
-                                    @endforeach
-                                @endif
-                
-                                @error('filename')
-                                    <div class="alert alert-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <button type="submit" class="btn btn-primary">
-                                <i class="ri-save-line"></i>
-                                {{ __('Save') }}
-                            </button>
-                            </form>
-                        </div>
-                        @if(Auth::user()->hasAnyPermission(['Genel Görev Atama']))
-                        @endif
-                    </div>
+                <div class="card-header">   
+                    <h3>Belgeler</h3>          
                 </div>
                 <div class="card-body">
-                    @if($job->job_items)
+                    <div>
+                        @if($job->job_items)
                         @foreach ($job->job_items as $item)
                         <div class="mb-2">
                             <a href="{{ asset('files/job/'.$item->filename) }}" download="{{ $item->filename }}">
@@ -117,7 +88,24 @@ Görevler
                             </a>
                         </div>
                         @endforeach
-                    @endif
+                        @endif
+                    </div>
+                    <div class="mt-5">
+                        <form method="post" enctype="multipart/form-data" action="{{ route('admin.jobaddfile', $job) }}">
+                        @csrf
+                        <div class="form-group">
+                            <label for="filename">{{ __('Dosya Ekle') }}</label>
+                            <input id="filename" type="file" class="form-control" name="filename[]" value="{{ $job->filename }}" autocomplete="filename" multiple>
+                            @error('filename')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="ri-save-line"></i>
+                            {{ __('Save') }}
+                        </button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -160,18 +148,47 @@ Görevler
                                     <table class="table table-striped table-bordered" id="edit-btn">
                                         <tbody>
                                             <tr>
-                                                <td>Görevi Oluşturan</td>
-                                                <td style="width: 60%">{{ $job->created_by }}</td>
+                                                <td>Oluşturan</td>
+                                                <td style="width: 70%">{{ $job->created_by }}</td>
                                             </tr>  
                                             <tr>
                                                 <td>Görevliler</td>
-                                                <td style="width: 60%">@foreach ($job->users  as $user)
+                                                <td style="width: 70%">@foreach ($job->users  as $user)
                                                     {{ $user->name }}
                                                 @endforeach</td>
                                             </tr>
                                             <tr>
-                                                <td>Görev Durumu</td>
-                                                <td style="width: 60%">{{ $job->status->name }}</td>
+                                                <td>Durum</td>
+                                                <td style="width: 70%">
+                                                @if(Auth::user()->name == $job->created_by)    
+                                                <form method="post" enctype="multipart/form-data" action="{{ route('admin.completejob',$job) }}">
+                                                    @csrf
+                                                    <div class="form-group">
+                                                        <div class="row">
+                                                            <div class="col-8 pr-0">
+                                                                <select class="form-control" name="status_id" id="formControlSelect">
+                                                                    @foreach ($jobstatuses as $status)
+                                                                        <option value="{{ $status->id }}" {{ $job->status_id == $status->id ? 'selected' : '' }}>{{ $status->name }}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+                                                            <div class="col-4">
+                                                                <button type="submit" class="btn btn-primary">
+                                                                    <i class="ri-save-line"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                        @error('status_id')
+                                                            <span class="invalid-feedback" role="alert">
+                                                                <strong>{{ $message }}</strong>
+                                                            </span>
+                                                        @enderror
+                                                    </div>
+                                                </form>
+                                                @else
+                                                {{ $job->status->name }}
+                                                @endif
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>

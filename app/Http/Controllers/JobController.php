@@ -36,9 +36,8 @@ class JobController extends Controller
 
         $myjobs = Auth::user()->jobs;
         $otherjobs = $jobs->diff($myjobs);
-        $statuses = Status::all();
 
-        return view('job.index',compact('myjobs','otherjobs','statuses'));
+        return view('job.index',compact('myjobs','otherjobs'));
     }
 
     public function completejob(Request $request,Job $job)
@@ -134,8 +133,9 @@ class JobController extends Controller
         $date = Carbon::parse($job->deadline );
         $now = Carbon::now();
         $daysleft = $date->diffInDays($now);
+        $jobstatuses = Status::all();
 
-        return view('job.show',compact('job','daysleft'));
+        return view('job.show',compact('job','daysleft','jobstatuses'));
     }
 
     /**
