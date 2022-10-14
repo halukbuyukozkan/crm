@@ -48,6 +48,7 @@ Route::middleware(['auth'])->group(function () {
 
         Route::resource('job',JobController::class);
         Route::post('/completejob/{job}', [JobController::class, 'completejob'])->name('completejob');
+        Route::post('/completerequest/{job}', [JobController::class, 'completerequest'])->name('completerequest');
         Route::post('/addfile/{job}', [JobController::class, 'addfile'])->name('jobaddfile');
 
         Route::resource('job.comment',JobCommentController::class);

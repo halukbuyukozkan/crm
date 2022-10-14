@@ -214,6 +214,21 @@ class UsersTableSeeder extends Seeder
                 'created_at' => '2022-10-10 11:08:27',
                 'updated_at' => '2022-10-10 11:08:27',
             ),
+            13 => 
+            array (
+                'id' => 16,
+                'department_id' => 1,
+                'name' => 'Ali Gürel',
+                'phone' => NULL,
+                'email' => 'aligurel20@gmail.com',
+                'email_verified_at' => NULL,
+                'birthdate' => NULL,
+                'balance' => 0,
+                'password' => '$2y$10$de4G3d3/pzHY8N.uVmvBdOml7Deai/CVNmthNpeMpQIrV7yJUAWei',
+                'remember_token' => NULL,
+                'created_at' => '2022-10-14 14:49:59',
+                'updated_at' => '2022-10-14 14:49:59',
+            ),
         ));
         
         

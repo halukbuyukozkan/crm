@@ -221,10 +221,6 @@ CRM
                                 </table>
                             </div>
                         </div>
-                        <div class="mt-5">
-                            <a href="#"><button class="btn btn-primary btn-lg btn-block">Avans Talebi Oluştur</button></a>
-                            <a href="#"><button class="btn btn-primary btn-lg btn-block mt-2">Masraf Talebi Oluştur</button></a>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -257,7 +253,7 @@ CRM
                             <h5 class="card-title">Onay Bekleyen Avans/Masraf Taleplerim</h5>
                         </div>
                         <div class="col-md-4 text-right">
-                            <a href="{{ route('admin.project.create') }}"><button class="btn btn-primary">Talep Adı Oluştur</button></a>    
+                            <a href="{{ route('admin.project.create') }}"><button class="btn btn-primary">Talep Oluştur</button></a>    
                         </div>
                     </div>
                 </div>

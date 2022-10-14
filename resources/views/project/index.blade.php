@@ -19,10 +19,10 @@
                 <div class="card-header">
                     <div class="row">
                         <div class="col-md-10">
-                            <h5 class="card-title">İş Detayı</h5>
+                            <h5 class="card-title">Talepler</h5>
                         </div>
                         <div class="col-md-2 text-right">
-                            <a href="{{ route('admin.project.create') }}"><button class="btn btn-primary">İş Oluştur</button></a>    
+                            <a href="{{ route('admin.project.create') }}"><button class="btn btn-primary">Talep Oluştur</button></a>    
                         </div>
                     </div>
                 </div>

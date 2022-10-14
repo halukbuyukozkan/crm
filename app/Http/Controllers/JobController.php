@@ -48,6 +48,15 @@ class JobController extends Controller
         return redirect()->route('admin.job.index');
     }   
 
+    public function completerequest(Job $job)
+    {
+        $jobstatuses = Status::all();
+        $job->status_id = $jobstatuses[1]->id;
+        $job->save();
+
+        return redirect()->route('admin.job.index');
+    }   
+
     /**
      * Show the form for creating a new resource.
      *

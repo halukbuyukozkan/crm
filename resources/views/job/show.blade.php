@@ -102,7 +102,7 @@ Görevler
                         </div>
                         <button type="submit" class="btn btn-primary">
                             <i class="ri-save-line"></i>
-                            {{ __('Save') }}
+                            {{ __('Kaydet') }}
                         </button>
                         </form>
                     </div>
@@ -187,6 +187,13 @@ Görevler
                                                 </form>
                                                 @else
                                                 {{ $job->status->name }}
+                                                <form action="{{ route('admin.completerequest',['job' => $job]) }}" method="POST"
+                                                    class="d-inline-block mx-2" onsubmit="return confirm('Emin misiniz ?');">
+                                                    @csrf
+                                                        <button type="submit" class="btn btn-sm btn-primary">
+                                                            <i class="ri-check-line"></i>
+                                                        </button>
+                                                </form>
                                                 @endif
                                                 </td>
                                             </tr>
