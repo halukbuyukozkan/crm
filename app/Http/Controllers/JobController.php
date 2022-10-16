@@ -34,8 +34,8 @@ class JobController extends Controller
             return $item;
         });
 
-        $myjobs = Auth::user()->jobs;
-        $otherjobs = $jobs->diff($myjobs);
+        $myjobs = Auth::user()->jobs->paginate(5 , '' , '', 'myjobs');
+        $otherjobs = $jobs->diff($myjobs)->paginate(5 , '' , '', 'otherjobs');
 
         return view('job.index',compact('myjobs','otherjobs'));
     }

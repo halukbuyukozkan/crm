@@ -100,6 +100,7 @@ Görevler
                                     @endforelse
                                 </tbody>
                             </table>
+                            {{ $myjobs->links() }}
                         </div>
 
                         <div class="tab-pane fade" id="profile-line" role="tabpanel" aria-labelledby="profile-tab-line">
@@ -154,6 +155,7 @@ Görevler
                                     @endforelse
                                 </tbody>
                             </table>
+                            {{ $myjobs->links() }}
                         </div>
 
                         <div class="tab-pane fade" id="contact-line" role="tabpanel" aria-labelledby="contact-tab-line">
@@ -227,6 +229,7 @@ Görevler
                                     @endforelse
                                 </tbody>
                             </table>
+                            {{ $otherjobs->links() }}
                         </div>
 
                         <div class="tab-pane fade" id="given-completed" role="tabpanel" aria-labelledby="contact-tab-line">
@@ -301,6 +304,7 @@ Görevler
                                         @endforelse
                                     </tbody>
                                 </table>
+                                {{ $otherjobs->links() }}
                             </div>
                         </div>
 
