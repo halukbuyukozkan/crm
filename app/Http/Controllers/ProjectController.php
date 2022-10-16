@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Enum\ProjectTypeEnum;
 use App\Enum\TypeEnum;
 use App\Models\Project;
 use Illuminate\Http\Request;
+use App\Enum\ProjectTypeEnum;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use App\Http\Requests\ProjectRequest;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -105,6 +106,16 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
+        foreach($project->transections as $transection)
+        { 
+            foreach($transection->transection_items as $item)
+            {   
+                if(File::exists(public_path('files/'. $item->filename))){
+                    File::delete(public_path('files/'. $item->filename));
+                }
+            }
+        }
+
         $project->delete();
 
         return redirect()->route('admin.project.index')->with('succes','Proje Başarıyla Silindi');

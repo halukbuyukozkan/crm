@@ -3,15 +3,16 @@
 namespace App\Http\Controllers;
 
  use App\Enum\TypeEnum;
+use Carbon\Carbon;
 use App\Models\Project;
 use App\Enum\StatusEnum;
 use App\Models\Transection;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use App\Http\Requests\TransectionRequest;
-use App\Models\TransectionCategory;
 use App\Models\TransectionItem;
-use Carbon\Carbon;
+use App\Models\TransectionCategory;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
+use App\Http\Requests\TransectionRequest;
 
 class ProjectTransectionController extends Controller
 {
@@ -205,10 +206,17 @@ class ProjectTransectionController extends Controller
      * @param  \App\Models\Transection  $transection
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Transection $transection)
+    public function destroy(Project $project,Transection $transection)
     {
+        foreach($transection->transection_items as $item)
+        {   
+            if(File::exists(public_path('files/'. $item->filename))){
+                File::delete(public_path('files/'. $item->filename));
+            }
+        }
+
         $transection->delete();
 
-        return redirect()->route('admin.front.index');
+        return redirect()->route('admin.project.show',$project);
     }
 }

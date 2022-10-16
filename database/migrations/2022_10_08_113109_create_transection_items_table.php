@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('transection_items', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('transection_id');
+            $table->foreignId('transection_id')->constrained()->onDelete('cascade');
 
             $table->string('filename');
 

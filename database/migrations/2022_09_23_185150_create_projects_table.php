@@ -23,6 +23,7 @@ return new class extends Migration
             $table->integer('total')->nullable();
             $table->integer('completedtotal')->nullable();
 
+            $table->softDeletes();
             $table->timestamps();
         });
     }

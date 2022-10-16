@@ -73,28 +73,28 @@
                                         @if(Auth::user()->hasAnyPermission('Ödeme Talebi Kabul Etme') || Auth::user()->hasAnyPermission('Yetkili Ödeme Talep Kabul Etme' ))
 
                                             @if($transection->status->value == 'beklemede' && $transection->project->user->id != Auth::user()->id)
-                                            <form action="{{ route('admin.transectionapprove',['transection' => $transection]) }}" method="POST"
-                                            class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
-                                            @csrf
-                                                <button type="submit" class="btn btn-sm btn-primary">
-                                                    <i class="ri-check-line"></i>
-                                                </button>
-                                            </form>
-                                            <form action="{{ route('admin.transectionreject',['transection' => $transection]) }}" method="POST"
+                                                <form action="{{ route('admin.transectionapprove',['transection' => $transection]) }}" method="POST"
                                                 class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
                                                 @csrf
-                                                <button type="submit" class="btn btn-sm btn-danger">
-                                                    <i class="ri-close-line"></i>
-                                                </button>
-                                            </form>                                     
-                                            <form action="{{ route('admin.project.transection.destroy',['project' => $project,'transection' => $transection]) }}" method="POST"
-                                            class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
-                                            @csrf
-                                            @method('DELETE')
-                                                <button type="submit" class="btn btn-sm btn-danger">
-                                                    <i class="ri-delete-bin-line"></i>
-                                                </button>
-                                            </form>
+                                                    <button type="submit" class="btn btn-sm btn-primary">
+                                                        <i class="ri-check-line"></i>
+                                                    </button>
+                                                </form>
+                                                <form action="{{ route('admin.transectionreject',['transection' => $transection]) }}" method="POST"
+                                                    class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-sm btn-danger">
+                                                        <i class="ri-close-line"></i>
+                                                    </button>
+                                                </form>                                     
+                                                <form action="{{ route('admin.project.transection.destroy',['project' => $project,'transection' => $transection]) }}" method="POST"
+                                                class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
+                                                @csrf
+                                                @method('DELETE')
+                                                    <button type="submit" class="btn btn-sm btn-danger">
+                                                        <i class="ri-delete-bin-line"></i>
+                                                    </button>
+                                                </form>
                                             @endif
 
                                             @if($transection->status->value == 'onaylandı')
