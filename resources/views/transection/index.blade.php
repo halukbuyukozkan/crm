@@ -41,15 +41,12 @@
                         <table class="table table-striped table-bordered" id="edit-btn">
                             <thead>
                               <tr>
-                                <th>test</th>
+                                <th>İsim</th>
                                 <th>Onaylayan</th>
                                 <th>Kategori</th>
                                 <th>Tip</th>
                                 <th>Talep Eden</th>
                                 <th>Miktar</th>
-                                <th>Talep Tarihi</th>
-                                <th>Onay Tarihi</th>
-                                <th>Ödeme Tarihi</th>
                                 <th>Onay Durumu</th>
                                 <th>Eylemler</th>
                               </tr>
@@ -58,15 +55,12 @@
                                 @if($transections)
                                     @forelse ($transections as $transection)
                                     <tr>
-                                        <td><a href="{{ route('admin.project.transection.show',['project' => $project,'transection' => $transection]) }}">test</a></td>
+                                        <td><a href="{{ route('admin.project.transection.show',['project' => $project,'transection' => $transection]) }}">{{ $transection->name }}</a></td>
                                         <td style="width: 20%">{{ $transection->payer ? $transection->payer : '-' }}</td>
-                                        <td>-</td>
+                                        <td>{{ $transection->transection_category ? $transection->transection_category->name : '-' }}</td>
                                         <td>{{ $transection->type->value }}</td>
                                         <td>{{ $transection->project->user->name }}</td>
                                         <td>{{ $transection->price }}</td>
-                                        <td>{{ $transection->created_at->format('d.m.Y') }}</td>
-                                        <td>@if($transection->approved_at) {{ $transection->approved_at->format('d.m.Y') }} @else - @endif</td>
-                                        <td>@if($transection->completed_at) {{ $transection->completed_at->format('d.m.Y') }} @else - @endif</td>
                                         <td>{{ $transection->status->value }}</td>
                                         <td style="width: 18%">
 

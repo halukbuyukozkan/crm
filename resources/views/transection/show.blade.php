@@ -19,7 +19,7 @@ Talep detayları
                 <div class="card-header">
                     <div class="row">
                         <div class="col-md-8">
-                            <h3>Talep Detayları</h3>
+                            <h4>Talep Detayları</h4>
                         </div>
                         @if(Auth::user()->hasAnyPermission(['Genel Görev Atama']))
                         @endif
@@ -27,10 +27,16 @@ Talep detayları
                 </div>
                 <div class="card-body">
                     <div>
-                        <h4>{{ $transection->name }}</h4>
+                        <h5>Talep Adı</h5>
+                        <p>{{ $transection->project->name }}</p>
                     </div>
                     <div>
+                        <h5>Açıklama</h5>
                         <p>{{ $transection->description }}</p>
+                    </div>
+                    <div>
+                        <h5>Kategori</h5>
+                        <p>{{ $transection->transection_category ? $transection->transection_category->name : '' }} {{ $transection->type->value}} </p>
                     </div>
                 </div>
             </div>
@@ -71,7 +77,7 @@ Talep detayları
                 <div class="card-header">
                     <div class="row">
                         <div class="col-md-8">
-                            <h5>Kullanıcı Bilgileri</h5>
+                            <h5>Tarihler</h5>
                         </div>
                     </div>
                 </div>
@@ -83,16 +89,47 @@ Talep detayları
                                     <table class="table table-striped table-bordered" id="edit-btn">
                                         <tbody>
                                             <tr>
-                                                <td>Görevi Oluşturan</td>
-                                                <td style="width: 60%">test</td>
+                                                <td>Talep Tarihi</td>
+                                                <td style="width: 60%">{{ $transection->created_at->format('d.m.Y') }}</td>
                                             </tr>  
                                             <tr>
-                                                <td>Görevliler</td>
-                                                <td style="width: 60%">test</td>
+                                                <td>Onaylanma Tarihi</td>
+                                                <td style="width: 60%">@if($transection->approved_at) {{ $transection->approved_at->format('d.m.Y') }} @else - @endif</td>
                                             </tr>
                                             <tr>
-                                                <td>Görev Durumu</td>
-                                                <td style="width: 60%">test</td>
+                                                <td>Ödeme Tarihi</td>
+                                                <td style="width: 60%">@if($transection->completed_at) {{ $transection->completed_at->format('d.m.Y') }} @else - @endif</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card m-b-30">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h5>Görevliler</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div>
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-bordered" id="edit-btn">
+                                        <tbody>
+                                            <tr>
+                                                <td>Talep Eden</td>
+                                                <td style="width: 60%">{{ $transection->project->user->name }}</td>
+                                            </tr>  
+                                            <tr>
+                                                <td>Talebi Onaylayan</td>
+                                                <td style="width: 60%">{{ $transection->payer ? $transection->payer : '-' }}</td>
                                             </tr>
                                         </tbody>
                                     </table>

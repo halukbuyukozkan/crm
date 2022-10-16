@@ -18,6 +18,8 @@ return new class extends Migration
             $table->foreignId('project_id')->constrained()->onDelete('cascade');
             $table->foreignId('transection_category_id')->nullable()->constrained();
 
+            $table->string('name');
+            $table->text('description');
             $table->string('payer')->nullable();
             $table->string('payee')->nullable();
             $table->string('type');

@@ -16,7 +16,7 @@ class Transection extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['project_id','transection_category_id','type','payer','payee','price','is_income','status'];
+    protected $fillable = ['project_id','transection_category_id','name','description','type','payer','payee','price','is_income','status'];
     protected $dates = ['approved_at','completed_at'];
 
     protected $casts = [

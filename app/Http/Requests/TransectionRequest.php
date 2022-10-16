@@ -24,8 +24,9 @@ class TransectionRequest extends FormRequest
     public function rules()
     {
         return [
-            'description' => 'nullable',
-            'category_id' => 'nullable',
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'transection_category_id' => 'nullable',
             'price' => 'required|integer',
             'type' => 'required|string',
             'is_income' => 'required',

@@ -46,12 +46,12 @@ Masraf Talebi Oluştur
         @method('PUT')
     @endif
     <div class="card m-b-30">
-        <div class="card-body ">
+        <div class="card-body">
             <h6 class="card-subtitle"><strong>İsim</strong></h6>
             <div class="form-group mb-4">
-                <input type="text" class="form-control @error('project_name') is-invalid @enderror" id="project_name" name="project_name"
-                    value="{{ old('project_name', $transection->project_name) }}" required>
-                @error('project_name')
+                <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name"
+                    value="{{ old('name', $transection->name) }}" required>
+                @error('name')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
@@ -59,8 +59,8 @@ Masraf Talebi Oluştur
             </div>
             <h6 class="card-subtitle"><strong>Açıklama</strong></h6>
             <div class="form-group mb-4">
-                <input type="text" class="form-control @error('description') is-invalid @enderror" id="description" name="description"
-                    value="{{ old('description', $transection->description) }}" required>
+                <textarea id="exampleFormControlTextarea1" rows="3" type="text" class="form-control @error('description') is-invalid @enderror" id="description" name="description"
+                    value="{{ old('description', $transection->description) }}" required></textarea>
                 @error('description')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -70,8 +70,8 @@ Masraf Talebi Oluştur
             @if($type == $types[2]->value || $type == $types[1]->value)
             <h6 class="card-subtitle"><strong>Kategori</strong></h6>
             <div class="form-group">
-                <select class="form-control @error('category_id') is-invalid @enderror" id="category_id"
-                    name="category_id">
+                <select class="form-control @error('transection_category_id') is-invalid @enderror" id="transection_category_id"
+                    name="transection_category_id">
                     @foreach ($categories as $category)
                         <option value="{{ $category->id }}"
                             @if ($transection->transection_category) {{ $transection->transection_category->contains($category) ? 'selected' : '' }}@endif>
@@ -79,12 +79,16 @@ Masraf Talebi Oluştur
                         </option>
                     @endforeach
                 </select>
-                @error('category_id')
+                @error('transection_category_id')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
                 @enderror
-            </div> 
+            </div>
+            @else
+            <div>
+                <input type="hidden" name="transection_category_id" value="">
+            </div>
             @endif
 
             <h6 class="card-subtitle"><strong>Miktar</strong></h6>

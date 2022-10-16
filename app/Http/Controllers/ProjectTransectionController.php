@@ -50,8 +50,10 @@ class ProjectTransectionController extends Controller
     {
         $data = $request->validated();
         $transection = Transection::create([
+            'name' => $data['name'],
+            'description' => $data['description'],
             'project_id' => $project->id,
-            'category_id' => null,
+            'transection_category_id' => ($data['transection_category_id'] ? $data['transection_category_id'] : null),
             'status' => 'beklemede',
             'price' => $data['price'],
             'is_income' => $data['is_income'],
