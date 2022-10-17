@@ -27,6 +27,7 @@ class UserDayoffController extends Controller
         $dayoffs = null;
         foreach($userdayoffs as $dayoff){
             $dayoffs[] = [
+                'id' => $dayoff->id,
                 'title' => $dayoff->title,
                 'start' => $dayoff->start_date,
                 'end' => $dayoff->end_date,
@@ -105,7 +106,18 @@ class UserDayoffController extends Controller
      */
     public function update(Request $request, User $user, Dayoff $dayoff)
     {
-        //
+        if(! $dayoff) {
+            return response()->json([
+                'error' => 'Unable to locate the event'
+            ], 404);
+        }
+
+        $dayoff->update([
+            'start_date' => $request->start_date,
+            'end_date' => $request->end_date,
+        ]);
+
+        return response()->json('Event updated');
     }
 
     /**
@@ -117,6 +129,13 @@ class UserDayoffController extends Controller
      */
     public function destroy(User $user, Dayoff $dayoff)
     {
-        //
+        if(! $dayoff) {
+            return response()->json([
+                'error' => 'Unable to locate the event'
+            ], 404);
+        }
+        $dayoff->delete();
+
+        return $dayoff;
     }
 }

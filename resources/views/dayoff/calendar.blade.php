@@ -41,26 +41,6 @@
         </div>
     </div>
 
-  <!-- Modal -->
-  <div class="modal fade" id="bookingModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Booking title</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <input type="text" class="form-control" id="title">
-          <span id="titleError" class="text-danger"></span>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" id="saveBtn" class="btn btn-primary">Save changes</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
     <div class="container">
         <div class="row">
             <div class="col-12">
@@ -87,7 +67,7 @@
                 }
             });
 
-            var dayoffs = @json($dayoffs);
+            var dayoff = @json($dayoffs);
 
             $('#calendar').fullCalendar({
                 header: {
@@ -95,7 +75,7 @@
                     center: 'title',
                     right: 'month, agendaWeek, agendaDay',
                 },
-                events: dayoffs,
+                events: dayoff,
                 selectable: true,
                 selectHelper: true,
                 select: function(start, end, allDays) {
@@ -115,6 +95,7 @@
                             {
                                 $('#dayoffModal').modal('hide')
                                 $('#calendar').fullCalendar('renderEvent', {
+                                    'id': response.id,
                                     'title': response.title,
                                     'start' : response.start_date,
                                     'end'  : response.end_date,
@@ -128,6 +109,46 @@
                             },
                         });
                     });
+                },
+                editable: true,
+                eventDrop: function(event) {
+                    var id = event.id;
+                    var start_date = moment(event.start).format('YYYY-MM-DD');
+                    var end_date = moment(event.end).format('YYYY-MM-DD');
+
+                    $.ajax({
+                        url:"{{ route('admin.user.dayoff.update',['user' => $user, '' ]) }}" + '/'  + id,
+                            type:"PATCH",
+                            dataType:'json',
+                            data:{ start_date, end_date  },
+                            success:function(response)
+                            {
+                                swal("Event Updated", "", "success");
+                            },
+                            error:function(error)
+                            {
+                                console.log(error)
+                            },
+                        });
+                },
+                eventClick: function(event){
+                    var id = event.id;
+                    if(confirm('Are you sure want to remove it')){
+                        $.ajax({
+                            url:"{{ route('admin.user.dayoff.destroy',['user' => $user, '' ]) }}" + '/'  + id,
+                            type:"DELETE",
+                            dataType:'json',
+                            success:function(response)
+                            {  
+                                $('#calendar').fullCalendar('removeEvents', response.id);
+                                swal("Good job!", "Event Deleted!", "success");
+                            },
+                            error:function(error) 
+                            {
+                                console.log(error)
+                            },
+                        });
+                    }
                 },
             });
 
