@@ -70,9 +70,8 @@ class ProjectController extends Controller
     public function show(Project $project)
     {
         $transections = $project->transections;
-        $types = TypeEnum::cases();
 
-        return view('transection.index',compact('transections','project','types'));
+        return view('transection.index',compact('transections','project'));
     }
 
     /**

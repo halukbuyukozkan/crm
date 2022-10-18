@@ -281,7 +281,7 @@ CRM
                                     <td style="width: 10%">{{ $project->total }}</td>
                                     <td style="width: 10%">{{ $project->completedtotal }}</td>
                                     <td style="width: 15%">
-                                        @if(Auth::user()->hasAnyPermission('Ödeme Talebi Kabul Etme') && $project->transections->contains('status',$statuses[0]))
+                                        @if(Auth::user()->hasAnyPermission('Ödeme Talebi Kabul Etme') && $project->transections->contains('status',$transectionstatuses[0]))
                                         <form action="{{ route('admin.project.destroy', $project) }}" method="POST"
                                         class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
                                         @csrf
@@ -290,7 +290,7 @@ CRM
                                                 <i class="ri-delete-bin-line"></i>
                                             </button>
                                         </form>
-                                        @elseif($project->user->id == Auth::user()->id && $project->transections->contains('status',$statuses[0]))
+                                        @elseif($project->user->id == Auth::user()->id && $project->transections->contains('status',$transectionstatuses[0]))
                                         <form action="{{ route('admin.project.destroy', $project) }}" method="POST"
                                         class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
                                         @csrf

@@ -34,7 +34,7 @@ Masraf Kapatma
                 <input type="integer" class="form-control @error('price') is-invalid @enderror" id="price" name="price" required>
             </div>
             <input type="hidden" class="form-control @error('type') is-invalid @enderror" id="type" name="type"
-                    value="{{ $types[2]->value }}" required>
+                    value="{{ $transectiontypes[2]->value }}" required>
             <input type="hidden" class="form-control @error('is_income') is-invalid @enderror" id="is_income" name="is_income"
                     value="1" required>
             <input type="hidden" class="form-control @error('is_completed') is-invalid @enderror" id="is_completed" name="is_completed"

@@ -24,13 +24,13 @@
                         </div>
                         <div class="col-md-6 text-right">
                             @if($project->type == 'Avans')
-                            <a href="{{ route('admin.transection.create',['project' => $project,'type' => $types[0]]) }}"><button class="btn btn-primary">Avans Talebi Oluştur</button></a> 
-                            <a href="{{ route('admin.transection.create',['project' => $project,'type' => $types[1]]) }}"><button class="btn btn-primary">Avans Kapatma Talebi Oluştur</button></a>
-                            <a href="{{ route('admin.transection.create',['project' => $project,'type' => $types[3]]) }}"><button class="btn btn-primary">İade Talebi Oluştur</button></a> 
+                            <a href="{{ route('admin.transection.create',['project' => $project,'type' => $transectiontypes[0]]) }}"><button class="btn btn-primary">Avans Talebi Oluştur</button></a> 
+                            <a href="{{ route('admin.transection.create',['project' => $project,'type' => $transectiontypes[1]]) }}"><button class="btn btn-primary">Avans Kapatma Talebi Oluştur</button></a>
+                            <a href="{{ route('admin.transection.create',['project' => $project,'type' => $transectiontypes[3]]) }}"><button class="btn btn-primary">İade Talebi Oluştur</button></a> 
                             @elseif($project->type == 'Masraf')   
-                            <a href="{{ route('admin.transection.create',['project' => $project,'type' => $types[2]]) }}"><button class="btn btn-primary">Masraf Talebi Oluştur</button></a> 
+                            <a href="{{ route('admin.transection.create',['project' => $project,'type' => $transectiontypes[2]]) }}"><button class="btn btn-primary">Masraf Talebi Oluştur</button></a> 
                             @if(Auth::user()->hasAnyPermission('Ödeme Gerçekleştirme'))
-                            <a href="{{ route('admin.transection.create',['project' => $project,'type' => $types[3]]) }}"><button class="btn btn-primary">Ödeme yap</button></a> 
+                            <a href="{{ route('admin.transection.create',['project' => $project,'type' => $transectiontypes[3]]) }}"><button class="btn btn-primary">Ödeme yap</button></a> 
                             @endif
                             @endif   
                         </div>
@@ -119,7 +119,7 @@
                                             </form>                                          
                                             @endif
 
-                                        @elseif($transection->status == $statuses[0])
+                                        @elseif($transection->status == $transectionstatuses[0])
                                             <form action="{{ route('admin.project.transection.destroy',['transection' => $transection,'project' => $project]) }}" method="POST"
                                                 class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
                                                 @csrf

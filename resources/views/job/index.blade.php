@@ -201,7 +201,7 @@ Görevler
                                                     @csrf
                                                     <div class="form-group">
                                                         <select class="form-control" name="status_id" id="formControlSelect">
-                                                            @foreach ($statuses as $status)
+                                                            @foreach ($transectionstatuses as $status)
                                                                 <option value="{{ $status->id }}">{{ $status->name }}</option>
                                                             @endforeach
                                                         </select>
@@ -276,7 +276,7 @@ Görevler
                                                         @csrf
                                                         <div class="form-group">
                                                             <select class="form-control" name="status_id" id="formControlSelect">
-                                                                @foreach ($statuses as $status)
+                                                                @foreach ($transectionstatuses as $status)
                                                                     <option value="{{ $status->id }}">{{ $status->name }}</option>
                                                                 @endforeach
                                                             </select>

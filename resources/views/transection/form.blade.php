@@ -1,13 +1,13 @@
 @section('title') 
-@if($type == $types[0]->value)
+@if($type == $transectiontypes[0]->value)
 Avans Talebi Oluştur
-@elseif($type == $types[1]->value)
+@elseif($type == $transectiontypes[1]->value)
 Avans Kapatma Talebi Oluştur
-@elseif($type == $types[2]->value)
+@elseif($type == $transectiontypes[2]->value)
 Masraf Talebi Oluştur
-@elseif($type == $types[3]->value)
+@elseif($type == $transectiontypes[3]->value)
 Ödeme Oluştur
-@elseif($type == $types[4]->value)
+@elseif($type == $transectiontypes[4]->value)
 İade Talebi Oluştur
 @endif
 @endsection 
@@ -25,15 +25,15 @@ Masraf Talebi Oluştur
     <div class="card-header">
         <div class="row">
             <div class="col-md-10">
-                @if($type == $types[0]->value)
+                @if($type == $transectiontypes[0]->value)
                 <h5 class="card-title">Avans Talebi Oluştur</h5>
-                @elseif($type == $types[1]->value)
+                @elseif($type == $transectiontypes[1]->value)
                 <h5 class="card-title">Avans Kapatma Talebi Oluştur</h5>
-                @elseif($type == $types[2]->value)
+                @elseif($type == $transectiontypes[2]->value)
                 <h5 class="card-title">Masraf Talebi Oluştur</h5>
-                @elseif($type == $types[3]->value)
+                @elseif($type == $transectiontypes[3]->value)
                 <h5 class="card-title">Ödeme Oluştur</h5>
-                @elseif($type == $types[4]->value)
+                @elseif($type == $transectiontypes[4]->value)
                 <h5 class="card-title">İade Talebi Oluştur</h5>
                 @endif
             </div>
@@ -67,7 +67,7 @@ Masraf Talebi Oluştur
                     </span>
                 @enderror
             </div>
-            @if($type == $types[2]->value || $type == $types[1]->value)
+            @if($type == $transectiontypes[2]->value || $type == $transectiontypes[1]->value)
             <h6 class="card-subtitle"><strong>Kategori</strong></h6>
             <div class="form-group">
                 <select class="form-control @error('transection_category_id') is-invalid @enderror" id="transection_category_id"
@@ -102,7 +102,7 @@ Masraf Talebi Oluştur
                 @enderror
             </div>
 
-            @if($type == $types[1]->value || $type == $types[2]->value)
+            @if($type == $transectiontypes[1]->value || $type == $transectiontypes[2]->value)
             <div class="form-group">
                 <label for="filename">{{ __('Dosya Ekle') }}</label>
                 <input id="filename" type="file" class="form-control" name="filename[]" value="{{ $transection->files }}" autocomplete="filename" multiple>
@@ -120,14 +120,14 @@ Masraf Talebi Oluştur
             </div>
             @endif
             <input type="hidden" class="form-control @error('type') is-invalid @enderror" id="type" name="type"
-                    @if($type == $types[0]->value) value="{{ $types[0]->value }}" 
-                    @elseif($type == $types[2]->value) value="{{ $types[2]->value }}" 
-                    @elseif($type == $types[1]->value) value="{{ $types[1]->value }}" 
-                    @elseif($type == $types[3]->value) value="{{ $types[3]->value }}" 
-                    @elseif($type == $types[4]->value) value="{{ $types[4]->value }}" 
+                    @if($type == $transectiontypes[0]->value) value="{{ $transectiontypes[0]->value }}" 
+                    @elseif($type == $transectiontypes[2]->value) value="{{ $transectiontypes[2]->value }}" 
+                    @elseif($type == $transectiontypes[1]->value) value="{{ $transectiontypes[1]->value }}" 
+                    @elseif($type == $transectiontypes[3]->value) value="{{ $transectiontypes[3]->value }}" 
+                    @elseif($type == $transectiontypes[4]->value) value="{{ $transectiontypes[4]->value }}" 
                     @endif required>
             <input type="hidden" class="form-control @error('is_income') is-invalid @enderror" id="is_income" name="is_income"
-                    @if($type == $types[0]->value || $type == $types[2]->value) value="1" @elseif($type == $types[1]->value || $type == $types[3]->value) value="0" @endif  required>
+                    @if($type == $transectiontypes[0]->value || $type == $transectiontypes[2]->value) value="1" @elseif($type == $transectiontypes[1]->value || $type == $transectiontypes[3]->value) value="0" @endif  required>
             <input type="hidden" class="form-control @error('is_completed') is-invalid @enderror" id="is_completed" name="is_completed"
                     value="0" required>
         </div>

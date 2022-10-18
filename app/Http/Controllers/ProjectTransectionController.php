@@ -35,9 +35,8 @@ class ProjectTransectionController extends Controller
     {
         $transection = new Transection($request->old());
         $categories = TransectionCategory::all();
-        $types = TypeEnum::cases();
 
-        return view('transection.form',compact('transection','project','categories','type','types'));
+        return view('transection.form',compact('transection','project','categories','type'));
     }
 
     /**
