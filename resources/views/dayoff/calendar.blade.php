@@ -32,7 +32,7 @@ Departmanlar
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <h3 class="text-center mt-5">FullCalendar js Laravel series with Career Development Lab</h3>
+                <h3 class="text-center mt-5">İzin Günleri</h3>
                 <div class="col-md-10 offset-1 mt-5 mb-5">
 
                     <div id="calendar">
@@ -70,6 +70,13 @@ Departmanlar
                     left: 'prev, next today',
                     center: 'title',
                     right: 'month, agendaWeek, agendaDay',
+                },
+                buttonText: {
+                    today:    'Bugün',
+                    month:    'Ay',
+                    week:     'Hafta',
+                    day:      'Gün',
+                    list:     'Liste'
                 },
                 events: dayoff,
                 selectable: true,
