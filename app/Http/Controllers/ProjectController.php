@@ -29,6 +29,7 @@ class ProjectController extends Controller
         if(Auth::user()->hasAnyPermission('Yetkili Ödeme Talep Kabul Etme')){
             $projects = $superior_projects;
         }
+
         return view('project.index',compact('projects'));
     }
 
@@ -68,10 +69,14 @@ class ProjectController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Project $project)
-    {
+    {   
         $transections = $project->transections;
 
-        return view('transection.index',compact('transections','project'));
+        if($project->type = 'Avans') {
+        return view('transection.advance.index',compact('transections','project'));
+        }else{
+        return view('transection.cost.index',compact('transections','project'));
+        }
     }
 
     /**

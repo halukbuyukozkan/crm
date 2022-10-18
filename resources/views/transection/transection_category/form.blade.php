@@ -41,7 +41,7 @@ Kategori Oluştur
         <div class="card-footer">
             <button type="submit" class="btn btn-primary">
                 <i class="ri-save-line"></i>
-                {{ __('Save') }}
+                {{ __('Kaydet') }}
             </button>
         </div>
     </div>

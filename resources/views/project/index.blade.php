@@ -46,7 +46,7 @@
                                     <td>{{ $project->user->name }}</td>
                                     <td>{{ $project->created_at }}</td>
                                     <td>
-                                        @if(Auth::user()->hasAnyPermission('Ödeme Talebi Kabul Etme') && !$project->transections->contains('status',$transectionstatuses[1]) && !$project->transections->contains('status',$transectionstatuses[2]))
+                                        @if(Auth::user()->hasAnyPermission('Ödeme Talebi Kabul Etme') && !$project->transections->contains('status',config('global.transection.statuses')[1]) && !$project->transections->contains('status',$transectionstatuses[2]))
                                         <form action="{{ route('admin.project.destroy', $project) }}" method="POST"
                                         class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
                                         @csrf

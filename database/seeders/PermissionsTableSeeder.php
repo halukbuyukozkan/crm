@@ -84,12 +84,12 @@ class PermissionsTableSeeder extends Seeder
             ),
             7 => 
             array (
-                'created_at' => '2022-10-06 10:04:05',
+                'created_at' => '2022-10-18 15:16:34',
                 'guard_name' => 'web',
-                'id' => 11,
-                'name' => 'test',
+                'id' => 12,
+                'name' => 'Muhasebe Ödeme Gerçekleştirme',
                 'order' => 7,
-                'updated_at' => '2022-10-06 10:04:17',
+                'updated_at' => '2022-10-18 15:16:34',
             ),
         ));
         

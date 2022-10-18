@@ -48,6 +48,12 @@ class Project extends Model
         }elseif(Auth::user()->hasPermissionTo('Yetkili Ödeme Talep Kabul Etme'))
         {
             return $query;
+        }elseif(Auth::user()->hasPermissionTo('Muhasebe Ödeme Gerçekleştirme'))
+        {
+            return $query->whereHas('transections',function(Builder $query){
+                $query->where('type','!=',config('global.transection.types')[0])
+                ->where('status',config('global.transection.statuses')[1])->orWhere('status',config('global.transection.statuses')[2]);
+            });
         }else
         {
             return $query->where('user_id',Auth::user()->id);
