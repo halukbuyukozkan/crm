@@ -18,6 +18,7 @@ use App\Http\Controllers\JobCommentController;
 use App\Http\Controllers\ProjectTransectionController;
 use App\Http\Controllers\TransectionCategoryController;
 use App\Http\Controllers\ProjectTransectionPayBackController;
+use App\Http\Controllers\UserDayoffController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,6 +46,8 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('about',AboutController::class);
         Route::resource('message',MessageController::class);
         Route::resource('information',InformationController::class);
+        Route::resource('user.dayoff',UserDayoffController::class);
+        Route::get('calendar',[UserDayoffController::class,'calendar'])->name('calendar');
 
         Route::resource('job',JobController::class);
         Route::post('/completejob/{job}', [JobController::class, 'completejob'])->name('completejob');
