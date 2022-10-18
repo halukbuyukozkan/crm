@@ -18,7 +18,8 @@ class UserDayoffController extends Controller
      */
     public function index(User $user)
     {
-        //
+        $dayoffs = $user->dayoffs;
+        return view('dayoff.index',compact('dayoffs'));
     }
 
     public function calendar()
@@ -64,6 +65,7 @@ class UserDayoffController extends Controller
         ]);
         
         $dayoff = Dayoff::create([
+            'user_id' => Auth::user()->id,
             'title' => $request->title,
             'start_date' => $request->start_date,
             'end_date' => $request->end_date,

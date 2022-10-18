@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('dayoffs', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id');
 
             $table->string('title');
             $table->dateTime('start_date');
