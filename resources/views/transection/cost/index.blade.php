@@ -19,19 +19,13 @@ Masraf Talepleri
                 <div class="card-header">
                     <div class="row">
                         <div class="col-md-6">
-                            <h5 class="card-title">{{ $project->name }} Ödeme Talepleri</h5>
+                            <h5 class="card-title">{{ $project->name }} Masraf Talepleri</h5>
                             <span>Bakiye: {{$project->total}}</span>
                         </div>
                         <div class="col-md-6 text-right">
-                            @if($project->type == 'Avans')
-                            <a href="{{ route('admin.transection.create',['project' => $project,'type' => $transectiontypes[0]]) }}"><button class="btn btn-primary">Avans Talebi Oluştur</button></a> 
-                            <a href="{{ route('admin.transection.create',['project' => $project,'type' => $transectiontypes[1]]) }}"><button class="btn btn-primary">Avans Kapatma Talebi Oluştur</button></a>
-                            <a href="{{ route('admin.transection.create',['project' => $project,'type' => $transectiontypes[3]]) }}"><button class="btn btn-primary">İade Talebi Oluştur</button></a> 
-                            @elseif($project->type == 'Masraf')   
                             <a href="{{ route('admin.transection.create',['project' => $project,'type' => $transectiontypes[2]]) }}"><button class="btn btn-primary">Masraf Talebi Oluştur</button></a> 
                             @if(Auth::user()->hasAnyPermission('Ödeme Gerçekleştirme'))
                             <a href="{{ route('admin.transection.create',['project' => $project,'type' => $transectiontypes[3]]) }}"><button class="btn btn-primary">Ödeme yap</button></a> 
-                            @endif
                             @endif   
                         </div>
                     </div>
@@ -63,13 +57,13 @@ Masraf Talepleri
                                         <td>{{ $transection->price }}</td>
                                         <td>{{ $transection->status->value }}</td>
                                         <td style="width: 18%">
-                                            
-                                        <!-- AVANS KAPATMA VE İADE -->
-                                        @if($transection->type->value == $transectiontypes[1]->value || $transection->type->value == $transectiontypes[3]->value)
+                                        
+                                        <!-- MASRAF -->
+                                        @if($transection->type->value == $transectiontypes[2]->value)
                                             <!-- BEKLEMEDE -->
-                                            @if($transection->status->value == 'beklemede' && $transection->project->user->id != Auth::user()->id)
+                                            @if($transection->status->value == 'beklemede')
                                                 <!-- Ödeme Gerçekleştirme Yetkisi -->
-                                                @if(Auth::user()->hasAnyPermission('Ödeme Talebi Kabul Etme') || Auth::user()->hasAnyPermission('Yetkili Ödeme Talep Kabul Etme' ))
+                                                @if(Auth::user()->hasAnyPermission('Ödeme Talebi Kabul Etme') || Auth::user()->hasAnyPermission('Yetkili Ödeme Talep Kabul Etme' ) && $transection->project->user->id != Auth::user()->id)
                                                     <form action="{{ route('admin.transectionapprove',['transection' => $transection]) }}" method="POST"
                                                     class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
                                                     @csrf
@@ -93,76 +87,8 @@ Masraf Talepleri
                                                         </button>
                                                     </form>
                                                     <!-- Ödeme Gerçekleştirme Yetkisi END -->
-                                                @endif
-                                            @endif
-                                            <!-- BEKLEMEDE END -->
-                                            <!-- ONAYLANDI -->
-                                            @if($transection->status->value == 'onaylandı')
-                                                @if(Auth::user()->hasAnyPermission('Muhasebe Ödeme Gerçekleştirme'))
-                                                <form action="{{ route('admin.transectionreverse',['transection' => $transection]) }}" method="POST"
-                                                    class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
-                                                    @csrf
-                                                    <button type="submit" class="btn btn-sm btn-primary">
-                                                        <i class="ri-arrow-go-back-line"></i>
-                                                    </button>
-                                                </form>
-                                                @endif
-                                            @endif
-                                            <!-- ONAYLANDI END -->
-                                            <!-- TAMAMLANDI -->
-                                            @if($transection->status->value == 'tamamlandı')
-                                                @if(Auth::user()->hasAnyPermission('Muhasebe Ödeme Gerçekleştirme'))
-                                                <form action="{{ route('admin.transectionreverse',['transection' => $transection]) }}" method="POST"
-                                                class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
-                                                @csrf
-                                                <button type="submit" class="btn btn-sm btn-primary">
-                                                    <i class="ri-arrow-go-back-line"></i>
-                                                </button>
-                                            </form>
-                                            @endif
-                                            <!-- TAMAMLANDI END -->
-                                            <!-- İPTAL -->
-                                            @if($transection->status->value == 'iptal edildi')
-                                            <form action="{{ route('admin.project.transection.destroy',['transection' => $transection,'project' => $project]) }}" method="POST"
-                                                class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
-                                                @csrf
-                                                @method('DELETE')
-                                                    <button type="submit" class="btn btn-sm btn-danger">
-                                                        <i class="ri-delete-bin-line"></i>
-                                                    </button>
-                                            </form>
-                                            <form action="{{ route('admin.transectionreverse',['transection' => $transection,'project' => $project]) }}" method="POST"
-                                                class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
-                                                @csrf
-                                                <button type="submit" class="btn btn-sm btn-primary">
-                                                    <i class="ri-arrow-go-back-line"></i>
-                                                </button>
-                                            </form>                                          
-                                            @endif
-                                            <!-- İPTAL END -->
-                                        @endif
-                                        <!-- AVANS KAPATMA VE İADE END -->
-                                        
-                                        <!-- AVANS -->
-                                        @if($transection->type->value == $transectiontypes[0]->value)
-                                            <!-- BEKLEMEDE -->
-                                            @if($transection->status->value == 'beklemede' && $transection->project->user->id != Auth::user()->id)
-                                                <!-- Ödeme Gerçekleştirme Yetkisi -->
-                                                @if(Auth::user()->hasAnyPermission('Ödeme Talebi Kabul Etme') || Auth::user()->hasAnyPermission('Yetkili Ödeme Talep Kabul Etme' ))
-                                                    <form action="{{ route('admin.transectionapprove',['transection' => $transection]) }}" method="POST"
-                                                    class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
-                                                    @csrf
-                                                        <button type="submit" class="btn btn-sm btn-primary">
-                                                            <i class="ri-check-line"></i>
-                                                        </button>
-                                                    </form>
-                                                    <form action="{{ route('admin.transectionreject',['transection' => $transection]) }}" method="POST"
-                                                        class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
-                                                        @csrf
-                                                        <button type="submit" class="btn btn-sm btn-danger">
-                                                            <i class="ri-close-line"></i>
-                                                        </button>
-                                                    </form>                                     
+
+                                                @elseif($transection->project->user->id == Auth::user()->id)
                                                     <form action="{{ route('admin.project.transection.destroy',['project' => $project,'transection' => $transection]) }}" method="POST"
                                                     class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
                                                     @csrf
@@ -171,13 +97,29 @@ Masraf Talepleri
                                                             <i class="ri-delete-bin-line"></i>
                                                         </button>
                                                     </form>
-                                                    <!-- Ödeme Gerçekleştirme Yetkisi END -->
                                                 @endif
+
                                             @endif
                                             <!-- BEKLEMEDE END -->
                                             <!-- ONAYLANDI -->
                                             @if($transection->status->value == 'onaylandı')
-                                                @if(Auth::user()->hasAnyPermission('Ödeme Gerçekleştirme'))
+                                                @if(Auth::user()->hasAnyPermission('Muhasebe Ödeme Gerçekleştirme'))
+                                                <form action="{{ route('admin.transectionaccounting',['transection' => $transection,'project' => $project]) }}" method="POST"
+                                                    class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-sm btn-primary">
+                                                        <i class="ri-check-double-line"></i>
+                                                    </button>
+                                                </form>
+                                                <form action="{{ route('admin.transectionreverse',['transection' => $transection]) }}" method="POST"
+                                                    class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-sm btn-primary">
+                                                        <i class="ri-arrow-go-back-line"></i>
+                                                    </button>
+                                                </form>
+                                                @endif
+                                                @if(Auth::user()->hasAnyPermission('Ödeme Talebi Kabul Etme'))
                                                 <form action="{{ route('admin.transectionreverse',['transection' => $transection]) }}" method="POST"
                                                     class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
                                                     @csrf
@@ -188,53 +130,9 @@ Masraf Talepleri
                                                 @endif
                                             @endif
                                             <!-- ONAYLANDI END -->
-                                            <!-- TAMAMLANDI -->
-                                            @if($transection->status->value == 'tamamlandı')
+                                            <!-- MUHASEBE ONAYI -->
+                                            @if($transection->status->value == 'muhasebe onayı')
                                                 @if(Auth::user()->hasAnyPermission('Ödeme Gerçekleştirme'))
-                                                <form action="{{ route('admin.transectionreverse',['transection' => $transection]) }}" method="POST"
-                                                class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
-                                                @csrf
-                                                <button type="submit" class="btn btn-sm btn-primary">
-                                                    <i class="ri-arrow-go-back-line"></i>
-                                                </button>
-                                            </form>
-                                            @endif
-                                            <!-- TAMAMLANDI END -->
-                                        @endif
-                                        <!-- AVANS END -->
-                                    
-
-
-                                        
-                                        @if(Auth::user()->hasAnyPermission('Ödeme Talebi Kabul Etme') || Auth::user()->hasAnyPermission('Yetkili Ödeme Talep Kabul Etme' ))
-
-                                            
-
-                                            @if($transection->status->value == 'onaylandı')
-                                                <form action="{{ route('admin.transectionreverse',['transection' => $transection]) }}" method="POST"
-                                                    class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
-                                                    @csrf
-                                                    <button type="submit" class="btn btn-sm btn-primary">
-                                                        <i class="ri-arrow-go-back-line"></i>
-                                                    </button>
-                                                </form>
-                                            @endif
-
-                                            
-
-                                        @elseif($transection->status == $transectionstatuses[0])
-                                            <form action="{{ route('admin.project.transection.destroy',['transection' => $transection,'project' => $project]) }}" method="POST"
-                                                class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
-                                                @csrf
-                                                @method('DELETE')
-                                                    <button type="submit" class="btn btn-sm btn-danger">
-                                                        <i class="ri-delete-bin-line"></i>
-                                                    </button>
-                                            </form>
-                                        @endif
-
-                                        @if(Auth::user()->hasAnyPermission('Ödeme Gerçekleştirme'))
-                                            @if($transection->status->value == 'onaylandı')
                                                 <form action="{{ route('admin.transectioncomplete',['transection' => $transection,'project' => $project]) }}" method="POST"
                                                     class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
                                                     @csrf
@@ -242,7 +140,6 @@ Masraf Talepleri
                                                         <i class="ri-check-double-line"></i>
                                                     </button>
                                                 </form>
-                                            
                                                 <form action="{{ route('admin.transectionreverse',['transection' => $transection]) }}" method="POST"
                                                     class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
                                                     @csrf
@@ -250,17 +147,33 @@ Masraf Talepleri
                                                         <i class="ri-arrow-go-back-line"></i>
                                                     </button>
                                                 </form>
+                                                @endif
+                                                @if(Auth::user()->hasAnyPermission('Muhasebe Ödeme Gerçekleştirme'))
+                                                <form action="{{ route('admin.transectionreverse',['transection' => $transection]) }}" method="POST"
+                                                    class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-sm btn-primary">
+                                                        <i class="ri-arrow-go-back-line"></i>
+                                                    </button>
+                                                </form>
+                                                @endif
                                             @endif
+                                            <!-- MUHASEBE ONAYI END -->
+                                            <!-- TAMAMLANDI -->
                                             @if($transection->status->value == 'tamamlandı')
-                                            <form action="{{ route('admin.transectionreverse',['transection' => $transection]) }}" method="POST"
+                                                @if(Auth::user()->hasAnyPermission('Ödeme Gerçekleştirme'))
+                                                <form action="{{ route('admin.transectionreverse',['transection' => $transection]) }}" method="POST"
                                                 class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
                                                 @csrf
                                                 <button type="submit" class="btn btn-sm btn-primary">
                                                     <i class="ri-arrow-go-back-line"></i>
                                                 </button>
-                                            </form>
+                                                </form>
+                                                @endif
                                             @endif
+                                            <!-- TAMAMLANDI END -->
                                         @endif
+                                        <!-- MASRAF END -->
 
                                         </td>
                                     </tr>

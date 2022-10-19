@@ -6,5 +6,6 @@ enum StatusEnum:string{
     case APPROVED = 'onaylandı';
     case COMPLETED = 'tamamlandı';
     case CANCELLED = 'iptal edildi';
+    case ACCOUNTİNG = 'muhasebe onayı';
 }
  

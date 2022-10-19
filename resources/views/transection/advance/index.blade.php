@@ -93,7 +93,7 @@ Avans Talepleri
                                                         </button>
                                                     </form>
                                                     <!-- Ödeme Gerçekleştirme Yetkisi END -->
-                                                @elseif($transection->user == Auth::user())
+                                                @elseif($transection->project->user->id == Auth::user()->id)
                                                     <form action="{{ route('admin.project.transection.destroy',['project' => $project,'transection' => $transection]) }}" method="POST"
                                                     class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
                                                     @csrf

@@ -71,6 +71,8 @@ Route::middleware(['auth'])->group(function () {
         Route::post('project.transection/{transection}/complete',[ProjectTransectionController::class,'complete'])->name('transectioncomplete');
         Route::post('project.transection/{transection}/reject',[ProjectTransectionController::class,'reject'])->name('transectionreject');
         Route::post('project.transection/{transection}/reverse',[ProjectTransectionController::class,'reverse'])->name('transectionreverse');
+        Route::post('project.transection/{transection}/accounting',[ProjectTransectionController::class,'accounting'])->name('transectionaccounting');
+
         //Transection categories
         Route::resource('project.transectioncategory',TransectionCategoryController::class);
 

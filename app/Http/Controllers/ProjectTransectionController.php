@@ -141,6 +141,18 @@ class ProjectTransectionController extends Controller
         return redirect()->route('admin.project.show',$project);
     }
 
+    public function accounting(Transection $transection)
+    {
+        $transection->status = StatusEnum::cases()[4]->value;
+        $transection->payer = Auth::user()->name;
+        $transection->approved_at = Carbon::now();
+        $transection->update();
+
+        $project = $transection->project;
+        
+        return redirect()->route('admin.project.show',$project);
+    }
+
     public function complete(Transection $transection)
     {
         $transection->status = StatusEnum::cases()[2]->value; //tamamlandı
@@ -193,6 +205,11 @@ class ProjectTransectionController extends Controller
 
         elseif($transection->status->name == 'CANCELLED') {
             $transection->status = StatusEnum::cases()[0]->value;
+            $transection->save();
+        }
+
+        elseif($transection->status->name == 'ACCOUNTİNG') {
+            $transection->status = StatusEnum::cases()[2]->value;
             $transection->save();
         }
 

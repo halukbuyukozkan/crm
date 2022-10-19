@@ -71,8 +71,7 @@ class ProjectController extends Controller
     public function show(Project $project)
     {   
         $transections = $project->transections;
-
-        if($project->type = 'Avans') {
+        if($project->type == 'Avans') {
         return view('transection.advance.index',compact('transections','project'));
         }else{
         return view('transection.cost.index',compact('transections','project'));
