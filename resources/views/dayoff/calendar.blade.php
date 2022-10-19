@@ -101,6 +101,7 @@ Departmanlar
                                     'id': response.id,
                                     'title': response.title,
                                     'start' : response.start_date,
+                                    'color': response.color,
                                     'end'  : response.end_date,
                                 })
                             },

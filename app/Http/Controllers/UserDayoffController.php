@@ -19,7 +19,8 @@ class UserDayoffController extends Controller
     public function index(User $user)
     {
         $dayoffs = $user->dayoffs;
-        return view('dayoff.index',compact('dayoffs'));
+
+        return view('dayoff.index',compact('dayoffs','user'));
     }
 
     public function calendar()
@@ -32,12 +33,22 @@ class UserDayoffController extends Controller
                 'title' => $dayoff->title,
                 'start' => $dayoff->start_date,
                 'end' => $dayoff->end_date,
+                'color' => $dayoff->color,
             ];
         }
 
         $user = Auth::user();
 
         return view('dayoff.calendar',compact('dayoffs','user'));
+    }
+
+    public function approve(Request $request, User $user,Dayoff $dayoff)
+    {
+        $dayoff->is_approved = 1;
+        $dayoff->color = 'green';
+        $dayoff->update();
+
+        return redirect()->route('admin.user.dayoff.index',['user' => $user]);
     }
 
     /**
@@ -67,6 +78,8 @@ class UserDayoffController extends Controller
         $dayoff = Dayoff::create([
             'user_id' => Auth::user()->id,
             'title' => $request->title,
+            'is_approved' => 0,
+            'color' => 'primary',
             'start_date' => $request->start_date,
             'end_date' => $request->end_date,
         ]);

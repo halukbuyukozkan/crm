@@ -18,6 +18,8 @@ return new class extends Migration
             $table->foreignId('user_id');
 
             $table->string('title');
+            $table->string('color');
+            $table->boolean('is_approved');
             $table->dateTime('start_date');
             $table->dateTime('end_date');
 

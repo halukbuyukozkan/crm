@@ -34,6 +34,7 @@
                                 <th>İsim</th>
                                 <th>Başlangıç</th>
                                 <th>Bitiş</th>
+                                <th>Eylemler</th>
                               </tr>
                             </thead>
                             <tbody>
@@ -42,6 +43,15 @@
                                     <td>{{ $dayoff->title }}</td>
                                     <td>{{ $dayoff->start_date }}</td>
                                     <td>{{ $dayoff->end_date }}</td>
+                                    <td>
+                                        <form action="{{ route('admin.dayoffapprove',['user' => $user,'dayoff' => $dayoff]) }}" method="POST"
+                                            class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
+                                            @csrf
+                                                <button type="submit" class="btn btn-sm btn-primary">
+                                                    <i class="ri-check-line"></i>
+                                                </button>
+                                        </form>
+                                    </td>
                                 </tr>  
                                 @endforeach
                             </tbody>

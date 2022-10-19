@@ -46,9 +46,13 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('about',AboutController::class);
         Route::resource('message',MessageController::class);
         Route::resource('information',InformationController::class);
+        //DAYOFF
         Route::resource('user.dayoff',UserDayoffController::class);
+        Route::post('/user/{user}/approve/{dayoff}', [UserDayoffController::class,'approve'])->name('dayoffapprove');
+
         Route::get('calendar',[UserDayoffController::class,'calendar'])->name('calendar');
 
+        //JOBS
         Route::resource('job',JobController::class);
         Route::post('/completejob/{job}', [JobController::class, 'completejob'])->name('completejob');
         Route::post('/completerequest/{job}', [JobController::class, 'completerequest'])->name('completerequest');

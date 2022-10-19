@@ -10,7 +10,7 @@ class Dayoff extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id','title','start_date','end_date'];
+    protected $fillable = ['user_id','title','color','is_approved','start_date','end_date'];
 
     public function user(): BelongsTo
     {
