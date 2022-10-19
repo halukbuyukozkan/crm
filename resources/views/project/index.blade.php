@@ -31,10 +31,10 @@
                         <table class="table table-striped table-bordered" id="edit-btn">
                             <thead>
                               <tr>
-                                <th>İsim</th>
+                                <th>Başlık</th>
                                 <th>Tür</th>
                                 <th>Oluşturan</th>
-                                <th>tarih</th>
+                                <th>Tarih</th>
                                 <th>İşlemler</th>
                               </tr>
                             </thead>

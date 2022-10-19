@@ -263,25 +263,21 @@ CRM
                             <thead>
                               <tr>
                                 <th>Başlık</th>
-                                <th>Açıklama</th>
                                 <th>Tür</th>
                                 <th>Oluşturan</th>
-                                <th>Talep Edilen Tutar</th>
-                                <th>Onaylanan Tutar</th>
+                                <th>tarih</th>
                                 <th>Eylemler</th>
                               </tr>
                             </thead>
                             <tbody>
                                 @forelse ($projects->take(5) as $project)
                                 <tr>
-                                    <td style="width: 20%"><a href="{{ route('admin.project.show',$project) }}">{{ $project->name }}</a></td>
-                                    <td style="width: 30%">{{ $project->description }}</td>
+                                    <td><a href="{{ route('admin.project.show',$project) }}">{{ $project->name }}</a></td>
                                     <td>{{ $project->type }}</td>
                                     <td>{{ $project->user->name }}</td>
-                                    <td style="width: 10%">{{ $project->total }}</td>
-                                    <td style="width: 10%">{{ $project->completedtotal }}</td>
-                                    <td style="width: 15%">
-                                        @if(Auth::user()->hasAnyPermission('Ödeme Talebi Kabul Etme') && $project->transections->contains('status',$transectionstatuses[0]))
+                                    <td>{{ $project->created_at }}</td>
+                                    <td>
+                                        @if(Auth::user()->hasAnyPermission('Ödeme Talebi Kabul Etme') && !$project->transections->contains('status',config('global.transection.statuses')[1]) && !$project->transections->contains('status',$transectionstatuses[2]))
                                         <form action="{{ route('admin.project.destroy', $project) }}" method="POST"
                                         class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
                                         @csrf
@@ -290,7 +286,7 @@ CRM
                                                 <i class="ri-delete-bin-line"></i>
                                             </button>
                                         </form>
-                                        @elseif($project->user->id == Auth::user()->id && $project->transections->contains('status',$transectionstatuses[0]))
+                                        @elseif($project->user->id == Auth::user()->id && !$project->transections->contains('status',$transectionstatuses[1]) && !$project->transections->contains('status',$transectionstatuses[2]))
                                         <form action="{{ route('admin.project.destroy', $project) }}" method="POST"
                                         class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
                                         @csrf
@@ -301,7 +297,7 @@ CRM
                                         </form>
                                         @endif
                                     </td>
-                                </tr>
+                                </tr>  
                                 @empty
                                 <tr>
                                     <td colspan="99" class="text-center text-muted">

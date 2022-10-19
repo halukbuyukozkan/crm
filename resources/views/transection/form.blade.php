@@ -47,6 +47,7 @@ Masraf Talebi Oluştur
     @endif
     <div class="card m-b-30">
         <div class="card-body">
+
             <h6 class="card-subtitle"><strong>İsim</strong></h6>
             <div class="form-group mb-4">
                 <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name"
@@ -71,10 +72,9 @@ Masraf Talebi Oluştur
             <h6 class="card-subtitle"><strong>Kategori</strong></h6>
             <div class="form-group">
                 <select class="form-control @error('transection_category_id') is-invalid @enderror" id="transection_category_id"
-                    name="transection_category_id">
+                    name="transection_category_id[]">
                     @foreach ($categories as $category)
-                        <option value="{{ $category->id }}"
-                            @if ($transection->transection_category) {{ $transection->transection_category->contains($category) ? 'selected' : '' }}@endif>
+                        <option value="{{ $category->id }}">
                             {{ $category->name }}
                         </option>
                     @endforeach
@@ -92,15 +92,20 @@ Masraf Talebi Oluştur
             @endif
 
             <h6 class="card-subtitle"><strong>Miktar</strong></h6>
-            <div class="form-group mb-4">
-                <input type="integer" class="form-control @error('price') is-invalid @enderror" id="price" name="price"
-                    value="{{ old('price', $transection->price) }}" required>
+            <div class="form-group mb-4" id="test">
+                <input type="integer" class="form-control @error('price') is-invalid @enderror" id="price" name="price[]" required>
                 @error('price')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
                 @enderror
+                <!-- Add Row Button -->
+                <div class="text-center my-2">
+                    <button type="button" class="btn btn-primary" id="add_btn"><i class="ri-add-circle-line"></i></button>
+                </div>
+                <!-- Add Row Button end -->
             </div>
+
 
             @if($type == $transectiontypes[1]->value || $type == $transectiontypes[2]->value)
             <div class="form-group">
@@ -142,8 +147,36 @@ Masraf Talebi Oluştur
     
 </div>
 <!-- End Contentbar -->
+
+
 @endsection 
 @section('script')
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#add_btn').on('click',function(){
+            var html='';
+            html +='<h6 class="card-subtitle"><strong>Kategori</strong></h6>';
+            html +='<div class="form-group">';
+            html +='<select class="form-control @error('transection_category_id') is-invalid @enderror" id="transection_category_id" name="transection_category_id[]">';
+            html +='@foreach ($categories as $category)';
+            html +='<option value="{{ $category->id }}">';
+            html +='{{ $category->name }}';
+            html +='</option>';
+            html +='@endforeach';
+            html +='</select>';
+            html +='</div>';
+
+            html +='<h6 class="card-subtitle"><strong>Miktar</strong></h6>';
+            html +='<div class="form-group mb-4">';
+            html +='<input type="integer" class="form-control @error('price') is-invalid @enderror" id="price" name="price[]">';
+            html +='</div>';
+
+            $('#test').append(html);
+        })
+    })
+</script>
+
 <!-- Apex js -->
 <script src="{{ asset('assets/plugins/apexcharts/apexcharts.min.js') }}"></script>
 <script src="{{ asset('assets/plugins/apexcharts/irregular-data-series.js') }}"></script>

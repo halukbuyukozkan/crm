@@ -47,43 +47,54 @@ class ProjectTransectionController extends Controller
      */
     public function store(TransectionRequest $request,Project $project,Transection $transection)
     {
+
+
         $data = $request->validated();
-        $transection = Transection::create([
+        $categories = $data['transection_category_id'];
+        $prices = $data['price'];
+
+        foreach($categories as $key => $category)
+        $transections[] = Transection::create([
             'name' => $data['name'],
             'description' => $data['description'],
             'project_id' => $project->id,
-            'transection_category_id' => ($data['transection_category_id'] ? $data['transection_category_id'] : null),
+            'transection_category_id' => ($category ? $category : null),
             'status' => 'beklemede',
-            'price' => $data['price'],
+            'price' => $prices[$key],
             'is_income' => $data['is_income'],
             'is_completed' => $data['is_completed'],
             'type' => $data['type'],
         ]);
 
-        if(Auth::user()->hasAnyPermission('Ödeme Gerçekleştirme')){
-            $transection->status = 'onaylandı';
-        }
-
-        if($transection->is_income == 0) {
-            $transection->price = $transection->price * -1;
-            $transection->update();
+        foreach($transections as $transection){
+            if(Auth::user()->hasAnyPermission('Ödeme Gerçekleştirme')){
+                $transection->status = 'onaylandı';
+            }
+    
+            if($transection->is_income == 0) {
+                $transection->price = $transection->price * -1;
+                $transection->update();
+            }
         }
 
         if($request->hasfile('filename')) {
-        foreach($request->file('filename') as $file)
-        {
-            $name=$file->getClientOriginalName();
-            $filename = pathinfo($name, PATHINFO_FILENAME);
-            $slugname = str_replace(' ', '', $transection->project->name);
-            $name = '('.$slugname.')' . $filename . md5($name) . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path().'/files/', $name);   
+            foreach($request->file('filename') as $file)
+            {
+                $name=$file->getClientOriginalName();
+                $filename = pathinfo($name, PATHINFO_FILENAME);
+                $slugname = str_replace(' ', '', $transection->project->name);
+                $name = '('.$slugname.')' . $filename . md5($name) . '.' . $file->getClientOriginalExtension();
+                $file->move(public_path().'/files/', $name);   
+                
+                foreach($transections as $transection) {
+                    $file= new TransectionItem();
+                    $file->transection_id=$transection->id;
+                    $file->filename= $name;
 
-            $file= new TransectionItem();
-            $file->transection_id=$transection->id;
-            $file->filename= $name;
-             
-            $file->save();
-        }}
+                    $file->save();
+                }
+                 
+            }}
         
         return redirect()->route('admin.project.show',$project)->with('success', 'Transection created successfully');
     }
