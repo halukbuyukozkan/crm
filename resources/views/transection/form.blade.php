@@ -100,9 +100,11 @@ Masraf Talebi Oluştur
                     </span>
                 @enderror
                 <!-- Add Row Button -->
+                @if($type == $transectiontypes[2]->value || $type == $transectiontypes[1]->value)
                 <div class="text-center my-2">
                     <button type="button" class="btn btn-primary" id="add_btn"><i class="ri-add-circle-line"></i></button>
                 </div>
+                @endif
                 <!-- Add Row Button end -->
             </div>
 
