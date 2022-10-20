@@ -224,6 +224,41 @@ CRM
                     </div>
                 </div>
             </div>
+            @if(Auth::user()->hasPermissionTo('Ödeme Talebi Kabul Etme'))
+            <div class="card m-b-30">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h5>{{ Auth::user()->department->name }} Bilgileri</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="col-md-12">
+                        <div>
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered" id="edit-btn">
+                                    <thead>
+                                        <tr>
+                                          <th>İsim</th>
+                                          <th>Bakiye</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach(Auth::user()->department->users as $user)
+                                        <tr>
+                                            <td style="width: 50%">{{ $user->name }}</td>
+                                            <td>{{ $user->balance }}</td>
+                                        </tr>  
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @endif
         </div>
         <div class="col-lg-5 my-4">
             <div class="card m-b-30">
