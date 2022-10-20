@@ -31,7 +31,8 @@
                         <table class="table table-striped table-bordered" id="edit-btn">
                             <thead>
                               <tr>
-                                <th>İsim</th>
+                                <th>Başlık</th>
+                                <th>İzin Alan</th>
                                 <th>Başlangıç</th>
                                 <th>Bitiş</th>
                                 <th>Eylemler</th>
@@ -41,9 +42,11 @@
                                 @foreach ($dayoffs as $dayoff)
                                 <tr>
                                     <td>{{ $dayoff->title }}</td>
+                                    <td>{{ $dayoff->user->name }}</td>
                                     <td>{{ $dayoff->start_date }}</td>
                                     <td>{{ $dayoff->end_date }}</td>
                                     <td>
+                                        @if(Auth::user()->hasPermissionTo('İzin Yönetimi'))
                                         <form action="{{ route('admin.dayoffapprove',['user' => $user,'dayoff' => $dayoff]) }}" method="POST"
                                             class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
                                             @csrf
@@ -51,6 +54,7 @@
                                                     <i class="ri-check-line"></i>
                                                 </button>
                                         </form>
+                                        @endif
                                     </td>
                                 </tr>  
                                 @endforeach

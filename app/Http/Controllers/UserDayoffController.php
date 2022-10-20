@@ -18,7 +18,7 @@ class UserDayoffController extends Controller
      */
     public function index(User $user)
     {
-        $dayoffs = $user->dayoffs;
+        $dayoffs = Dayoff::ofUser($user)->get();
 
         return view('dayoff.index',compact('dayoffs','user'));
     }
@@ -127,10 +127,12 @@ class UserDayoffController extends Controller
             ], 404);
         }
 
-        $dayoff->update([
-            'start_date' => $request->start_date,
-            'end_date' => $request->end_date,
-        ]);
+        if($dayoff->color != 'green') {
+            $dayoff->update([
+                'start_date' => $request->start_date,
+                'end_date' => $request->end_date,
+            ]);
+        }
 
         return response()->json('Event updated');
     }

@@ -127,7 +127,9 @@ Departmanlar
                             data:{ start_date, end_date  },
                             success:function(response)
                             {
-                                swal("Event Updated", "", "success");
+                                if(event.color != green) {
+                                    swal("Event Updated", "", "success");
+                                }
                             },
                             error:function(error)
                             {
