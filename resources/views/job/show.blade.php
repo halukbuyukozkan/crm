@@ -50,7 +50,7 @@ Görevler
                     @foreach($job->comments as $comment)
                     <div>
                         <h6>{{ $comment->user->name }}:</h6>
-                        <p>{{ $comment->comment }}</p>
+                        <p>{{ $comment->created_at }} - {{ $comment->comment }}</p>
                     </div>
                     @endforeach
                     <div class="form-group mb-4">
@@ -110,6 +110,7 @@ Görevler
             </div>
         </div>
         <div class="col-lg-4">
+            @if($job->deadline)
             <div class="card m-b-30">
                 <div class="card-header">
                     <div class="row">
@@ -132,6 +133,7 @@ Görevler
                     </div>
                 </div>
             </div>
+            @endif
             <div class="card m-b-30">
                 <div class="card-header">
                     <div class="row">

@@ -49,6 +49,7 @@ Route::middleware(['auth'])->group(function () {
         //DAYOFF
         Route::resource('user.dayoff',UserDayoffController::class);
         Route::post('/user/{user}/approve/{dayoff}', [UserDayoffController::class,'approve'])->name('dayoffapprove');
+        Route::delete('/user/{user}/destroyindex/{dayoff}', [UserDayoffController::class,'destroyindex'])->name('dayoffdelete');
 
         Route::get('calendar',[UserDayoffController::class,'calendar'])->name('calendar');
 

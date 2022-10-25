@@ -91,6 +91,15 @@ class PermissionsTableSeeder extends Seeder
                 'order' => 7,
                 'updated_at' => '2022-10-18 15:16:34',
             ),
+            8 => 
+            array (
+                'created_at' => '2022-10-25 15:41:50',
+                'guard_name' => 'web',
+                'id' => 13,
+                'name' => 'İzin Yönetimi',
+                'order' => 8,
+                'updated_at' => '2022-10-25 15:41:50',
+            ),
         ));
         
         

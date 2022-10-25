@@ -22,11 +22,11 @@ class Dayoff extends Model
     public function scopeOfUser(Builder $query)
     {
         if(Auth::user()->hasPermissionTo('İzin Yönetimi')){
-            return $query->whereHas('user',function($user){
+            return $query->whereHas('user',function(Builder $user){
                 $user->where('department_id',Auth::user()->department_id);
-            });
+            })->get();
         }else{
-            return $query->where('user_id',Auth::user()->id);
+            return $query->where('user_id',Auth::user()->id)->get();
         }
         
     }

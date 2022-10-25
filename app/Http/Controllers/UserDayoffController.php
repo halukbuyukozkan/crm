@@ -6,6 +6,8 @@ use App\Models\User;
 use App\Models\Dayoff;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Database\Eloquent\Builder;
 use Mockery\Generator\StringManipulation\Pass\Pass;
 
 class UserDayoffController extends Controller
@@ -18,14 +20,15 @@ class UserDayoffController extends Controller
      */
     public function index(User $user)
     {
-        $dayoffs = Dayoff::ofUser($user)->get();
+        $dayoffs = Dayoff::ofUser();
 
         return view('dayoff.index',compact('dayoffs','user'));
     }
 
     public function calendar()
     {
-        $userdayoffs = Dayoff::all();
+        $userdayoffs = Dayoff::ofUser();
+
         $dayoffs = null;
         foreach($userdayoffs as $dayoff){
             $dayoffs[] = [
@@ -39,7 +42,11 @@ class UserDayoffController extends Controller
 
         $user = Auth::user();
 
-        return view('dayoff.calendar',compact('dayoffs','user'));
+        $holidays[] = [
+            'date' => "2022-10-24 00:00:00",
+        ];
+
+        return view('dayoff.calendar',compact('dayoffs','user','holidays'));
     }
 
     public function approve(Request $request, User $user,Dayoff $dayoff)
@@ -153,6 +160,14 @@ class UserDayoffController extends Controller
         }
         $dayoff->delete();
 
+        
         return $dayoff;
+    }
+
+    public function destroyindex(User $user,Dayoff $dayoff)
+    {
+        $dayoff->delete();
+        
+        return redirect()->route('admin.user.dayoff.index',$user);
     }
 }

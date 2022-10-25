@@ -62,8 +62,7 @@ Departmanlar
                 }
             });
 
-            var dayoff = @json($dayoffs);
-
+            var dayoffs = @json($dayoffs);
             $('#calendar').fullCalendar({
                 locale: 'tr',
                 header: {
@@ -78,9 +77,10 @@ Departmanlar
                     day:      'Gün',
                     list:     'Liste'
                 },
-                events: dayoff,
+                events: dayoffs,
                 selectable: true,
                 selectHelper: true,
+
                 select: function(start, end, allDays) {
                     $('#dayoffModal').modal('toggle');
 
@@ -96,14 +96,20 @@ Departmanlar
                             data:{ title, start_date, end_date  },
                             success:function(response)
                             {
-                                $('#dayoffModal').modal('hide')
-                                $('#calendar').fullCalendar('renderEvent', {
-                                    'id': response.id,
-                                    'title': response.title,
-                                    'start' : response.start_date,
-                                    'color': response.color,
-                                    'end'  : response.end_date,
-                                })
+                                if(start_date != '2023-01-01') {
+                                    $('#dayoffModal').modal('hide')
+                                    $('#calendar').fullCalendar('renderEvent', {
+                                        'id': response.id,
+                                        'title': response.title,
+                                        'start' : response.start_date,
+                                        'color': response.color,
+                                        'end'  : response.end_date,
+                                    })
+                                }
+                                
+                                else if(start_date == '2023-01-01') {
+                                    swal("Yılbaşı Seçilemez", "", "error");
+                                }
                             },
                             error:function(error)
                             {
@@ -115,31 +121,41 @@ Departmanlar
                     });
                 },
                 editable: true,
-                eventDrop: function(event) {
-                    var id = event.id;
-                    var start_date = moment(event.start).format('YYYY-MM-DD');
-                    var end_date = moment(event.end).format('YYYY-MM-DD');
 
-                    $.ajax({
-                        url:"{{ route('admin.user.dayoff.update',['user' => $user, '' ]) }}" + '/'  + id,
-                            type:"PATCH",
-                            dataType:'json',
-                            data:{ start_date, end_date  },
-                            success:function(response)
-                            {
-                                if(event.color != green) {
-                                    swal("Event Updated", "", "success");
-                                }
-                            },
-                            error:function(error)
-                            {
-                                console.log(error)
-                            },
+
+                eventDrop: function(event) {
+                    if(event.color != 'green') {
+                        var id = event.id;
+                        var start_date = moment(event.start).format('YYYY-MM-DD');
+                        var end_date = moment(event.end).format('YYYY-MM-DD');
+
+                        $.ajax({
+                            url:"{{ route('admin.user.dayoff.update',['user' => $user, '' ]) }}" + '/'  + id,
+                                type:"PATCH",
+                                dataType:'json',
+                                data:{ start_date, end_date  },
+                                success:function(response)
+                                {
+                                    if(event.color != 'green') {
+                                        swal("İzin Güncellendi", "", "success");
+                                    }
+                                },
+                                error:function(error)
+                                {
+                                    console.log(error)
+                                },
+                            });
+                    }else{
+                        swal("Onaylanmış İzin Değiştirilemez", "", "error").then(function(){ 
+                        location.reload();
                         });
+                    }
                 },
+
                 eventClick: function(event){
                     var id = event.id;
-                    if(confirm('Are you sure want to remove it')){
+                    if(event.color != 'green') {
+                        if(confirm('Silmek istediğinize emin misiniz?')){
                         $.ajax({
                             url:"{{ route('admin.user.dayoff.destroy',['user' => $user, '' ]) }}" + '/'  + id,
                             type:"DELETE",
@@ -147,13 +163,16 @@ Departmanlar
                             success:function(response)
                             {  
                                 $('#calendar').fullCalendar('removeEvents', response.id);
-                                swal("Good job!", "Event Deleted!", "success");
+                                swal("İzin Başarıyla Silindi", "", "success");
                             },
                             error:function(error) 
                             {
                                 console.log(error)
                             },
                         });
+                        }
+                    }else {
+                        swal("Onaylanmış İzin Silinemez", "", "error");
                     }
                 },
 

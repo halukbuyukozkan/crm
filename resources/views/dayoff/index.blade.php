@@ -55,6 +55,16 @@
                                                 </button>
                                         </form>
                                         @endif
+                                        @if($dayoff->is_approved != 1)
+                                        <form action="{{ route('admin.dayoffdelete',['user' => $user,'dayoff' => $dayoff]) }}" method="POST"
+                                            class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
+                                            @csrf
+                                            @method('DELETE')
+                                                <button type="submit" class="btn btn-sm btn-danger">
+                                                    <i class="ri-delete-bin-line"></i>
+                                                </button>
+                                        </form>
+                                        @endif
                                     </td>
                                 </tr>  
                                 @endforeach

@@ -57,29 +57,41 @@ class ModelHasPermissionsTableSeeder extends Seeder
             ),
             6 => 
             array (
-                'model_id' => 9,
+                'model_id' => 5,
                 'model_type' => 'App\\Models\\User',
-                'permission_id' => 9,
+                'permission_id' => 13,
             ),
             7 => 
             array (
-                'model_id' => 11,
+                'model_id' => 9,
                 'model_type' => 'App\\Models\\User',
-                'permission_id' => 3,
+                'permission_id' => 9,
             ),
             8 => 
             array (
                 'model_id' => 11,
                 'model_type' => 'App\\Models\\User',
-                'permission_id' => 7,
+                'permission_id' => 3,
             ),
             9 => 
             array (
                 'model_id' => 11,
                 'model_type' => 'App\\Models\\User',
-                'permission_id' => 12,
+                'permission_id' => 7,
             ),
             10 => 
+            array (
+                'model_id' => 11,
+                'model_type' => 'App\\Models\\User',
+                'permission_id' => 12,
+            ),
+            11 => 
+            array (
+                'model_id' => 11,
+                'model_type' => 'App\\Models\\User',
+                'permission_id' => 13,
+            ),
+            12 => 
             array (
                 'model_id' => 15,
                 'model_type' => 'App\\Models\\User',
