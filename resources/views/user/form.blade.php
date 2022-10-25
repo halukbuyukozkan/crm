@@ -81,6 +81,17 @@ Yeni Kullanıcı
             </div>
 
             <div class="form-group mb-4">
+                <label for="dayoff">{{ __('Toplam izin günü') }}</label>
+                <input type="dayoff" class="form-control @error('dayoff') is-invalid @enderror" id="dayoff"
+                    name="dayoff" value="{{ $user->dayoff }}">
+                @error('dayoff')
+                    <span class="invalid-feedback" user="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
+
+            <div class="form-group mb-4">
                 <label for="password_confirmation">{{ __('Departman') }}</label>
                 <select class="form-control" name="department_id" id="department">
                     @foreach ($departments as $department)

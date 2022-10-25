@@ -30,6 +30,7 @@ class UserRequest extends FormRequest
             'birthdate' => 'nullable|date',
             'password' => 'nullable|string|min:6|confirmed',
             'phone' => 'nullable',
+            'dayoff' => 'nullable|integer',
             'department_id' => 'required|exists:departments,id',
             'roles' => 'array|exists:roles,id',
             'permissions' => 'array|exists:permissions,id'
