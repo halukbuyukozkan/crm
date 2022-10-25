@@ -19,6 +19,7 @@ return new class extends Migration
 
             $table->string('title');
             $table->string('color');
+            $table->string('type');
             $table->boolean('is_approved');
             $table->dateTime('start_date');
             $table->dateTime('end_date');

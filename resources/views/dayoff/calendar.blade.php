@@ -20,6 +20,14 @@ Departmanlar
             </div>
             <div class="modal-body">
             <input type="text" class="form-control" id="title">
+            <div class="form-group mb-4">
+                <label for="password_confirmation">{{ __('Departman') }}</label>
+                <select class="form-control" name="type" id="type">
+                    @foreach ($types as $type)
+                        <option value="{{ $type->value }}">{{ $type->value }}</option>
+                    @endforeach
+                </select>
+            </div>
             </div>
             <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
@@ -86,6 +94,7 @@ Departmanlar
 
                     $('#saveBtn').click(function() {
                         var title = $('#title').val();
+                        var type = $('#type').val();
                         var start_date = moment(start).format('YYYY-MM-DD');
                         var end_date = moment(end).format('YYYY-MM-DD');
 
@@ -93,7 +102,7 @@ Departmanlar
                             url:"{{ route('admin.user.dayoff.store',$user) }}",
                             type:"POST",
                             dataType:'json',
-                            data:{ title, start_date, end_date  },
+                            data:{ title, type, start_date, end_date },
                             success:function(response)
                             {
                                 if(start_date != '2023-01-01') {
@@ -101,10 +110,12 @@ Departmanlar
                                     $('#calendar').fullCalendar('renderEvent', {
                                         'id': response.id,
                                         'title': response.title,
+                                        'type': response.type,
                                         'start' : response.start_date,
                                         'color': response.color,
                                         'end'  : response.end_date,
                                     })
+                                    swal("İzin Başarıyla Oluşturuldu", "", "success");
                                 }
                                 
                                 else if(start_date == '2023-01-01') {

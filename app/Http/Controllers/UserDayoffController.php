@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use DateTime;
 use App\Models\User;
 use App\Models\Dayoff;
+use App\Enum\DayoffTypeEnum;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Database\Eloquent\Builder;
-use Mockery\Generator\StringManipulation\Pass\Pass;
 
 class UserDayoffController extends Controller
 {
@@ -21,13 +20,14 @@ class UserDayoffController extends Controller
     public function index(User $user)
     {
         $dayoffs = Dayoff::ofUser();
-
+        
         return view('dayoff.index',compact('dayoffs','user'));
     }
 
     public function calendar()
     {
         $userdayoffs = Dayoff::ofUser();
+        $types = DayoffTypeEnum::cases();
 
         $dayoffs = null;
         foreach($userdayoffs as $dayoff){
@@ -46,7 +46,7 @@ class UserDayoffController extends Controller
             'date' => "2022-10-24 00:00:00",
         ];
 
-        return view('dayoff.calendar',compact('dayoffs','user','holidays'));
+        return view('dayoff.calendar',compact('dayoffs','user','holidays','types'));
     }
 
     public function approve(Request $request, User $user,Dayoff $dayoff)
@@ -54,6 +54,15 @@ class UserDayoffController extends Controller
         $dayoff->is_approved = 1;
         $dayoff->color = 'green';
         $dayoff->update();
+
+        $start = new DateTime($dayoff->start_date);
+        $end = new DateTime($dayoff->end_date);
+        $days = $start->diff($end)->d;
+        if($dayoff->type == 'Ücretli İzin'){
+            $daysleft = $dayoff->user->dayoff - $days;
+            $dayoff->user->dayoff = $daysleft;
+            $dayoff->user->update();
+        }
 
         return redirect()->route('admin.user.dayoff.index',['user' => $user]);
     }
@@ -78,13 +87,15 @@ class UserDayoffController extends Controller
      */
     public function store(Request $request, User $user)
     {
-        $request->validate([
-            'title' => 'required|string'
+        $validated = $request->validate([
+            'title' => 'required|string',
+            'type' => 'nullable'
         ]);
-        
+
         $dayoff = Dayoff::create([
             'user_id' => Auth::user()->id,
             'title' => $request->title,
+            'type' => $request->type,
             'is_approved' => 0,
             'color' => 'primary',
             'start_date' => $request->start_date,

@@ -33,6 +33,7 @@
                               <tr>
                                 <th>Başlık</th>
                                 <th>İzin Alan</th>
+                                <th>Durum</th>
                                 <th>Başlangıç</th>
                                 <th>Bitiş</th>
                                 <th>Eylemler</th>
@@ -43,9 +44,11 @@
                                 <tr>
                                     <td>{{ $dayoff->title }}</td>
                                     <td>{{ $dayoff->user->name }}</td>
+                                    <td>@if($dayoff->is_approved==1) Onaylandı @else Beklemede @endif</td>
                                     <td>{{ $dayoff->start_date }}</td>
                                     <td>{{ $dayoff->end_date }}</td>
                                     <td>
+                                        @if($dayoff->is_approved != 1)
                                         @if(Auth::user()->hasPermissionTo('İzin Yönetimi'))
                                         <form action="{{ route('admin.dayoffapprove',['user' => $user,'dayoff' => $dayoff]) }}" method="POST"
                                             class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
@@ -55,7 +58,6 @@
                                                 </button>
                                         </form>
                                         @endif
-                                        @if($dayoff->is_approved != 1)
                                         <form action="{{ route('admin.dayoffdelete',['user' => $user,'dayoff' => $dayoff]) }}" method="POST"
                                             class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
                                             @csrf
