@@ -97,12 +97,8 @@
                         <li>
                             <a href="{{ route('admin.goodssol') }}"><i class="ri-file-info-line"></i></i>Goodssol Ailesi</a>
                         </li>
-                        <li class="scroll dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="ri-pages-line"></i>Mevzuat</a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Formlar</a></li>
-                                <li><a href="#">Talimatlar</a></li>
-                            </ul>
+                        <li>
+                            <a href="{{ route('admin.department.folder.index',Auth::user()->department) }}"><i class="ri-pages-line"></i>Dosyalar</a>
                         </li>
                         <li>
                             <a href="{{ route('admin.job.index') }}"><i class="ri-checkbox-multiple-line"></i></i>Görevler</a>

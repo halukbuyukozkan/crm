@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\DepartmentRequest;
 use App\Models\Department;
+use App\Models\DepartmentFolder;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 
@@ -89,6 +90,8 @@ class DepartmentController extends Controller
      */
     public function destroy(Department $department)
     {
-        //
+        $department->delete();
+
+        return redirect()->route('admin.department.index',compact('department'))->with('success', __('Departman Başarıyla Silindi'));
     }
 }

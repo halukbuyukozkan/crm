@@ -12,6 +12,11 @@
 - id
 - name 
 
+# Department.Folder
+- id
+- department_id
+- name
+
 # User
 - id
 - department_id

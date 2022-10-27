@@ -1,5 +1,5 @@
 @section('title') 
-Departmanlar
+Dosyalar
 @endsection 
 @extends('layouts.main')
 @section('style')
@@ -19,10 +19,10 @@ Departmanlar
                 <div class="card-header">
                     <div class="row">
                         <div class="col-md-10">
-                            <h5 class="card-title">Departmanlar</h5>
+                            <h5 class="card-title">Dosyalar</h5>
                         </div>
                         <div class="col-md-2 text-right">
-                            <a href="{{ route('admin.department.create') }}"><button class="btn btn-primary">Departman Oluştur</button></a>    
+                            <a href="{{ route('admin.department.folder.create',Auth::user()->department) }}"><button class="btn btn-primary">Dosya Oluştur</button></a>    
                         </div>
                     </div>
                 </div>
@@ -31,21 +31,20 @@ Departmanlar
                         <table class="table table-striped table-bordered" id="edit-btn">
                             <thead>
                               <tr>
-                                <th>İsim</th>
-                                <th>Rol</th>
+                                <th>Dosya adı</th>
                                 <th>İşlemler</th>
                               </tr>
                             </thead>
                             <tbody>
-                                @foreach ($departments as $department)
+                                @foreach ($department->folders as $folder)
                                 <tr>
-                                    <td>{{ $department->name }}</td>
-                                    <td>{{ $department->role }}</td>
+                                    <td>{{ $folder->name }}</td>
+                                    <td>{{ $folder->role }}</td>
                                     <td>
-                                        <a href="{{ route('admin.department.edit',$department) }}"><button class="btn btn-sm btn-primary">
+                                        <a href="{{ route('admin.department.folder.edit',['department' => $department, 'folder' => $folder]) }}"><button class="btn btn-sm btn-primary">
                                             <i class="ri-pencil-line"></i>
                                         </button></a>
-                                        <form action="{{ route('admin.department.destroy', $department) }}" method="POST"
+                                        <form action="{{ route('admin.department.folder.destroy',['department' => $department, 'folder' => $folder]) }}" method="POST"
                                         class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
                                         @csrf
                                         @method('DELETE')

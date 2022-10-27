@@ -11,14 +11,15 @@ use App\Http\Controllers\FrontController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\JobCommentController;
 use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\UserDayoffController;
 use App\Http\Controllers\InformationController;
 use App\Http\Controllers\Admin\StatusController;
-use App\Http\Controllers\JobCommentController;
+use App\Http\Controllers\DepartmentFolderController;
 use App\Http\Controllers\ProjectTransectionController;
 use App\Http\Controllers\TransectionCategoryController;
 use App\Http\Controllers\ProjectTransectionPayBackController;
-use App\Http\Controllers\UserDayoffController;
 
 /*
 |--------------------------------------------------------------------------
@@ -82,6 +83,7 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('project.transectioncategory',TransectionCategoryController::class);
 
         Route::resource('department',DepartmentController::class);
+        Route::resource('department.folder',DepartmentFolderController::class);
         
         Route::get('goodssol',[ShowController::class,'index'])->name('goodssol');
     });
