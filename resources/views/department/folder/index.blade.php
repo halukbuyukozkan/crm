@@ -21,9 +21,11 @@ Dosyalar
                         <div class="col-md-10">
                             <h5 class="card-title">Dosyalar</h5>
                         </div>
+                        @if(Auth::user()->hasPermissionTo('Dosya Yönetimi'))
                         <div class="col-md-2 text-right">
                             <a href="{{ route('admin.department.folder.create',Auth::user()->department) }}"><button class="btn btn-primary">Dosya Oluştur</button></a>    
                         </div>
+                        @endif
                     </div>
                 </div>
                 <div class="card-body">
@@ -32,13 +34,18 @@ Dosyalar
                             <thead>
                               <tr>
                                 <th>Dosya adı</th>
+                                <th>Departman</th>
+                                @if(Auth::user()->hasPermissionTo('Dosya Yönetimi'))
                                 <th>İşlemler</th>
+                                @endif
                               </tr>
                             </thead>
                             <tbody>
                                 @foreach ($department->folders as $folder)
                                 <tr>
                                     <td><a href="{{ route('admin.department.folder.show',['department' => $department,'folder' => $folder]) }}">{{ $folder->name }}</a></td>
+                                    <td>{{ $folder->department->name }}</td>
+                                    @if(Auth::user()->hasPermissionTo('Dosya Yönetimi'))
                                     <td style="width: 20%">
                                         <a href="{{ route('admin.department.folder.edit',['department' => $department, 'folder' => $folder]) }}"><button class="btn btn-sm btn-primary">
                                             <i class="ri-pencil-line"></i>
@@ -52,6 +59,7 @@ Dosyalar
                                             </button>
                                         </form>
                                     </td>
+                                    @endif
                                 </tr>  
                                 @endforeach
                             </tbody>

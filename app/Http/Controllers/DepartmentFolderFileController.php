@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\DepartmentFolderFileRequest;
 use App\Models\Department;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 use App\Models\DepartmentFolder;
 use App\Models\DepartmentFolderFile;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use App\Http\Requests\DepartmentFolderFileRequest;
 
 class DepartmentFolderFileController extends Controller
 {
@@ -48,7 +49,7 @@ class DepartmentFolderFileController extends Controller
                 $name=$file->getClientOriginalName();
                 $filename = pathinfo($name, PATHINFO_FILENAME);
                 $slugname = str_replace(' ', '', $folder->name);
-                $name = '('.$slugname.')' . uniqid($filename) . '.' . $file->getClientOriginalExtension();
+                $name = '('.$slugname.')' . $filename . Str::random(4) . '.' . $file->getClientOriginalExtension();
                 $file->move(public_path().'/files/department/' , $name);   
     
                 $file= new DepartmentFolderFile();

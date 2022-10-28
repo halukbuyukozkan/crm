@@ -35,7 +35,7 @@ Belgeler
                             <tbody>
                                 @forelse ($folder->files as $file)
                                 <tr>
-                                    <td>{{ $file->filename }}</td>
+                                    <td><a href="{{ asset('files/department/'.$file->filename) }}" download="{{ $file->filename }}">{{ $file->filename }}</a></td>
                                     <td style="width: 20%">
                                         <form action="{{ route('admin.department.folder.file.destroy',['department' => $department, 'folder' => $folder,'file' => $file]) }}" method="POST"
                                         class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
@@ -61,6 +61,7 @@ Belgeler
                 </div>
             </div>
         </div>
+        @if(Auth::user()->hasPermissionTo('Dosya Yönetimi'))
         <div class="col-lg-4">
             <div class="card m-b-30">
                 <div class="card-header">
@@ -96,6 +97,7 @@ Belgeler
                 </div>
             </div>
         </div>
+        @endif
     </div>
     
 </div>
