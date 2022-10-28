@@ -60,9 +60,9 @@ class DepartmentFolderController extends Controller
      * @param  \App\Models\DepartmentFolder  $departmentFolder
      * @return \Illuminate\Http\Response
      */
-    public function show(Department $department, DepartmentFolder $departmentFolder)
-    {
-        //
+    public function show(Department $department, DepartmentFolder $folder)
+    {   
+        return view('department.folder.file.index',compact('department','folder'));
     }
 
     /**

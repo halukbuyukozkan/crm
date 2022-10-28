@@ -38,9 +38,8 @@ Dosyalar
                             <tbody>
                                 @foreach ($department->folders as $folder)
                                 <tr>
-                                    <td>{{ $folder->name }}</td>
-                                    <td>{{ $folder->role }}</td>
-                                    <td>
+                                    <td><a href="{{ route('admin.department.folder.show',['department' => $department,'folder' => $folder]) }}">{{ $folder->name }}</a></td>
+                                    <td style="width: 20%">
                                         <a href="{{ route('admin.department.folder.edit',['department' => $department, 'folder' => $folder]) }}"><button class="btn btn-sm btn-primary">
                                             <i class="ri-pencil-line"></i>
                                         </button></a>

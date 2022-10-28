@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class DepartmentFolder extends Model
 {
@@ -17,6 +18,11 @@ class DepartmentFolder extends Model
     public function department(): BelongsTo
     {
         return $this->belongsTo(Department::class);
+    }
+
+    public function files(): HasMany
+    {
+        return $this->hasMany(DepartmentFolderFile::class);
     }
 
     public function scopeOfUser(Builder $query)

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
- use App\Enum\TypeEnum;
 use Carbon\Carbon;
 use App\Models\Project;
 use App\Enum\StatusEnum;

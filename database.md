@@ -17,6 +17,11 @@
 - department_id
 - name
 
+# DepartmentFolderFile
+- id 
+- department_id
+- folder_id
+
 # User
 - id
 - department_id
