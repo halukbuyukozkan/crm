@@ -361,26 +361,83 @@ CRM
     </div>
 
     <div class="row">
-        <div class="col-lg-12 my-4">
+        <div class="col-lg-12">
             <div class="card m-b-30">
                 <div class="card-header">
                     <div class="row">
-                        <div class="col-md-8">
-                            <h5>İzinler</h5>
+                        <div class="col-md-10">
+                            <h5 class="card-title">İzinler</h5>
+                        </div>
+                        <div class="col-md-2 text-right">
+                            <a href="{{ route('admin.calendar') }}"><button class="btn btn-primary">İzin Oluştur</button></a>    
                         </div>
                     </div>
                 </div>
                 <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <h5><a href="#">>İzin Yönetim Sistemi</a></h5>
-                            <h5><a href="#">>Ücretisiz İzin Talebi</a></h5>
-                        </div>
-                        <div class="col-md-6">
-                            <h5><a href="#">>Yıllık İzin Talebi</a></h5>
-                            <h6>Yıllık izin hakkı : 7 gün</h6>
-                        </div>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered" id="edit-btn">
+                            <thead>
+                              <tr>
+                                <th>Başlık</th>
+                                <th>İzin Alan</th>
+                                <th>Durum</th>
+                                <th>Başlangıç</th>
+                                <th>Bitiş</th>
+                                <th>Eylemler</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                                @forelse ($dayoffs->take(5) as $dayoff)
+                                <tr>
+                                    <td>{{ $dayoff->title }}</td>
+                                    <td>{{ $dayoff->user->name }}</td>
+                                    <td>@if($dayoff->is_approved==1) Onaylandı @else Beklemede @endif</td>
+                                    <td>{{ $dayoff->start_date }}</td>
+                                    <td>{{ $dayoff->end_date }}</td>
+                                    <td>
+                                        @if($dayoff->is_approved != 1)
+                                        @if(Auth::user()->hasPermissionTo('İzin Yönetimi'))
+                                        <form action="{{ route('admin.dayoffapprove',['user' => $user,'dayoff' => $dayoff]) }}" method="POST"
+                                            class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
+                                            @csrf
+                                                <button type="submit" class="btn btn-sm btn-primary">
+                                                    <i class="ri-check-line"></i>
+                                                </button>
+                                        </form>
+                                        @endif
+                                        <form action="{{ route('admin.dayoffdelete',['user' => $user,'dayoff' => $dayoff]) }}" method="POST"
+                                            class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
+                                            @csrf
+                                            @method('DELETE')
+                                                <button type="submit" class="btn btn-sm btn-danger">
+                                                    <i class="ri-delete-bin-line"></i>
+                                                </button>
+                                        </form>
+                                        @endif
+                                    </td>
+                                </tr>  
+                                @empty
+                                <tr>
+                                    <td colspan="99" class="text-center text-muted">
+                                        {{ __('Talep Bulunamadı') }}
+                                    </td>
+                                </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
                     </div>
+                    @if($dayoffs)
+                        @if($dayoffs->count() > 5)
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="text-center">
+                                    <a href="{{ route('admin.user.dayoff.index',$user) }}">Tümünü gör</a>
+                                </div>
+                            </div>
+                        </div>
+                        @endif
+                    @endif
+
                 </div>
             </div>
         </div>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Job;
+use App\Models\Dayoff;
 use App\Models\Message;
 use App\Models\Project;
 use App\Models\Information;
@@ -37,17 +38,16 @@ class FrontController extends Controller
 
         // PROJECTS 
         $projects = Project::OfProject()->get();
-        $superior_projects = Project::whereHas('user', function (Builder $query) {
-            $query->permission('Ödeme Talebi Kabul Etme');
-        })->get(); 
-
         if(Auth::user()->hasAnyPermission('Yetkili Ödeme Talep Kabul Etme')){
-            $projects = $superior_projects;
+            $projects = Project::OfSuperior(); 
         }
-        //
+        
+        // DAYOFFS
+        $dayoffs = Dayoff::OfUser();
+
         $this->completedtotalprice($projects);
         
-        return view('index',compact('messages','projects','myjobs','otherjobs','informations','user'));
+        return view('index',compact('messages','projects','myjobs','otherjobs','informations','user','dayoffs'));
     }
 
     public function job($user)

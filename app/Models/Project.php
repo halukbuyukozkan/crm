@@ -60,6 +60,12 @@ class Project extends Model
         }
     }
 
+    public function scopeOfSuperior(Builder $query){
+        return $query->whereHas('user',function(Builder $query){
+            $query->permission('Ödeme Talebi Kabul Etme');
+        })->get();
+    }
+
     public function scopeOfCompleted(Builder $query)
     {
         return $query->whereHas('transections', function(Builder $query){
