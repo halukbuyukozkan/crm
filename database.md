@@ -17,7 +17,7 @@
 - department_id
 - name
 
-# DepartmentFolderFile
+# DepartmentfolderFile
 - id 
 - department_id
 - folder_id

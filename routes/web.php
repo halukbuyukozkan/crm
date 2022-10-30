@@ -16,8 +16,8 @@ use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\UserDayoffController;
 use App\Http\Controllers\InformationController;
 use App\Http\Controllers\Admin\StatusController;
-use App\Http\Controllers\DepartmentFolderController;
-use App\Http\Controllers\DepartmentFolderFileController;
+use App\Http\Controllers\DepartmentfolderController;
+use App\Http\Controllers\DepartmentfolderFileController;
 use App\Http\Controllers\ProjectTransectionController;
 use App\Http\Controllers\TransectionCategoryController;
 use App\Http\Controllers\ProjectTransectionPayBackController;
@@ -84,8 +84,8 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('project.transectioncategory',TransectionCategoryController::class);
 
         Route::resource('department',DepartmentController::class);
-        Route::resource('department.folder',DepartmentFolderController::class);
-        Route::resource('department.folder.file',DepartmentFolderFileController::class);
+        Route::resource('department.folder',DepartmentfolderController::class);
+        Route::resource('department.folder.file',DepartmentfolderFileController::class);
         
         Route::get('goodssol',[ShowController::class,'index'])->name('goodssol');
     });

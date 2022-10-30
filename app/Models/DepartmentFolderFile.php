@@ -6,15 +6,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class DepartmentFolderFile extends Model
+class DepartmentfolderFile extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['department_id','department_folder_id','filename'];
+    protected $fillable = ['department_id','departmentfolder_id','filename'];
 
     public function folder(): BelongsTo
     {
-        return $this->belongsTo(DepartmentFolder::class);
+        return $this->belongsTo(Departmentfolder::class);
     }
 
     public function department(): BelongsTo

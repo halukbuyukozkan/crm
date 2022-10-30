@@ -35,7 +35,7 @@ Yeni Dosya
         </div>
         <div class="card-body">
             <div class="form-group">
-                <select class="form-control" name="department_id" id="formControlSelect">
+                <select class="form-control" name="departments[]" id="formControlSelect" multiple>
                     @foreach ($departments as $department)
                         <option value="{{ $department->id }}">{{ $department->name }}</option>
                     @endforeach

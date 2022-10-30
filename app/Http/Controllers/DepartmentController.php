@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\DepartmentRequest;
 use App\Models\Department;
-use App\Models\DepartmentFolder;
+use App\Models\Departmentfolder;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 
@@ -44,6 +44,8 @@ class DepartmentController extends Controller
     {
         $data = $request->validated();
         $department = Department::create($data);
+
+        $department->folders()->sync($data['folders'] ?? []);
 
         return redirect()->route('admin.department.index')->with('success', 'Role created successfully');
     }

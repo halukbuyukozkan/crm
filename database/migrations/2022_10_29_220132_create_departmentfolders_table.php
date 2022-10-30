@@ -13,13 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('department_folder_files', function (Blueprint $table) {
+        Schema::create('departmentfolders', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('department_id')->nullable()->constrained();
-            $table->foreignId('department_folder_id')->nullable()->constrained();
 
-            $table->string('filename');
-
+            $table->string('name');
+            
             $table->timestamps();
         });
     }
@@ -31,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('department_folder_files');
+        Schema::dropIfExists('departmentfolders');
     }
 };

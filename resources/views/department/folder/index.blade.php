@@ -34,7 +34,7 @@ Dosyalar
                             <thead>
                               <tr>
                                 <th>Dosya adı</th>
-                                <th>Departman</th>
+                                <th>Departmanlar</th>
                                 @if(Auth::user()->hasPermissionTo('Dosya Yönetimi'))
                                 <th>İşlemler</th>
                                 @endif
@@ -44,7 +44,11 @@ Dosyalar
                                 @foreach ($department->folders as $folder)
                                 <tr>
                                     <td><a href="{{ route('admin.department.folder.show',['department' => $department,'folder' => $folder]) }}">{{ $folder->name }}</a></td>
-                                    <td>{{ $folder->department->name }}</td>
+                                    <td>
+                                        @foreach($folder->departments as $department)
+                                        {{ $department->name }} @if(!$loop->last) - @endif
+                                        @endforeach
+                                    </td>
                                     @if(Auth::user()->hasPermissionTo('Dosya Yönetimi'))
                                     <td style="width: 20%">
                                         <a href="{{ route('admin.department.folder.edit',['department' => $department, 'folder' => $folder]) }}"><button class="btn btn-sm btn-primary">

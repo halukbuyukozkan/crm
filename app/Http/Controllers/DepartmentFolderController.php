@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Department;
-use App\Models\DepartmentFolder;
+use App\Models\Departmentfolder;
 use Illuminate\Http\Request;
 
-class DepartmentFolderController extends Controller
+class DepartmentfolderController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +16,7 @@ class DepartmentFolderController extends Controller
      */
     public function index(Department $department)
     {
-        $folders = DepartmentFolder::ofUser()->get();
+        $folders = Departmentfolder::ofUser()->get();
 
         return view('department.folder.index',compact('department'));
     }
@@ -29,7 +29,7 @@ class DepartmentFolderController extends Controller
      */
     public function create(Request $request,Department $department)
     {
-        $folder = new DepartmentFolder($request->old());
+        $folder = new Departmentfolder($request->old());
         $departments = Department::all();
 
         return view('department.folder.form',compact('folder','department','departments'));
@@ -45,10 +45,13 @@ class DepartmentFolderController extends Controller
     public function store(Request $request, Department $department)
     {
         $data = $request->validate([
-            'department_id' => 'required',
+            'departments' => 'array|required',
             'name' => 'required|string|max:255',
         ]);
-        $folder = DepartmentFolder::create($data);
+
+        $folder = Departmentfolder::create($data);
+
+        $folder->departments()->sync($data['departments'] ?? []);
 
         return redirect()->route('admin.department.folder.index',$department)->with('success', 'Role created successfully');
     }
@@ -57,10 +60,10 @@ class DepartmentFolderController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Models\Department  $department
-     * @param  \App\Models\DepartmentFolder  $departmentFolder
+     * @param  \App\Models\Departmentfolder  $departmentFolder
      * @return \Illuminate\Http\Response
      */
-    public function show(Department $department, DepartmentFolder $folder)
+    public function show(Department $department, Departmentfolder $folder)
     {   
         return view('department.folder.file.index',compact('department','folder'));
     }
@@ -69,10 +72,10 @@ class DepartmentFolderController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Department  $department
-     * @param  \App\Models\DepartmentFolder  $departmentFolder
+     * @param  \App\Models\Departmentfolder  $departmentFolder
      * @return \Illuminate\Http\Response
      */
-    public function edit(Department $department, DepartmentFolder $departmentFolder)
+    public function edit(Department $department, Departmentfolder $departmentFolder)
     {
         //
     }
@@ -82,10 +85,10 @@ class DepartmentFolderController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Department  $department
-     * @param  \App\Models\DepartmentFolder  $departmentFolder
+     * @param  \App\Models\Departmentfolder  $departmentFolder
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Department $department, DepartmentFolder $departmentFolder)
+    public function update(Request $request, Department $department, Departmentfolder $departmentFolder)
     {
         //
     }
@@ -94,10 +97,10 @@ class DepartmentFolderController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Department  $department
-     * @param  \App\Models\DepartmentFolder  $departmentFolder
+     * @param  \App\Models\Departmentfolder  $departmentFolder
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Department $department, DepartmentFolder $folder)
+    public function destroy(Department $department, Departmentfolder $folder)
     {
         $folder->delete();
 

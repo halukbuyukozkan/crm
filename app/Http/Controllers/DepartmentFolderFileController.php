@@ -5,20 +5,20 @@ namespace App\Http\Controllers;
 use App\Models\Department;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use App\Models\DepartmentFolder;
-use App\Models\DepartmentFolderFile;
+use App\Models\Departmentfolder;
+use App\Models\DepartmentfolderFile;
 use Illuminate\Support\Facades\File;
-use App\Http\Requests\DepartmentFolderFileRequest;
+use App\Http\Requests\DepartmentfolderFileRequest;
 
-class DepartmentFolderFileController extends Controller
+class DepartmentfolderFileController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @param  \App\Models\DepartmentFolder  $departmentFolder
+     * @param  \App\Models\Departmentfolder  $departmentFolder
      * @return \Illuminate\Http\Response
      */
-    public function index(Department $department, DepartmentFolder $departmentFolder)
+    public function index(Department $department, Departmentfolder $departmentFolder)
     {
         //
     }
@@ -26,10 +26,10 @@ class DepartmentFolderFileController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @param  \App\Models\DepartmentFolder  $departmentFolder
+     * @param  \App\Models\Departmentfolder  $departmentFolder
      * @return \Illuminate\Http\Response
      */
-    public function create(DepartmentFolder $departmentFolder)
+    public function create(Departmentfolder $departmentFolder)
     {
         //
     }
@@ -38,10 +38,10 @@ class DepartmentFolderFileController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\DepartmentFolder  $departmentFolder
+     * @param  \App\Models\Departmentfolder  $departmentFolder
      * @return \Illuminate\Http\Response
      */
-    public function store(DepartmentFolderFileRequest $request, Department $department ,DepartmentFolder $folder)
+    public function store(DepartmentfolderFileRequest $request, Department $department ,Departmentfolder $folder)
     {
         if($request->hasfile('filename')) {
             foreach($request->file('filename') as $file)
@@ -52,9 +52,9 @@ class DepartmentFolderFileController extends Controller
                 $name = '('.$slugname.')' . $filename . Str::random(4) . '.' . $file->getClientOriginalExtension();
                 $file->move(public_path().'/files/department/' , $name);   
     
-                $file= new DepartmentFolderFile();
+                $file= new DepartmentfolderFile();
                 $file->department_id = $department->id;
-                $file->department_folder_id = $folder->id;
+                $file->departmentfolder_id = $folder->id;
                 $file->filename= $name;
                     
                 $file->save();
@@ -66,11 +66,11 @@ class DepartmentFolderFileController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\DepartmentFolder  $departmentFolder
-     * @param  \App\Models\DepartmentFolderFile  $departmentFolderFile
+     * @param  \App\Models\Departmentfolder  $departmentFolder
+     * @param  \App\Models\DepartmentfolderFile  $departmentFolderFile
      * @return \Illuminate\Http\Response
      */
-    public function show(DepartmentFolder $departmentFolder, DepartmentFolderFile $departmentFolderFile)
+    public function show(Departmentfolder $departmentFolder, DepartmentfolderFile $departmentFolderFile)
     {
         //
     }
@@ -78,11 +78,11 @@ class DepartmentFolderFileController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\DepartmentFolder  $departmentFolder
-     * @param  \App\Models\DepartmentFolderFile  $departmentFolderFile
+     * @param  \App\Models\Departmentfolder  $departmentFolder
+     * @param  \App\Models\DepartmentfolderFile  $departmentFolderFile
      * @return \Illuminate\Http\Response
      */
-    public function edit(DepartmentFolder $departmentFolder, DepartmentFolderFile $departmentFolderFile)
+    public function edit(Departmentfolder $departmentFolder, DepartmentfolderFile $departmentFolderFile)
     {
         //
     }
@@ -91,11 +91,11 @@ class DepartmentFolderFileController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\DepartmentFolder  $departmentFolder
-     * @param  \App\Models\DepartmentFolderFile  $departmentFolderFile
+     * @param  \App\Models\Departmentfolder  $departmentFolder
+     * @param  \App\Models\DepartmentfolderFile  $departmentFolderFile
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, DepartmentFolder $departmentFolder, DepartmentFolderFile $departmentFolderFile)
+    public function update(Request $request, Departmentfolder $departmentFolder, DepartmentfolderFile $departmentFolderFile)
     {
         //
     }
@@ -103,11 +103,11 @@ class DepartmentFolderFileController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\DepartmentFolder  $departmentFolder
-     * @param  \App\Models\DepartmentFolderFile  $departmentFolderFile
+     * @param  \App\Models\Departmentfolder  $departmentFolder
+     * @param  \App\Models\DepartmentfolderFile  $departmentFolderFile
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Department $department,DepartmentFolder $folder, DepartmentFolderFile $file)
+    public function destroy(Department $department,Departmentfolder $folder, DepartmentfolderFile $file)
     {
         if(File::exists(public_path('files/department/'. $file->filename))){
             File::delete(public_path('files/department/'. $file->filename));

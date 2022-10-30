@@ -5,24 +5,24 @@ namespace App\Models;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class DepartmentFolder extends Model
+class Departmentfolder extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['department_id','name'];
+    protected $fillable = ['name'];
 
-    public function department(): BelongsTo
+    public function departments(): BelongsToMany
     {
-        return $this->belongsTo(Department::class);
+        return $this->belongsToMany(Department::class);
     }
 
     public function files(): HasMany
     {
-        return $this->hasMany(DepartmentFolderFile::class);
+        return $this->hasMany(DepartmentfolderFile::class);
     }
 
     public function scopeOfUser(Builder $query)
@@ -30,7 +30,7 @@ class DepartmentFolder extends Model
         if(Auth::user()->hasPermissionTo('Dosya Yönetimi')) {
             return $query;
         }else {
-            return $query->whereHas('department',function(Builder $department){
+            return $query->whereHas('departments',function(Builder $department){
                 $department->where('id',Auth::user()->department_id);
             });
         }
