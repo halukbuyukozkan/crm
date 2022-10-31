@@ -37,17 +37,10 @@ Departmanlar
         </div>
     </div>
 
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <h3 class="text-center mt-5">İzin Günleri</h3>
-                <div class="col-md-10 offset-1 mt-5 mb-5">
-
-                    <div id="calendar">
-
-                    </div>
-
-                </div>
+    <div class="col-12">
+        <h3 class="text-center mt-5">İzin Günleri</h3>
+        <div class="col-md-10 my-5 offset-1">
+            <div id="calendar">
             </div>
         </div>
     </div>
@@ -71,6 +64,10 @@ Departmanlar
             });
 
             var dayoffs = @json($dayoffs);
+            var holidays = @json($holidays);
+
+            console.log(dayoffs);
+
             $('#calendar').fullCalendar({
                 locale: 'tr',
                 header: {
@@ -88,7 +85,7 @@ Departmanlar
                 events: dayoffs,
                 selectable: true,
                 selectHelper: true,
-
+                displayEventTime: false,
                 select: function(start, end, allDays) {
                     $('#dayoffModal').modal('toggle');
 
@@ -98,29 +95,26 @@ Departmanlar
                         var start_date = moment(start).format('YYYY-MM-DD');
                         var end_date = moment(end).format('YYYY-MM-DD');
 
-                        $.ajax({
+                        const result = holidays.filter(holiday => holiday.tarih === start_date);
+
+                        if(result.length == 0) {
+                            $.ajax({
                             url:"{{ route('admin.user.dayoff.store',$user) }}",
                             type:"POST",
                             dataType:'json',
                             data:{ title, type, start_date, end_date },
                             success:function(response)
                             {
-                                if(start_date != '2023-01-01') {
-                                    $('#dayoffModal').modal('hide')
-                                    $('#calendar').fullCalendar('renderEvent', {
-                                        'id': response.id,
-                                        'title': response.title,
-                                        'type': response.type,
-                                        'start' : response.start_date,
-                                        'color': response.color,
-                                        'end'  : response.end_date,
-                                    })
-                                    swal("İzin Başarıyla Oluşturuldu", "", "success");
-                                }
-                                
-                                else if(start_date == '2023-01-01') {
-                                    swal("Yılbaşı Seçilemez", "", "error");
-                                }
+                            $('#dayoffModal').modal('hide')
+                            $('#calendar').fullCalendar('renderEvent', {
+                                'id': response.id,
+                                'title': response.title,
+                                'type': response.type,
+                                'start' : response.start_date,
+                                'color': response.color,
+                                'end'  : response.end_date,
+                            })
+                            swal("İzin Başarıyla Oluşturuldu", "", "success");   
                             },
                             error:function(error)
                             {
@@ -128,7 +122,15 @@ Departmanlar
                                     $('#titleError').html(error.responseJSON.errors.title);
                                 }
                             },
-                        });
+                            });
+                        }else {
+                            swal("Resmi Tatiller Seçilemez", "", "error");
+                        }
+
+                        
+
+
+
                     });
                 },
                 editable: true,

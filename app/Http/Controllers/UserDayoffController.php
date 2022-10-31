@@ -42,9 +42,9 @@ class UserDayoffController extends Controller
 
         $user = Auth::user();
 
-        $holidays[] = [
-            'date' => "2022-10-24 00:00:00",
-        ];
+        $responses = json_decode(file_get_contents('https://api.ubilisim.com/resmitatiller/'), true);
+
+        $holidays = $responses['resmitatiller'];
 
         return view('dayoff.calendar',compact('dayoffs','user','holidays','types'));
     }

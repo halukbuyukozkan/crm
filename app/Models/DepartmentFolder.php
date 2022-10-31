@@ -31,7 +31,7 @@ class Departmentfolder extends Model
             return $query;
         }else {
             return $query->whereHas('departments',function(Builder $department){
-                $department->where('id',Auth::user()->department_id);
+                $department->where('department_id',Auth::user()->department_id);
             });
         }
     }
