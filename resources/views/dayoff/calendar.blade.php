@@ -86,6 +86,8 @@ Departmanlar
                 selectable: true,
                 selectHelper: true,
                 displayEventTime: false,
+                weekends: false,
+
                 select: function(start, end, allDays) {
                     $('#dayoffModal').modal('toggle');
 
