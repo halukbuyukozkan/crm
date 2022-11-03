@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Slider;
 use Carbon\Carbon;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -17,6 +18,8 @@ class ShowController extends Controller
     {
         $birthday = User::whereDay('birthdate', Carbon::now()->format('d'))->get()->first();
 
-        return view('goodssol.index',compact('birthday'));
+        $sliders = Slider::paginate();
+
+        return view('goodssol.index',compact('birthday','sliders'));
     }
 }

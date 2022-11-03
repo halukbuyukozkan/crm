@@ -13,12 +13,32 @@ Goodssol Ailesi
 <!-- Start Contentbar -->    
 <div class="contentbar">   
     <div class="row my-2">
-        <div class="col-md-8">
-            <img class="w-100" src="{{ asset('img/nopic.png') }}" alt="">
-        </div>
-        <div class="col-md-4">
-            <img class="w-100" src="{{ asset('img/nopic.png') }}" alt="">
-            <img class="w-100 mt-4" src="{{ asset('img/nopic.png') }}" alt="">
+        <div class="col-lg-12">
+            <div class="card m-b-30">
+                <div class="card-body">
+                    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner">
+                            @foreach ($sliders as $slider)
+                                @if($loop->first)
+                                <div class="carousel-item active">
+                                @else
+                                <div class="carousel-item">
+                                @endif
+                                    <img src="{{ asset('files/slider/' . $slider->image) }}" class="d-block w-100" alt="First slide">
+                                </div>
+                            @endforeach
+                        </div>
+                        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>                                
+                </div>
+            </div>
         </div>
     </div>
     <div class="row my-4">
