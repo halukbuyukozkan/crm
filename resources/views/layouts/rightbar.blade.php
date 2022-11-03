@@ -119,6 +119,7 @@
                                 <li><a href="{{ route('admin.department.index') }}">Departmanlar</a></li>
                                 <li><a href="{{ route('admin.message.index') }}">Sistem Mesajları</a></li>
                                 <li><a href="{{ route('admin.information.index') }}">Sistem Haberler</a></li>
+                                <li><a href="{{ route('admin.slider.index') }}">Slider</a></li>
                             </ul>
                         </li>  
                         @endif

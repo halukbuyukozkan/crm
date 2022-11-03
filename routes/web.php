@@ -21,6 +21,7 @@ use App\Http\Controllers\DepartmentfolderFileController;
 use App\Http\Controllers\ProjectTransectionController;
 use App\Http\Controllers\TransectionCategoryController;
 use App\Http\Controllers\ProjectTransectionPayBackController;
+use App\Http\Controllers\SliderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,6 +49,8 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('about',AboutController::class);
         Route::resource('message',MessageController::class);
         Route::resource('information',InformationController::class);
+        Route::resource('slider',SliderController::class);
+
         //DAYOFF
         Route::resource('user.dayoff',UserDayoffController::class);
         Route::post('/user/{user}/approve/{dayoff}', [UserDayoffController::class,'approve'])->name('dayoffapprove');
