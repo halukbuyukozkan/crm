@@ -87,7 +87,7 @@ Masraf Talebi Oluştur
             </div>
             @else
             <div>
-                <input type="hidden" name="transection_category_id" value="">
+                <input type="hidden" name="transection_category_id[]" value="{{ $categories->last()->id }}">
             </div>
             @endif
 

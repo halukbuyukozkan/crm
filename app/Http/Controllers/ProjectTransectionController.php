@@ -46,24 +46,25 @@ class ProjectTransectionController extends Controller
      */
     public function store(TransectionRequest $request,Project $project,Transection $transection)
     {
-
-
         $data = $request->validated();
+
         $categories = $data['transection_category_id'];
         $prices = $data['price'];
 
-        foreach($categories as $key => $category)
-        $transections[] = Transection::create([
-            'name' => $data['name'],
-            'description' => $data['description'],
-            'project_id' => $project->id,
-            'transection_category_id' => ($category ? $category : null),
-            'status' => 'beklemede',
-            'price' => $prices[$key],
-            'is_income' => $data['is_income'],
-            'is_completed' => $data['is_completed'],
-            'type' => $data['type'],
-        ]);
+        foreach($categories as $key => $category) {
+            $transections[] = Transection::create([
+                'name' => $data['name'],
+                'description' => $data['description'],
+                'project_id' => $project->id,
+                'transection_category_id' => ($category ? $category : null),
+                'status' => 'beklemede',
+                'price' => $prices[$key],
+                'is_income' => $data['is_income'],
+                'is_completed' => $data['is_completed'],
+                'type' => $data['type'],
+            ]);
+        }
+        
 
         foreach($transections as $transection){
             if(Auth::user()->hasAnyPermission('Ödeme Gerçekleştirme')){
