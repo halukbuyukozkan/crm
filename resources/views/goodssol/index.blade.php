@@ -51,19 +51,50 @@ Goodssol Ailesi
                         </div>
                     </div>
                 </div>
-                @if($birthday)
+                @if($users)
                 <div class="card-body">
                     <div class="row">
                         <div class="text-center">
                             <img src="{{ asset('img/emptyprofile.png') }}" class="rounded-circle w-50" alt="...">
-                            <h6 class="card-title text-center">{{ $birthday->name }}</h6>
+                            <h6 class="card-title text-center">{{ $users->first()->name }}</h6>
                         </div>
                     </div>
                 </div>
                 @endif
             </div>
         </div>
+        <div class="col-lg-8">
+            <div class="card m-b-30">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-md-10">
+                            <h5 class="card-title">Doğum günleri</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered" id="edit-btn">
+                            <thead>
+                              <tr>
+                                <th>İsim</th>
+                                <th>Doğum günü</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($users->take(4) as $user)
+                                <tr>
+                                    <td>{{ $user->name }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($user->birthdate)->format('d/m/Y') }}</td>
+                                </tr>  
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
 
+                </div>
+            </div>
+        </div>
     </div>
 
 </div>

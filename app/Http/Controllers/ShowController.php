@@ -16,10 +16,11 @@ class ShowController extends Controller
      */
     public function index()
     {
-        $birthday = User::whereDay('birthdate', Carbon::now()->format('d'))->get()->first();
+        $users = User::where('birthdate','!=',null)->get();
+        $users = $users->sortBy('birthdate');
 
         $sliders = Slider::paginate();
 
-        return view('goodssol.index',compact('birthday','sliders'));
+        return view('goodssol.index',compact('users','sliders'));
     }
 }

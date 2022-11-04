@@ -217,6 +217,10 @@ CRM
                                             <td>Avans Bakiyesi</td>
                                             <td style="width: 60%">{{ $user->balance }}</td>
                                         </tr>
+                                        <tr>
+                                            <td>Kalan izin günü</td>
+                                            <td style="width: 60%">{{ $user->dayoff }}</td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
