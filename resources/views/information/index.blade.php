@@ -42,9 +42,6 @@ Haberler
                                     <td>{{ $information->description }}</td>
                                     <td>{{ $information->created_at }}</td>
                                     <td>
-                                        <a href="{{ route('admin.information.edit',$information) }}"><button class="btn btn-sm btn-primary">
-                                            <i class="ri-pencil-line"></i>
-                                        </button></a>
                                         <form action="{{ route('admin.information.destroy', $information) }}" method="POST"
                                         class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
                                         @csrf
