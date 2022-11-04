@@ -42,9 +42,6 @@ Departmanlar
                                     <td>{{ $department->name }}</td>
                                     <td>{{ $department->role }}</td>
                                     <td>
-                                        <a href="{{ route('admin.department.edit',$department) }}"><button class="btn btn-sm btn-primary">
-                                            <i class="ri-pencil-line"></i>
-                                        </button></a>
                                         <form action="{{ route('admin.department.destroy', $department) }}" method="POST"
                                         class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
                                         @csrf

@@ -42,9 +42,6 @@ Slider
                                     <td>{{ $slider->name }}</td>
                                     <td>{{ $slider->image }}</td>
                                     <td>
-                                        <a href="{{ route('admin.slider.edit',$slider) }}"><button class="btn btn-sm btn-primary">
-                                            <i class="ri-pencil-line"></i>
-                                        </button></a>
                                         <form action="{{ route('admin.slider.destroy', $slider) }}" method="POST"
                                         class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
                                         @csrf
