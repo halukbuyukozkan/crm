@@ -20,7 +20,6 @@ Avans Talepleri
                     <div class="row">
                         <div class="col-md-6">
                             <h5 class="card-title">{{ $project->name }} Ödeme Talepleri</h5>
-                            <span>Bakiye: {{$project->total}}</span>
                         </div>
                         <div class="col-md-6 text-right">
                             @if($project->type == 'Avans')

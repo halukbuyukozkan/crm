@@ -20,7 +20,6 @@ Masraf Talepleri
                     <div class="row">
                         <div class="col-md-6">
                             <h5 class="card-title">{{ $project->name }} Masraf Talepleri</h5>
-                            <span>Bakiye: {{$project->total}}</span>
                         </div>
                         <div class="col-md-6 text-right">
                             <a href="{{ route('admin.transection.create',['project' => $project,'type' => $transectiontypes[2]]) }}"><button class="btn btn-primary">Masraf Talebi Oluştur</button></a> 
@@ -111,13 +110,6 @@ Masraf Talepleri
                                                         <i class="ri-check-double-line"></i>
                                                     </button>
                                                 </form>
-                                                <form action="{{ route('admin.transectionreverse',['transection' => $transection]) }}" method="POST"
-                                                    class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
-                                                    @csrf
-                                                    <button type="submit" class="btn btn-sm btn-primary">
-                                                        <i class="ri-arrow-go-back-line"></i>
-                                                    </button>
-                                                </form>
                                                 @endif
                                                 @if(Auth::user()->hasAnyPermission('Ödeme Talebi Kabul Etme'))
                                                 <form action="{{ route('admin.transectionreverse',['transection' => $transection]) }}" method="POST"
@@ -149,11 +141,11 @@ Masraf Talepleri
                                                 </form>
                                                 @endif
                                                 @if(Auth::user()->hasAnyPermission('Muhasebe Ödeme Gerçekleştirme'))
-                                                <form action="{{ route('admin.transectionreverse',['transection' => $transection]) }}" method="POST"
+                                                <form action="{{ route('admin.project.transection.destroy',['project' => $project,'transection' => $transection]) }}" method="POST"
                                                     class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
                                                     @csrf
-                                                    <button type="submit" class="btn btn-sm btn-primary">
-                                                        <i class="ri-arrow-go-back-line"></i>
+                                                    <button type="submit" class="btn btn-sm btn-danger">
+                                                        <i class="ri-delete-bin-line"></i>
                                                     </button>
                                                 </form>
                                                 @endif
