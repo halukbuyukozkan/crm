@@ -8,6 +8,7 @@ use App\Models\Dayoff;
 use App\Enum\DayoffTypeEnum;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use GuzzleHttp\Client;
 
 class UserDayoffController extends Controller
 {
@@ -41,12 +42,20 @@ class UserDayoffController extends Controller
         }
 
         $user = Auth::user();
-
-        $responses = json_decode(file_get_contents('https://api.ubilisim.com/resmitatiller/'), true);
-
-        $holidays = $responses['resmitatiller'];
+        $holidays = $this->holidays();
 
         return view('dayoff.calendar',compact('dayoffs','user','holidays','types'));
+    }
+
+    private function holidays()
+    {
+        $client = new Client();
+        $response = $client->post('https://api.ubilisim.com/resmitatiller/');
+        $result = $response->getBody()->getContents();
+        $results = json_decode($result);
+        $holidays = $results->resmitatiller;
+
+        return $holidays;
     }
 
     public function approve(Request $request, User $user,Dayoff $dayoff)
