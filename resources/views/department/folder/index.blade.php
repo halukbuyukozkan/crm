@@ -41,7 +41,7 @@ Dosyalar
                               </tr>
                             </thead>
                             <tbody>
-                                @foreach ($department->folders as $folder)
+                                @foreach ($folders as $folder)
                                 <tr>
                                     <td><a href="{{ route('admin.department.folder.show',['department' => $department,'folder' => $folder]) }}">{{ $folder->name }}</a></td>
                                     <td>

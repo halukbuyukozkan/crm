@@ -37,7 +37,7 @@ class FrontController extends Controller
         $otherjobs = $jobs->diff($myjobs);
 
         // PROJECTS 
-        $projects = Project::OfProject()->get();
+        $projects = Project::OfPermission()->get();
         if(Auth::user()->hasAnyPermission('Yetkili Ödeme Talep Kabul Etme')){
             $projects = Project::OfSuperior(); 
         }
