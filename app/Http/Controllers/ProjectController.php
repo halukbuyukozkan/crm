@@ -20,7 +20,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $projects = Project::OfProject()->get();
+        $projects = Project::OfPermission()->get();
 
         $superior_projects = Project::whereHas('user', function (Builder $query) {
             $query->permission('Ödeme Talebi Kabul Etme');

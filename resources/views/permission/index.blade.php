@@ -42,17 +42,7 @@ Yetkiler
                                     <td>{{ $permission->name }}</td>
                                     <td>{{ $permission->order }}</td>
                                     <td>
-                                        <a href="{{ route('admin.permission.edit',$permission) }}"><button class="btn btn-sm btn-primary">
-                                            <i class="ri-pencil-line"></i>
-                                        </button></a>
-                                        <form action="{{ route('admin.permission.destroy', $permission) }}" method="POST"
-                                        class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
-                                        @csrf
-                                        @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-danger">
-                                                <i class="ri-delete-bin-line"></i>
-                                            </button>
-                                        </form>
+                                        
                                     </td>
                                 </tr>  
                                 @endforeach
