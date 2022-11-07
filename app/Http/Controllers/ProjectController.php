@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Enum\TypeEnum;
 use App\Models\Project;
+use App\Enum\StatusEnum;
 use Illuminate\Http\Request;
 use App\Enum\ProjectTypeEnum;
 use Illuminate\Support\Facades\Auth;
@@ -30,7 +31,9 @@ class ProjectController extends Controller
             $projects = $superior_projects;
         }
 
-        return view('project.index',compact('projects'));
+        $transectionstatuses = StatusEnum::cases();
+
+        return view('project.index',compact('projects','transectionstatuses'));
     }
 
     /**
@@ -70,11 +73,13 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {   
+        $transectiontypes = TypeEnum::cases();
+
         $transections = $project->transections;
         if($project->type == 'Avans') {
-        return view('transection.advance.index',compact('transections','project'));
+        return view('transection.advance.index',compact('transections','project','transectiontypes'));
         }else{
-        return view('transection.cost.index',compact('transections','project'));
+        return view('transection.cost.index',compact('transections','project','transectiontypes'));
         }
     }
 

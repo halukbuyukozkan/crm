@@ -31,11 +31,6 @@ class AppServiceProvider extends ServiceProvider
     {
         Schema::defaultStringLength(191);
 
-        view()->composer('*',function($view) {
-            $view->with('transectionstatuses', StatusEnum::cases());
-            $view->with('transectiontypes', TypeEnum::cases()); 
-        });
-
         Paginator::useBootstrap();
 
         /**

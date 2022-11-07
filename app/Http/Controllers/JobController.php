@@ -7,10 +7,11 @@ use App\Models\Job;
 use App\Models\User;
 use App\Models\Image;
 use App\Models\Status;
+use App\Models\JobItem;
+use App\Enum\StatusEnum;
 use App\Models\Department;
 use Illuminate\Http\Request;
 use App\Http\Requests\JobRequest;
-use App\Models\JobItem;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -37,7 +38,9 @@ class JobController extends Controller
         $myjobs = Auth::user()->jobs->paginate(5 , '' , '', 'myjobs');
         $otherjobs = $jobs->diff($myjobs)->paginate(5 , '' , '', 'otherjobs');
 
-        return view('job.index',compact('myjobs','otherjobs'));
+        $transectionstatuses = StatusEnum::cases();
+
+        return view('job.index',compact('myjobs','otherjobs','transectionstatuses'));
     }
 
     public function completejob(Request $request,Job $job)
