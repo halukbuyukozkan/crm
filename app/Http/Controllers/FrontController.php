@@ -6,6 +6,7 @@ use App\Models\Job;
 use App\Models\Dayoff;
 use App\Models\Message;
 use App\Models\Project;
+use App\Enum\StatusEnum;
 use App\Models\Information;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -37,7 +38,7 @@ class FrontController extends Controller
         $otherjobs = $jobs->diff($myjobs);
 
         // PROJECTS 
-        $projects = Project::OfProject()->get();
+        $projects = Project::OfPermission()->get();
         if(Auth::user()->hasAnyPermission('Yetkili Ödeme Talep Kabul Etme')){
             $projects = Project::OfSuperior(); 
         }
@@ -46,8 +47,9 @@ class FrontController extends Controller
         $dayoffs = Dayoff::OfUser();
 
         $this->completedtotalprice($projects);
+        $transectionstatuses = StatusEnum::cases();
         
-        return view('index',compact('messages','projects','myjobs','otherjobs','informations','user','dayoffs'));
+        return view('index',compact('messages','projects','myjobs','otherjobs','informations','user','dayoffs','transectionstatuses'));
     }
 
     public function job($user)

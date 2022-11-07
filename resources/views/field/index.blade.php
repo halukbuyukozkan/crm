@@ -20,24 +20,9 @@ Yetkiler
                 <div class="card-body">
                     <div class="accordion" id="accordionwithicon">
                         <div class="card">
-                            <div class="card-header" id="headingOneicon">
-                                <h2 class="mb-0">
-                                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOneicon" aria-expanded="true" aria-controls="collapseOneicon"><i class="ri-award-line mr-2"></i>Ceza İnfaz Kurumları</button>
-                                </h2>
-                            </div>
-                            <div id="collapseOneicon" class="collapse show" aria-labelledby="headingOneicon" data-parent="#accordionwithicon">
-                                <div class="card-body">
-                                    <div class="mb-3">
-                                        Goodssol 81 ilde T.C. Adalet Bakanlığı CTE Genel Müdürlüğü’ne bağlı 500'den fazla cezaevi ve İşyurtları’na ek olarak 10 ilde 12 Jandarma birliğine bağlı Javdes satış noktasına Pepsi, Fritolay ve Doğadan ürünleri ile satış ve dağıtım hizmeti vermektedir.
-                                        http://goodssol.com.tr/isyurt.html
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card">
                             <div class="card-header" id="headingTwoicon">
                                 <h2 class="mb-0">
-                                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwoicon" aria-expanded="false" aria-controls="collapseTwoicon"><i class="ri-calendar-line mr-2"></i>VWGS</button>
+                                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwoicon" aria-expanded="false" aria-controls="collapseTwoicon"><i class="ri-calendar-line mr-2"></i>WGS</button>
                                 </h2>
                             </div>
                             <div id="collapseTwoicon" class="collapse" aria-labelledby="headingTwoicon" data-parent="#accordionwithicon">
@@ -98,6 +83,21 @@ Yetkiler
                                     </div>
                                     <div class="mb-2">
                                         http://goodssol.com.tr/otg.html
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header" id="headingOneicon">
+                                <h2 class="mb-0">
+                                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOneicon" aria-expanded="true" aria-controls="collapseOneicon"><i class="ri-award-line mr-2"></i>Ceza İnfaz Kurumları</button>
+                                </h2>
+                            </div>
+                            <div id="collapseOneicon" class="collapse show" aria-labelledby="headingOneicon" data-parent="#accordionwithicon">
+                                <div class="card-body">
+                                    <div class="mb-3">
+                                        Goodssol 81 ilde T.C. Adalet Bakanlığı CTE Genel Müdürlüğü’ne bağlı 500'den fazla cezaevi ve İşyurtları’na ek olarak 10 ilde 12 Jandarma birliğine bağlı Javdes satış noktasına Pepsi, Fritolay ve Doğadan ürünleri ile satış ve dağıtım hizmeti vermektedir.
+                                        http://goodssol.com.tr/isyurt.html
                                     </div>
                                 </div>
                             </div>

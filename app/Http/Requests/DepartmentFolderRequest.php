@@ -2,10 +2,9 @@
 
 namespace App\Http\Requests;
 
-use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 
-class JobRequest extends FormRequest
+class DepartmentFolderRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,11 +24,8 @@ class JobRequest extends FormRequest
     public function rules()
     {
         return [
-            'status_id' => 'required|string',
+            'departments' => 'array|required',
             'name' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'deadline' => 'nullable|date|after:today',
-            'users' => 'array|required',
-        ]; 
+        ];
     }
 }

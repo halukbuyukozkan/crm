@@ -7,10 +7,11 @@ use App\Models\Job;
 use App\Models\User;
 use App\Models\Image;
 use App\Models\Status;
+use App\Models\JobItem;
+use App\Enum\StatusEnum;
 use App\Models\Department;
 use Illuminate\Http\Request;
 use App\Http\Requests\JobRequest;
-use App\Models\JobItem;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -37,7 +38,9 @@ class JobController extends Controller
         $myjobs = Auth::user()->jobs->paginate(5 , '' , '', 'myjobs');
         $otherjobs = $jobs->diff($myjobs)->paginate(5 , '' , '', 'otherjobs');
 
-        return view('job.index',compact('myjobs','otherjobs'));
+        $transectionstatuses = StatusEnum::cases();
+
+        return view('job.index',compact('myjobs','otherjobs','transectionstatuses'));
     }
 
     public function completejob(Request $request,Job $job)
@@ -108,7 +111,7 @@ class JobController extends Controller
             $file->save();
         }}    
 
-        return redirect()->route('admin.job.index')->with('success', 'Görev başarıyla oluşturuldu.');
+        return redirect()->route('admin.job.index')->with('success', __('Job created successfully.'));
     }
 
     public function addfile(Job $job,Request $request)
@@ -128,7 +131,7 @@ class JobController extends Controller
             $file->save();
         }
 
-        return redirect()->route('admin.job.index')->with('success', 'Dosya başarıyla Eklendi.');
+        return redirect()->route('admin.job.index')->with('success', __('File added successfully.'));
     }
 
     /**
@@ -186,7 +189,7 @@ class JobController extends Controller
         $job->save();
         $job->users()->sync($data['users'] ?? []);
 
-        return redirect()->route('admin.job.index')->with('success', 'Role updated successfully');
+        return redirect()->route('admin.job.index')->with('success', __('Job updated successfully.'));
     }
 
     /**
@@ -200,6 +203,6 @@ class JobController extends Controller
         $job->delete();
         
 
-        return redirect()->route('admin.job.index');
+        return redirect()->route('admin.job.index')->with('success', __('Job deleted successfully.'));
     }
 }

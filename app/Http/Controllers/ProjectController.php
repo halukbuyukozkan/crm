@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Enum\TypeEnum;
 use App\Models\Project;
+use App\Enum\StatusEnum;
 use Illuminate\Http\Request;
 use App\Enum\ProjectTypeEnum;
 use Illuminate\Support\Facades\Auth;
@@ -20,7 +21,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $projects = Project::OfProject()->get();
+        $projects = Project::OfPermission()->get();
 
         $superior_projects = Project::whereHas('user', function (Builder $query) {
             $query->permission('Ödeme Talebi Kabul Etme');
@@ -30,7 +31,9 @@ class ProjectController extends Controller
             $projects = $superior_projects;
         }
 
-        return view('project.index',compact('projects'));
+        $transectionstatuses = StatusEnum::cases();
+
+        return view('project.index',compact('projects','transectionstatuses'));
     }
 
     /**
@@ -59,7 +62,7 @@ class ProjectController extends Controller
         $project->fill($data);
         $project->save();
 
-        return redirect()->route('admin.project.index')->with('success', 'Project created successfully');
+        return redirect()->route('admin.project.index')->with('success', __('Project created successfully'));
     }
 
     /**
@@ -70,11 +73,13 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {   
+        $transectiontypes = TypeEnum::cases();
+
         $transections = $project->transections;
         if($project->type == 'Avans') {
-        return view('transection.advance.index',compact('transections','project'));
+        return view('transection.advance.index',compact('transections','project','transectiontypes'));
         }else{
-        return view('transection.cost.index',compact('transections','project'));
+        return view('transection.cost.index',compact('transections','project','transectiontypes'));
         }
     }
 
@@ -121,6 +126,6 @@ class ProjectController extends Controller
 
         $project->delete();
 
-        return redirect()->route('admin.project.index')->with('succes','Proje Başarıyla Silindi');
+        return redirect()->route('admin.project.index')->with('success', __('Project deleted successfully'));
     }
 }

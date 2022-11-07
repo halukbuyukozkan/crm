@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use App\Enum\TypeEnum;
 use App\Models\Project;
 use App\Enum\StatusEnum;
 use App\Models\Transection;
@@ -35,7 +36,9 @@ class ProjectTransectionController extends Controller
         $transection = new Transection($request->old());
         $categories = TransectionCategory::all();
 
-        return view('transection.form',compact('transection','project','categories','type'));
+        $transectiontypes = TypeEnum::cases();
+
+        return view('transection.form',compact('transection','project','categories','type','transectiontypes'));
     }
 
     /**
@@ -135,7 +138,7 @@ class ProjectTransectionController extends Controller
 
     public function approve(Transection $transection)
     {
-        $transection->status = StatusEnum::cases()[1]->value; //onaylandı
+        $transection->status = StatusEnum::APPROVED->value; //onaylandı
         $transection->payer = Auth::user()->name;
         $transection->approved_at = Carbon::now();
         $transection->update();
@@ -154,7 +157,7 @@ class ProjectTransectionController extends Controller
 
     public function accounting(Transection $transection)
     {
-        $transection->status = StatusEnum::cases()[4]->value;
+        $transection->status = StatusEnum::ACCOUNTİNG->value;
         $transection->payer = Auth::user()->name;
         $transection->approved_at = Carbon::now();
         $transection->update();
@@ -166,7 +169,7 @@ class ProjectTransectionController extends Controller
 
     public function complete(Transection $transection)
     {
-        $transection->status = StatusEnum::cases()[2]->value; //tamamlandı
+        $transection->status = StatusEnum::COMPLETED->value; //tamamlandı
         $transection->payer = Auth::user()->name;
         $transection->completed_at = Carbon::now();
         $transection->update();
@@ -183,7 +186,7 @@ class ProjectTransectionController extends Controller
 
     public function reject(Transection $transection)
     {
-        $transection->status = StatusEnum::cases()[3]->value; //iptal edildi
+        $transection->status = StatusEnum::CANCELLED->value; //iptal edildi
         $transection->payer = Auth::user()->name;
         $transection->update();
 
@@ -199,12 +202,12 @@ class ProjectTransectionController extends Controller
                 $user->balance = $transection->project->user->balance - $transection->price;
                 $user->save();
 
-                $transection->status = StatusEnum::cases()[1]->value; //onaylandı
+                $transection->status = StatusEnum::APPROVED->value; //onaylandı
                 $transection->save();
         }
 
         elseif($transection->status->name == 'APPROVED'){
-            $transection->status = StatusEnum::cases()[0]->value; //beklemede
+            $transection->status = StatusEnum::WAITING->value; //beklemede
             $transection->save();
 
             if($transection->type->value == 'Masraf Talebi') {
@@ -215,12 +218,12 @@ class ProjectTransectionController extends Controller
         }
 
         elseif($transection->status->name == 'CANCELLED') {
-            $transection->status = StatusEnum::cases()[0]->value;
+            $transection->status = StatusEnum::WAITING->value;
             $transection->save();
         }
 
         elseif($transection->status->name == 'ACCOUNTİNG') {
-            $transection->status = StatusEnum::cases()[2]->value;
+            $transection->status = StatusEnum::COMPLETED->value;
             $transection->save();
         }
 

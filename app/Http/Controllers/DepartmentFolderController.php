@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\DepartmentFolderRequest;
 use App\Models\Department;
 use App\Models\Departmentfolder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class DepartmentfolderController extends Controller
 {
@@ -18,7 +20,7 @@ class DepartmentfolderController extends Controller
     {
         $folders = Departmentfolder::ofUser()->get();
 
-        return view('department.folder.index',compact('department'));
+        return view('department.folder.index',compact('department','folders'));
     }
 
     /**
@@ -42,15 +44,10 @@ class DepartmentfolderController extends Controller
      * @param  \App\Models\Department  $department
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Department $department)
+    public function store(DepartmentFolderRequest $request, Department $department)
     {
-        $data = $request->validate([
-            'departments' => 'array|required',
-            'name' => 'required|string|max:255',
-        ]);
-
+        $data = $request->validated();
         $folder = Departmentfolder::create($data);
-
         $folder->departments()->sync($data['departments'] ?? []);
 
         return redirect()->route('admin.department.folder.index',$department)->with('success', 'Role created successfully');
@@ -75,9 +72,12 @@ class DepartmentfolderController extends Controller
      * @param  \App\Models\Departmentfolder  $departmentFolder
      * @return \Illuminate\Http\Response
      */
-    public function edit(Department $department, Departmentfolder $departmentFolder)
+    public function edit(Request $request,Department $department, Departmentfolder $folder)
     {
-        //
+        $folder->fill($request->old());
+        $departments = Department::paginate();
+
+        return view('department.folder.form', compact('folder','department','departments'));
     }
 
     /**
@@ -88,9 +88,13 @@ class DepartmentfolderController extends Controller
      * @param  \App\Models\Departmentfolder  $departmentFolder
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Department $department, Departmentfolder $departmentFolder)
+    public function update(DepartmentFolderRequest $request, Department $department, Departmentfolder $folder)
     {
-        //
+        $data = $request->validated();
+        $folder->update($data);
+        $folder->departments()->sync($data['departments'] ?? []);
+
+        return redirect()->route('admin.department.folder.index',$department)->with('success', __('Folder updated successfully'));
     }
 
     /**
@@ -102,6 +106,13 @@ class DepartmentfolderController extends Controller
      */
     public function destroy(Department $department, Departmentfolder $folder)
     {
+        foreach($folder->files as $item)
+        {   
+            if(File::exists(public_path('files/department/'. $item->filename))){
+                File::delete(public_path('files/department/'. $item->filename));
+            }
+        }
+
         $folder->delete();
 
         return redirect()->route('admin.department.folder.index',$department)->with('success',__('Dosya başarıyla silindi.'));

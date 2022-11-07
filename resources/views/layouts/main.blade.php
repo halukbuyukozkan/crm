@@ -28,7 +28,7 @@
             
             <!-- End Leftbar -->
             <!-- Start Rightbar -->
-            @include('layouts.rightbar')          
+            @include('layouts.rightbar')    
             @yield('content')
             <!-- End Rightbar --> 
         </div>

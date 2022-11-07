@@ -1,5 +1,5 @@
 @section('title') 
-Yeni Dosya
+@if($folder->exists){{$folder->name}} Düzenle @else Yeni Dosya @endif
 @endsection 
 @extends('layouts.main')
 @section('style')
@@ -21,7 +21,7 @@ Yeni Dosya
     @endif
     <div class="card m-b-30">
         <div class="card-header">
-            <h5 class="card-title">Yeni Dosya</h5>
+            <h5 class="card-title">@if($folder->exists){{$folder->name}} Düzenle @else Yeni Dosya @endif</h5>
         </div>
         <div class="card-body">
             <h6 class="card-subtitle"><strong>İsim</strong></h6>

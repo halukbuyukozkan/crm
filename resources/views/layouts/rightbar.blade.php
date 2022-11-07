@@ -139,7 +139,15 @@
             </div>
         </div>          
     </div>
-    <!-- End Breadcrumbbar -->   
+    <!-- End Breadcrumbbar -->  
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                @include('layouts.alerts')
+            </div>
+        </div>    
+    </div> 
+
     @yield('rightbar-content')
     <!-- Start Footerbar -->
     <div class="footerbar">

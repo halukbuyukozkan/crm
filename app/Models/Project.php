@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Enum\StatusEnum;
+use App\Enum\TypeEnum;
 use App\Observers\ProjectObserver;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
@@ -33,14 +35,13 @@ class Project extends Model
         return $this->hasMany(Transection::class);
     }
     
-    public function scopeOfProject(Builder $query)
+    public function scopeOfPermission(Builder $query)
     {
-        if(Auth::user()->hasPermissionTo('Ödeme Talebi Kabul Etme'))
+        if(Auth::user()->hasPermissionTo('Muhasebe Ödeme Gerçekleştirme'))
         {
-            return $query->whereHas('user',function(Builder $query){
-                $query->whereHas('department',function(Builder $query){
-                    $query->where('name',Auth::user()->department->name);
-                });
+            return $query->whereHas('transections',function(Builder $query){
+                $query->where('type','!=',TypeEnum::ADVANCE)
+                ->where('status',StatusEnum::APPROVED)->orWhere('status',StatusEnum::COMPLETED);
             });
         }elseif(Auth::user()->hasPermissionTo('Ödeme Gerçekleştirme'))
         {
@@ -48,11 +49,12 @@ class Project extends Model
         }elseif(Auth::user()->hasPermissionTo('Yetkili Ödeme Talep Kabul Etme'))
         {
             return $query;
-        }elseif(Auth::user()->hasPermissionTo('Muhasebe Ödeme Gerçekleştirme'))
+        }elseif(Auth::user()->hasPermissionTo('Ödeme Talebi Kabul Etme'))
         {
-            return $query->whereHas('transections',function(Builder $query){
-                $query->where('type','!=',config('global.transection.types')[0])
-                ->where('status',config('global.transection.statuses')[1])->orWhere('status',config('global.transection.statuses')[2]);
+            return $query->whereHas('user',function(Builder $query){
+                $query->whereHas('department',function(Builder $query){
+                    $query->where('name',Auth::user()->department->name);
+                });
             });
         }else
         {
