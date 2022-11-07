@@ -57,5 +57,7 @@
     "Job updated successfully.": "Görev başarıyla güncellendi.",
     "Job deleted successfully.": "Görev başarıyla silindi.",
     "File added successfully.": "Dosya başarıyla eklendi.",
+    "Dayoff approved successfully.": "İzin başarıyla onaylandı.",
+    "The deadline must be a date after today.": "Bitiş tarihi bugünden sonra olmalıdır.",
     "x": "x"
 }

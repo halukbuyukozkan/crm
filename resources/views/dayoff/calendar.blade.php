@@ -68,8 +68,7 @@ Departmanlar
 
             var dayoffs = @json($dayoffs);
             var holidays = @json($holidays);
-
-            console.log(dayoffs);
+            var today = @json($today);
 
             $('#calendar').fullCalendar({
                 locale: 'tr',
@@ -84,6 +83,9 @@ Departmanlar
                     week:     'Hafta',
                     day:      'Gün',
                     list:     'Liste'
+                },
+                validRange: {
+                    start: today,
                 },
                 events: dayoffs,
                 selectable: true,

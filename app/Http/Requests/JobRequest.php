@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 
 class JobRequest extends FormRequest
@@ -27,7 +28,7 @@ class JobRequest extends FormRequest
             'status_id' => 'required|string',
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'deadline' => 'nullable|date',
+            'deadline' => 'nullable|date|after:today',
             'users' => 'array|required',
         ]; 
     }

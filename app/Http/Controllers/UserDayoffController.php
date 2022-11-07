@@ -6,6 +6,7 @@ use DateTime;
 use App\Models\User;
 use App\Models\Dayoff;
 use App\Enum\DayoffTypeEnum;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use GuzzleHttp\Client;
@@ -43,8 +44,9 @@ class UserDayoffController extends Controller
 
         $user = Auth::user();
         $holidays = $this->holidays();
+        $today = Carbon::now()->format('Y-m-d');
 
-        return view('dayoff.calendar',compact('dayoffs','user','holidays','types'));
+        return view('dayoff.calendar',compact('dayoffs','user','holidays','types','today'));
     }
 
     private function holidays()
@@ -73,7 +75,7 @@ class UserDayoffController extends Controller
             $dayoff->user->update();
         }
 
-        return redirect()->route('admin.user.dayoff.index',['user' => $user]);
+        return redirect()->route('admin.user.dayoff.index',['user' => $user])->with('success', __('Dayoff approved successfully.'));
     }
 
     /**
