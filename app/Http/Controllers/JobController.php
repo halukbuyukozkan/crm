@@ -111,7 +111,7 @@ class JobController extends Controller
             $file->save();
         }}    
 
-        return redirect()->route('admin.job.index')->with('success', 'Görev başarıyla oluşturuldu.');
+        return redirect()->route('admin.job.index')->with('success', __('Job created successfully.'));
     }
 
     public function addfile(Job $job,Request $request)
@@ -131,7 +131,7 @@ class JobController extends Controller
             $file->save();
         }
 
-        return redirect()->route('admin.job.index')->with('success', 'Dosya başarıyla Eklendi.');
+        return redirect()->route('admin.job.index')->with('success', __('File added successfully.'));
     }
 
     /**
@@ -189,7 +189,7 @@ class JobController extends Controller
         $job->save();
         $job->users()->sync($data['users'] ?? []);
 
-        return redirect()->route('admin.job.index')->with('success', 'Role updated successfully');
+        return redirect()->route('admin.job.index')->with('success', __('Job updated successfully.'));
     }
 
     /**
@@ -203,6 +203,6 @@ class JobController extends Controller
         $job->delete();
         
 
-        return redirect()->route('admin.job.index');
+        return redirect()->route('admin.job.index')->with('success', __('Job deleted successfully.'));
     }
 }

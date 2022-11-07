@@ -62,7 +62,7 @@ class ProjectController extends Controller
         $project->fill($data);
         $project->save();
 
-        return redirect()->route('admin.project.index')->with('success', 'Project created successfully');
+        return redirect()->route('admin.project.index')->with('success', __('Project created successfully'));
     }
 
     /**
@@ -126,6 +126,6 @@ class ProjectController extends Controller
 
         $project->delete();
 
-        return redirect()->route('admin.project.index')->with('succes','Proje Başarıyla Silindi');
+        return redirect()->route('admin.project.index')->with('success', __('Project deleted successfully'));
     }
 }
