@@ -99,7 +99,7 @@ class ProjectTransectionController extends Controller
                  
             }}
         
-        return redirect()->route('admin.project.show',$project)->with('success', 'Transection created successfully');
+        return redirect()->route('admin.project.show',$project)->with('success', __('Transection created successfully.'));
     }
 
     /**
@@ -249,6 +249,6 @@ class ProjectTransectionController extends Controller
 
         $transection->delete();
 
-        return redirect()->route('admin.project.show',$project);
+        return redirect()->route('admin.project.show',$project)->with('success', __('Transection deleted successfully.'));
     }
 }
