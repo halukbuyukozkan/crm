@@ -18,6 +18,7 @@ use App\Http\Controllers\InformationController;
 use App\Http\Controllers\Admin\StatusController;
 use App\Http\Controllers\DepartmentfolderController;
 use App\Http\Controllers\DepartmentfolderFileController;
+use App\Http\Controllers\MailController;
 use App\Http\Controllers\ProjectTransectionController;
 use App\Http\Controllers\TransectionCategoryController;
 use App\Http\Controllers\ProjectTransectionPayBackController;
@@ -94,5 +95,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('goodssol',[ShowController::class,'index'])->name('goodssol');
     });
 });
+
+Route::get('/send',[MailController::class,'index']);
 
 require __DIR__.'/auth.php';
