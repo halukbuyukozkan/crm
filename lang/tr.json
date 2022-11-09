@@ -61,5 +61,7 @@
     "The deadline must be a date after today.": "Bitiş tarihi bugünden sonra olmalıdır.",
     "Transection created successfully.": "Talep başarıyla oluşturuldu.",
     "Transection deleted successfully.": "Talep başarıyla silindi.",
+    "Folder successfully created.": "Dosya başarıyla oluşturuldu.",
+    "Folder successfully updated.": "Dosya başarıyla güncellendi.",
     "x": "x"
 }
