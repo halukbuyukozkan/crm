@@ -245,7 +245,7 @@ class ProjectTransectionController extends Controller
             $transection->status = StatusEnum::APPROVED->value; //beklemede
             $transection->save();
 
-            if($transection->type->value == 'Masraf Talebi') {
+            if($transection->type->value == 'Masraf Talebi' || $transection->type->value == 'İade') {
                 $user = $transection->project->user;
                 $user->balance = $transection->project->user->balance - $transection->price;
                 $user->save();
@@ -254,11 +254,6 @@ class ProjectTransectionController extends Controller
 
         elseif($transection->status->name == 'CANCELLED') {
             $transection->status = StatusEnum::WAITING->value;
-            $transection->save();
-        }
-
-        elseif($transection->status->name == 'ACCOUNTİNG') {
-            $transection->status = StatusEnum::COMPLETED->value;
             $transection->save();
         }
 
