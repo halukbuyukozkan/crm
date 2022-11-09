@@ -50,7 +50,7 @@ class DepartmentfolderController extends Controller
         $folder = Departmentfolder::create($data);
         $folder->departments()->sync($data['departments'] ?? []);
 
-        return redirect()->route('admin.department.folder.index',$department)->with('success', 'Role created successfully');
+        return redirect()->route('admin.department.folder.index',$department)->with('success', __('Folder successfully created.'));
     }
 
     /**
@@ -94,7 +94,7 @@ class DepartmentfolderController extends Controller
         $folder->update($data);
         $folder->departments()->sync($data['departments'] ?? []);
 
-        return redirect()->route('admin.department.folder.index',$department)->with('success', __('Folder updated successfully'));
+        return redirect()->route('admin.department.folder.index',$department)->with('success', __('Folder successfully updated.'));
     }
 
     /**
