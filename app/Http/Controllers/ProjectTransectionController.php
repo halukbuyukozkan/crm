@@ -143,13 +143,6 @@ class ProjectTransectionController extends Controller
         $transection->approved_at = Carbon::now();
         $transection->update();
 
-        $user = $transection->project->user;
-
-        if($transection->type->value == 'Masraf Talebi') {
-        $user->balance = $transection->project->user->balance - $transection->price;
-        $user->update();
-        }
-
         $project = $transection->project;
     
         return redirect()->route('admin.project.show',$project);
@@ -161,6 +154,11 @@ class ProjectTransectionController extends Controller
         $transection->payer = Auth::user()->name;
         $transection->approved_at = Carbon::now();
         $transection->update();
+
+        $user = $transection->project->user;
+
+        $user->balance = $transection->project->user->balance + $transection->price;
+        $user->save();
 
         $project = $transection->project;
         
@@ -175,12 +173,43 @@ class ProjectTransectionController extends Controller
         $transection->update();
 
         $user = $transection->project->user;
-    
+
+        $transectiontypes = TypeEnum::cases();
         $user->balance = $transection->project->user->balance + $transection->price;
         $user->save();
         
         $project = $transection->project;
     
+        return redirect()->route('admin.project.show',$project);
+    }
+
+    public function amount(Request $request,Transection $transection)
+    {
+        $data = $request->validate([
+            'price' => 'integer|required',
+        ]);
+
+        $types = TypeEnum::cases();
+
+        Transection::create([
+            'name' => $transection->name,
+            'description' => $transection->description,
+            'payer' => Auth::user()->name,
+            'project_id' => $transection->project->id,
+            'transection_category_id' => null,
+            'status' => 'tamamlandı',
+            'price' => $data['price'],
+            'is_income' => 0,
+            'is_completed' => 1,
+            'type' => $types[3],
+        ]);
+
+        $user = $transection->project->user;
+        $user->balance = $user->balance + $data['price'];
+        $user->update();        
+
+        $project = $transection->project;
+        
         return redirect()->route('admin.project.show',$project);
     }
 
@@ -210,9 +239,15 @@ class ProjectTransectionController extends Controller
             $transection->status = StatusEnum::WAITING->value; //beklemede
             $transection->save();
 
+        }
+
+        elseif($transection->status->name == 'ACCOUNTİNG') {
+            $transection->status = StatusEnum::APPROVED->value; //beklemede
+            $transection->save();
+
             if($transection->type->value == 'Masraf Talebi') {
                 $user = $transection->project->user;
-                $user->balance = $transection->project->user->balance + $transection->price;
+                $user->balance = $transection->project->user->balance - $transection->price;
                 $user->save();
             }
         }
@@ -240,6 +275,12 @@ class ProjectTransectionController extends Controller
      */
     public function destroy(Project $project,Transection $transection)
     {
+        if($transection->type->value == 'Ödeme') {
+            $user = $transection->project->user;
+            $user->balance = $user->balance - $transection->price;
+            $user->update();
+        }
+
         foreach($transection->transection_items as $item)
         {   
             if(File::exists(public_path('files/'. $item->filename))){

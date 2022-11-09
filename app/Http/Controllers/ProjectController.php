@@ -76,11 +76,7 @@ class ProjectController extends Controller
         $transectiontypes = TypeEnum::cases();
 
         $transections = $project->transections;
-        if($project->type == 'Avans') {
         return view('transection.advance.index',compact('transections','project','transectiontypes'));
-        }else{
-        return view('transection.cost.index',compact('transections','project','transectiontypes'));
-        }
     }
 
     /**
