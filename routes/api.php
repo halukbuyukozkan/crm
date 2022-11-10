@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\ApiHomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\TestController;
@@ -19,5 +20,6 @@ Route::post('/login', [AuthController::class,'login']);
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/test', [TestController::class,'test']);
+    Route::get('/home', [ApiHomeController::class,'index']);
 });
  

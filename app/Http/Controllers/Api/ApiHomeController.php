@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Models\Job;
 use App\Models\Dayoff;
@@ -9,10 +9,10 @@ use App\Models\Project;
 use App\Enum\StatusEnum;
 use App\Models\Information;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Database\Eloquent\Builder;
 
-class FrontController extends Controller
+class ApiHomeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -21,24 +21,22 @@ class FrontController extends Controller
      */
     public function index()
     {
-        $messages = Message::paginate();
-        $informations = Information::paginate();
-        $user = Auth::user();      
+        $data['messages'] = Message::paginate();
+        $data['informations'] = Information::paginate();
+        $data['user'] = Auth::user();      
 
         // JOBS
         $jobs = Job::OfJob()->get();
-        $jobs = $this->permission($jobs);
-        $myjobs = Auth::user()->jobs;
-        $otherjobs = $jobs->diff($myjobs);
+        $jobs['jobs'] = $this->permission($jobs);
         // PROJECTS 
-        $projects = $this->project();
+        $data['projects'] = $this->project();
         // DAYOFFS
-        $dayoffs = Dayoff::OfUser();
+        $data['dayoffs'] = Dayoff::OfUser();
 
-        $this->completedtotalprice($projects);
-        $transectionstatuses = StatusEnum::cases();
-        
-        return view('index',compact('messages','projects','myjobs','otherjobs','informations','user','dayoffs','transectionstatuses'));
+        $this->completedtotalprice($data['projects']);
+        $data['transectionStatuses'] = StatusEnum::cases();
+
+        return $data;
     }
 
     public function permission($jobs)
@@ -55,16 +53,6 @@ class FrontController extends Controller
         return $jobs;
     }
 
-    public function project()
-    {
-        $projects = Project::OfPermission()->get();
-        if(Auth::user()->hasAnyPermission('Yetkili Ödeme Talep Kabul Etme')){
-            $projects = Project::OfSuperior(); 
-        }
-
-        return $projects;
-    }
-
     public function completedtotalprice($projects)
     {
         $projects->map(function($item) {
@@ -77,14 +65,14 @@ class FrontController extends Controller
         });        
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function project()
     {
-        //
+        $projects = Project::OfPermission()->get();
+        if(Auth::user()->hasAnyPermission('Yetkili Ödeme Talep Kabul Etme')){
+            $projects = Project::OfSuperior(); 
+        }
+
+        return $projects;
     }
 
     /**
@@ -105,17 +93,6 @@ class FrontController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
     {
         //
     }
