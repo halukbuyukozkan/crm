@@ -48,6 +48,33 @@
                     <div class="infobar">
                         <ul class="list-inline mb-0">
                             <li class="list-inline-item">
+                                <div class="notifybar">
+                                    <div class="dropdown">
+                                        <a class="dropdown-toggle infobar-icon" href="#" role="button" id="notoficationlink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="ri-notification-line"></i>
+                                        <span class="live-icon"></span></a>
+                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="notoficationlink">
+                                            <div class="notification-dropdown-title">
+                                                <h5>{{ __('Notification') }}<a href="#">{{ __('Clear all') }}</a></h5>                            
+                                            </div>
+                                            <ul class="list-unstyled">    
+                                                @foreach($notifications->take(5) as $notification)                                                
+                                                <li class="media dropdown-item">
+                                                    <span class="action-icon badge badge-primary"><i class="ri-bank-card-2-line"></i></span>
+                                                    <div class="media-body">
+                                                        <h5 class="action-title">{{ $notification->data['name'] }}</h5>
+                                                        <p><span class="timing">{{ $notification->data['name'] . ' ' .  __('user registered') }}</span></p>                            
+                                                    </div>
+                                                </li>
+                                                @endforeach
+                                            </ul>
+                                            <div class="notification-dropdown-footer">
+                                                <h5><a href="#">See all</a></h5>                            
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>   
+                            <li class="list-inline-item">
                                 <div class="profilebar">
                                     <div class="dropdown">
                                       <a class="dropdown-toggle" href="#" role="button" id="profilelink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="{{asset('assets/images/users/profile.svg')}}" class="img-fluid" alt="profile"><span class="live-icon">{{ Auth::user()->name}}</span></a>

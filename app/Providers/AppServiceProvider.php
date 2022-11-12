@@ -2,13 +2,14 @@
 
 namespace App\Providers;
 
-use App\Enum\TypeEnum;
-use App\Enum\StatusEnum;
 use Illuminate\Support\Collection;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Notification;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -32,6 +33,11 @@ class AppServiceProvider extends ServiceProvider
         Schema::defaultStringLength(191);
 
         Paginator::useBootstrap();
+
+        view()->composer('*',function($view) {
+            if(Auth::user())
+            $view->with('notifications', auth()->user()->notifications);
+        });
 
         /**
          * Paginate a standard Laravel Collection.
