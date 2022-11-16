@@ -16,9 +16,9 @@ class JobNotification extends Notification
      *
      * @return void
      */
-    public function __construct($user)
+    public function __construct($job)
     {
-        $this->user = $user;
+        $this->job = $job;
     }
 
     /**
@@ -41,8 +41,9 @@ class JobNotification extends Notification
     public function toArray($notifiable)
     {
         return [
-            'name' => $this->user->name,
-            'email' => $this->user->email,
+            'name' => $this->job->name,
+            'category' => 'job',
+            'message' => 'Job assigned',
         ];
     }
 }

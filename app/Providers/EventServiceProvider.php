@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Events\JobAssigned;
+use App\Listeners\SendJobAssignedNotification;
 use App\Listeners\SendJobNotification;
 use App\Models\Job;
 use App\Observers\JobObserver;
@@ -19,8 +21,10 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         Registered::class => [
             SendEmailVerificationNotification::class,
-            SendJobNotification::class,
         ],
+        JobAssigned::class => [
+            SendJobAssignedNotification::class,
+        ]
     ];
 
     /**

@@ -9,6 +9,7 @@ use App\Models\Image;
 use App\Models\Status;
 use App\Models\JobItem;
 use App\Enum\StatusEnum;
+use App\Events\JobAssigned;
 use App\Models\Department;
 use Illuminate\Http\Request;
 use App\Http\Requests\JobRequest;
@@ -94,6 +95,8 @@ class JobController extends Controller
         $job = Job::create($data);
 
         $job->users()->sync($data['users'] ?? []);
+
+        event(new JobAssigned($job));
 
         if($request->hasfile('filename')) {
         foreach($request->file('filename') as $file)

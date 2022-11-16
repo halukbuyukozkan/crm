@@ -59,10 +59,16 @@
                                             <ul class="list-unstyled">    
                                                 @foreach($notifications->take(5) as $notification)                                                
                                                 <li class="media dropdown-item">
-                                                    <span class="action-icon badge badge-primary"><i class="ri-bank-card-2-line"></i></span>
+                                                    <span class="action-icon badge badge-primary"><i class="ri-task-line"></i></span>
                                                     <div class="media-body">
-                                                        <h5 class="action-title">{{ $notification->data['name'] }}</h5>
-                                                        <p><span class="timing">{{ $notification->data['name'] . ' ' .  __('user registered') }}</span></p>                            
+                                                        @if(request()->routeIs('admin.job.*'))
+                                                        <a href="{{ route('admin.job.index') }}">
+                                                        @else
+                                                        <a href="#">
+                                                        @endif                        
+                                                        <h5 class="action-title">{{ __($notification->data['category']) }}</h5>
+                                                        <p><span class="timing">{{ __($notification->data['name']) }}  {{ __($notification->data['message']) }}</span></p> 
+                                                        </a>   
                                                     </div>
                                                 </li>
                                                 @endforeach
