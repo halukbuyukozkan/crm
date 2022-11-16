@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Enum\TypeEnum;
 use App\Models\Project;
 use App\Enum\StatusEnum;
+use App\Events\TransectionApproved;
 use App\Models\Transection;
 use Illuminate\Http\Request;
 use App\Models\TransectionItem;
@@ -144,6 +145,8 @@ class ProjectTransectionController extends Controller
         $transection->update();
 
         $project = $transection->project;
+
+        event(new TransectionApproved($transection));
     
         return redirect()->route('admin.project.show',$project);
     }

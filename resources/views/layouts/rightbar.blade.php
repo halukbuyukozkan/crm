@@ -59,7 +59,13 @@
                                             <ul class="list-unstyled">    
                                                 @foreach($notifications->take(5) as $notification)                                                
                                                 <li class="media dropdown-item">
-                                                    <span class="action-icon badge badge-primary"><i class="ri-task-line"></i></span>
+                                                    <span class="action-icon badge badge-primary">
+                                                        @if($notification->data['category'] == 'job')
+                                                        <i class="ri-task-line"></i>
+                                                        @elseif($notification->data['category'] == "transection")
+                                                        <i class="ri-add-circle-line"></i>
+                                                        @endif
+                                                    </span>
                                                     <div class="media-body">
                                                         @if(request()->routeIs('admin.job.*'))
                                                         <a href="{{ route('admin.job.index') }}">

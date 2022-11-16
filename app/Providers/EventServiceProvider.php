@@ -3,8 +3,10 @@
 namespace App\Providers;
 
 use App\Events\JobAssigned;
+use App\Events\TransectionApproved;
 use App\Listeners\SendJobAssignedNotification;
 use App\Listeners\SendJobNotification;
+use App\Listeners\SendTransectionApprovedNotification;
 use App\Models\Job;
 use App\Observers\JobObserver;
 use Illuminate\Auth\Events\Registered;
@@ -24,7 +26,11 @@ class EventServiceProvider extends ServiceProvider
         ],
         JobAssigned::class => [
             SendJobAssignedNotification::class,
-        ]
+        ],
+        TransectionApproved::class => [
+            SendTransectionApprovedNotification::class,
+        ],
+
     ];
 
     /**

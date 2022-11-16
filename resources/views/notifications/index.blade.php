@@ -22,6 +22,7 @@ Bildirimler
                             <thead>
                               <tr>
                                 <th>Bildirim</th>
+                                <th>Kategori</th>
                                 <th>Tarih</th>
                               </tr>
                             </thead>
@@ -29,6 +30,7 @@ Bildirimler
                                 @foreach ($allNotifications as $notification)
                                 <tr>
                                     <td>{{ __($notification->data['name']) }}  {{ __($notification->data['message']) }}</td>
+                                    <td>{{ __($notification->data['category']) }}</td>
                                     <td>{{ $notification->created_at->format('d-m-Y H:i:s') }}</td>
                                 </tr>  
                                 @endforeach
