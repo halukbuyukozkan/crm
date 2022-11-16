@@ -74,7 +74,7 @@
                                                 @endforeach
                                             </ul>
                                             <div class="notification-dropdown-footer">
-                                                <h5><a href="#">See all</a></h5>                            
+                                                <h5><a href="{{ route('admin.notification') }}">See all</a></h5>                            
                                             </div>
                                         </div>
                                     </div>
