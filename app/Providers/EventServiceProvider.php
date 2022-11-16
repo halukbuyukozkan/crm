@@ -2,12 +2,18 @@
 
 namespace App\Providers;
 
+use App\Events\DayoffApprove;
+use App\Events\JobAssigned;
+use App\Events\TransectionApproved;
+use App\Listeners\SendDayoffApprovedNotification;
+use App\Listeners\SendJobAssignedNotification;
+use App\Listeners\SendJobNotification;
+use App\Listeners\SendTransectionApprovedNotification;
 use App\Models\Job;
 use App\Observers\JobObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
-use Illuminate\Support\Facades\Event;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -20,6 +26,16 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+        JobAssigned::class => [
+            SendJobAssignedNotification::class,
+        ],
+        TransectionApproved::class => [
+            SendTransectionApprovedNotification::class,
+        ],
+        DayoffApprove::class => [
+            SendDayoffApprovedNotification::class,
+        ],
+
     ];
 
     /**

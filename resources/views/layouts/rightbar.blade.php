@@ -48,6 +48,47 @@
                     <div class="infobar">
                         <ul class="list-inline mb-0">
                             <li class="list-inline-item">
+                                <div class="notifybar">
+                                    <div class="dropdown">
+                                        <a class="dropdown-toggle infobar-icon" href="#" role="button" id="notoficationlink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="ri-notification-line"></i>
+                                        <span class="live-icon"></span></a>
+                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="notoficationlink">
+                                            <div class="notification-dropdown-title">
+                                                <h5>{{ __('Notification') }}<a href="#">{{ __('Clear all') }}</a></h5>                            
+                                            </div>
+                                            <ul class="list-unstyled">    
+                                                @foreach($notifications->take(5) as $notification)                                                
+                                                <li class="media dropdown-item">
+                                                    <span class="action-icon badge badge-primary">
+                                                        @if($notification->data['category'] == 'job')
+                                                        <i class="ri-task-line"></i>
+                                                        @elseif($notification->data['category'] == "transection")
+                                                        <i class="ri-add-circle-line"></i>
+                                                        @elseif($notification->data['category'] == "dayoff")
+                                                        <i class="ri-calendar-check-line"></i>
+                                                        @endif
+                                                    </span>
+                                                    <div class="media-body">
+                                                        @if(request()->routeIs('admin.job.*'))
+                                                        <a href="{{ route('admin.job.index') }}">
+                                                        @else
+                                                        <a href="#">
+                                                        @endif                        
+                                                        <h5 class="action-title">{{ __($notification->data['category']) }}</h5>
+                                                        <p><span class="timing">{{ __($notification->data['name']) }}  {{ __($notification->data['message']) }}</span></p> 
+                                                        </a>   
+                                                    </div>
+                                                </li>
+                                                @endforeach
+                                            </ul>
+                                            <div class="notification-dropdown-footer">
+                                                <h5><a href="{{ route('admin.notification') }}">See all</a></h5>                            
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>   
+                            <li class="list-inline-item">
                                 <div class="profilebar">
                                     <div class="dropdown">
                                       <a class="dropdown-toggle" href="#" role="button" id="profilelink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="{{asset('assets/images/users/profile.svg')}}" class="img-fluid" alt="profile"><span class="live-icon">{{ Auth::user()->name}}</span></a>

@@ -63,5 +63,13 @@
     "Transection deleted successfully.": "Talep başarıyla silindi.",
     "Folder successfully created.": "Dosya başarıyla oluşturuldu.",
     "Folder successfully updated.": "Dosya başarıyla güncellendi.",
+    "Notification": "Bildirimler",
+    "Clear all": "Temizle",
+    "Job assigned": "Görev atandı",
+    "job": "Görev",
+    "Transection approved": "Talep onaylandı",
+    "transection": "Talep",
+    "Dayoff approved": "İzin onaylandı",
+    "dayoff": "izin",
     "x": "x"
 }

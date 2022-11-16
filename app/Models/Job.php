@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Events\JobAssigned;
 use App\Observers\JobObserver;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
@@ -9,6 +10,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Spatie\LaravelIgnition\Recorders\JobRecorder\JobRecorder;
 
 class Job extends Model
 {

@@ -6,6 +6,7 @@ use DateTime;
 use App\Models\User;
 use App\Models\Dayoff;
 use App\Enum\DayoffTypeEnum;
+use App\Events\DayoffApprove;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -74,6 +75,8 @@ class UserDayoffController extends Controller
             $dayoff->user->dayoff = $daysleft;
             $dayoff->user->update();
         }
+
+        event(new DayoffApprove($dayoff));
 
         return redirect()->route('admin.user.dayoff.index',['user' => $user])->with('success', __('Dayoff approved successfully.'));
     }
