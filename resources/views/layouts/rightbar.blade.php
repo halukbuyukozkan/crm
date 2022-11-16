@@ -64,6 +64,8 @@
                                                         <i class="ri-task-line"></i>
                                                         @elseif($notification->data['category'] == "transection")
                                                         <i class="ri-add-circle-line"></i>
+                                                        @elseif($notification->data['category'] == "dayoff")
+                                                        <i class="ri-calendar-check-line"></i>
                                                         @endif
                                                     </span>
                                                     <div class="media-body">

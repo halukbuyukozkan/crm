@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Events\DayoffApprove;
 use App\Events\JobAssigned;
 use App\Events\TransectionApproved;
+use App\Listeners\SendDayoffApprovedNotification;
 use App\Listeners\SendJobAssignedNotification;
 use App\Listeners\SendJobNotification;
 use App\Listeners\SendTransectionApprovedNotification;
@@ -29,6 +31,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         TransectionApproved::class => [
             SendTransectionApprovedNotification::class,
+        ],
+        DayoffApprove::class => [
+            SendDayoffApprovedNotification::class,
         ],
 
     ];
