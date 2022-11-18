@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Test Mail</title>
+    <title>Görev</title>
 </head>
 <body>
-    <h3>Başlık</h3>
-    <p>test</p>
+    <h3>Görev verildi</h3>
+    <p>test görev verildi</p>
 </body>
 </html>
