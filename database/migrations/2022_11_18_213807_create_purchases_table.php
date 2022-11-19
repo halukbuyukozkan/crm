@@ -21,6 +21,8 @@ return new class extends Migration
             $table->string('description');
             
             $table->integer('price');
+            $table->boolean('is_approved');
+            $table->boolean('is_paid');
 
             $table->timestamps();
         });

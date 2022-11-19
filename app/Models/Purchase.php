@@ -10,7 +10,7 @@ class Purchase extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id','name','description','price'];
+    protected $fillable = ['user_id','name','description','price','is_approved','is_paid'];
 
     public function user(): BelongsTo
     {
