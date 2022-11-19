@@ -40,7 +40,11 @@ class PurchaseController extends Controller
      */
     public function store(PurchaseRequest $request)
     {
-        //
+        $data = $request->validated();
+
+        $purchase = Purchase::create($data);
+        
+        return redirect()->route('admin.purchase.index')->with('success',__('Purchase created successfully.'));
     }
 
     /**

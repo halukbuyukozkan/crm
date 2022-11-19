@@ -45,17 +45,9 @@ Satın Alma
                                     <td><a href="{{ route('admin.purchase.show',$purchase) }}">{{ $purchase->name }}</a></td>
                                     <td>{{ $purchase->user->name }}</td>
                                     <td>{{ $purchase->price }}</td>
-                                    <td>{{ $purchase->is_approved }}</td>
-                                    <td>{{ $purchase->is_paid }}</td>
+                                    <td>{{ $purchase->is_approved == 0 ? 'Beklemede' : 'Onaylandı' }}</td>
+                                    <td>{{ $purchase->is_paid == 0 ? 'Beklemede' : 'Ödendi' }}</td>
                                     <td>
-                                        <form action="{{ route('admin.purchase.destroy', $purchase) }}" method="POST"
-                                        class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
-                                        @csrf
-                                        @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-danger">
-                                                <i class="ri-delete-bin-line"></i>
-                                            </button>
-                                        </form>
                                         <form action="{{ route('admin.purchase.destroy', $purchase) }}" method="POST"
                                         class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
                                         @csrf
@@ -75,7 +67,7 @@ Satın Alma
             </div>
         </div>
         <!-- End col -->
-
+        {{ $purchases->links() }}
     </div>
     
 </div>
