@@ -23,6 +23,7 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ProjectTransectionController;
 use App\Http\Controllers\TransectionCategoryController;
 use App\Http\Controllers\ProjectTransectionPayBackController;
+use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\SliderController;
 
 /*
@@ -52,6 +53,7 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('message',MessageController::class);
         Route::resource('information',InformationController::class);
         Route::resource('slider',SliderController::class);
+        Route::resource('purchase',PurchaseController::class);
 
         //DAYOFF
         Route::resource('user.dayoff',UserDayoffController::class);
