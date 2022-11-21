@@ -35,7 +35,6 @@ Satın Alma
                                 <th>Oluşturan</th>
                                 <th>Fiyat</th>
                                 <th>Onay durumu</th>
-                                <th>Ödeme durumu</th>
                                 <th>İşlemler</th>
                               </tr>
                             </thead>
@@ -46,7 +45,6 @@ Satın Alma
                                     <td>{{ $purchase->user->name }}</td>
                                     <td>{{ $purchase->price }}</td>
                                     <td>{{ $purchase->is_approved == 0 ? 'Beklemede' : 'Onaylandı' }}</td>
-                                    <td>{{ $purchase->is_paid == 0 ? 'Beklemede' : 'Ödendi' }}</td>
                                     <td>
                                         @if(Auth::user()->hasPermissionTo('Satın Alma'))
                                         <form action="{{ route('admin.purchaseapprove',['purchase' => $purchase]) }}" method="POST"
