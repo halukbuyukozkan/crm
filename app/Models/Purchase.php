@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Observers\PurchaseObserver;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -27,6 +28,16 @@ class Purchase extends Model
 
     public function ScopeOfPermission(Builder $query)
     {
-        //
+        if(Auth::user()->hasAnyPermission('Satın Alma')) {
+            return $query->whereHas('user', function (Builder $query) {
+                $query->whereHas('department', function (Builder $query) {
+                    $query->where('name', Auth::user()->department->name);
+                });
+            }); 
+        }else{
+            return $query->whereHas('user',function (Builder $query) {
+                $query->where('users.id',Auth::user()->id);
+            });
+        }
     }
 }

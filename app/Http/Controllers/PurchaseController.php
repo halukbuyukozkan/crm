@@ -15,7 +15,7 @@ class PurchaseController extends Controller
      */
     public function index()
     {
-        $purchases = Purchase::paginate();
+        $purchases = Purchase::ofPermission()->get()->paginate(10);
 
         return view('purchase.index',compact('purchases'));
     }
@@ -76,9 +76,13 @@ class PurchaseController extends Controller
      * @param  \App\Models\Purchase  $purchase
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Purchase $purchase)
+    public function update(PurchaseRequest $request, Purchase $purchase)
     {
-        //
+        $data = $request->validated();
+
+        $purchase->update($data);
+
+        return redirect()->route('admin.purchase.index')->with('success',__('Purchase updated successfully.'));
     }
 
     /**
@@ -89,6 +93,22 @@ class PurchaseController extends Controller
      */
     public function destroy(Purchase $purchase)
     {
-        //
+        $purchase->delete();
+
+        return redirect()->route('admin.purchase.index')->with('success',__('Purchase deleted successfully.'));
     }
+
+    public function approve(Purchase $purchase)
+    {
+        if($purchase->is_approved != 1){
+            $purchase->is_approved = 1;
+        }else { 
+            $purchase->is_approved = 0; 
+        }
+        $purchase->update();
+
+        return redirect()->route('admin.purchase.index')->with('success',__('Purchase approved successfully.'));
+    }
+
+
 }

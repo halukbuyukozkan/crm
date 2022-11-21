@@ -42,20 +42,33 @@ Satın Alma
                             <tbody>
                                 @foreach ($purchases as $purchase)
                                 <tr>
-                                    <td><a href="{{ route('admin.purchase.show',$purchase) }}">{{ $purchase->name }}</a></td>
+                                    <td>{{ $purchase->name }}</td>
                                     <td>{{ $purchase->user->name }}</td>
                                     <td>{{ $purchase->price }}</td>
                                     <td>{{ $purchase->is_approved == 0 ? 'Beklemede' : 'Onaylandı' }}</td>
                                     <td>{{ $purchase->is_paid == 0 ? 'Beklemede' : 'Ödendi' }}</td>
                                     <td>
-                                        <form action="{{ route('admin.purchase.destroy', $purchase) }}" method="POST"
-                                        class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
-                                        @csrf
-                                        @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-danger">
-                                                <i class="ri-delete-bin-line"></i>
-                                            </button>
+                                        @if(Auth::user()->hasPermissionTo('Satın Alma'))
+                                        <form action="{{ route('admin.purchaseapprove',['purchase' => $purchase]) }}" method="POST"
+                                            class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
+                                            @csrf
+                                                <button type="submit" class="btn btn-sm btn-primary">
+                                                    @if($purchase->is_approved != 1)<i class="ri-check-line"></i>@else<i class="ri-arrow-go-back-line"></i>@endif
+                                                </button>
                                         </form>
+                                        @endif
+                                        @if(Auth::user()->hasPermissionTo('Satın Alma') || Auth::user()->id == $purchase->user_id)
+                                            @if(($purchase->is_approved != 1 && $purchase->is_approved != 1))
+                                                <form action="{{ route('admin.purchase.destroy', $purchase) }}" method="POST"
+                                                class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
+                                                @csrf
+                                                @method('DELETE')
+                                                    <button type="submit" class="btn btn-sm btn-danger">
+                                                        <i class="ri-delete-bin-line"></i>
+                                                    </button>
+                                                </form>
+                                            @endif
+                                        @endif
                                     </td>
                                 </tr>  
                                 @endforeach

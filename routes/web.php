@@ -54,6 +54,7 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('information',InformationController::class);
         Route::resource('slider',SliderController::class);
         Route::resource('purchase',PurchaseController::class);
+        Route::post('approve/{purchase}',[PurchaseController::class,'approve'])->name('purchaseapprove');
 
         //DAYOFF
         Route::resource('user.dayoff',UserDayoffController::class);
