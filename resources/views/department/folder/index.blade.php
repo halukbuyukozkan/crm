@@ -54,6 +54,7 @@ Dosyalar
                                         <a href="{{ route('admin.department.folder.edit',['department' => $department, 'folder' => $folder]) }}"><button class="btn btn-sm btn-primary">
                                             <i class="ri-pencil-line"></i>
                                         </button></a>
+                                        @if(!$folder->files->count() > 0)
                                         <form action="{{ route('admin.department.folder.destroy',['department' => $department, 'folder' => $folder]) }}" method="POST"
                                         class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
                                         @csrf
@@ -62,6 +63,7 @@ Dosyalar
                                                 <i class="ri-delete-bin-line"></i>
                                             </button>
                                         </form>
+                                        @endif
                                     </td>
                                     @endif
                                 </tr>  
