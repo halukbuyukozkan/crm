@@ -201,3 +201,11 @@
     </div>
     <!-- End Footerbar -->
 </div>
+
+<script>
+
+    setTimeout(function() {
+        $('#alert').fadeOut('fast');
+    }, 3000); // <-- time in milliseconds
+
+</script>
