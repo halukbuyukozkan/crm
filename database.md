@@ -67,7 +67,6 @@
 # JobUser
 - job_id
 - user_id
- // department_id
 
 # Status
 - id 
@@ -79,29 +78,12 @@
 - message
 
 
-
-
-
-
-
-
-
-
-/////// ESKi
-
-# MoneyRequest
+# Purchase 
 - id 
 - user_id
 - name
 - description
-
-# MoneyRequestItem
-- id
-- money_request_id
-- type_id
 - price
 
-# Type
-- id 
-- name
-- type_id
+
+

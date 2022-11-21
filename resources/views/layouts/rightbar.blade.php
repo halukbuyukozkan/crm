@@ -127,7 +127,7 @@
                 <div class="collapse navbar-collapse" id="navbar-menu">
                     <ul class="horizontal-menu">
                         <li>
-                            <a href="{{ route('admin.front.index') }}"><i class="ri-file-info-line"></i></i>Anasayfa</a>
+                            <a href="{{ route('admin.front.index') }}"><i class="ri-home-2-line"></i>Anasayfa</a>
                         </li>
                         <li>
                             <a href="{{ route('admin.about.index') }}"><i class="ri-file-info-line"></i></i>Hakkımızda</a>
@@ -136,7 +136,7 @@
                             <a href="{{ route('admin.field.index') }}"><i class="ri-building-line"></i></i>Faaliyetlerimiz</a>
                         </li>
                         <li>
-                            <a href="{{ route('admin.goodssol') }}"><i class="ri-file-info-line"></i></i>Goodssol Ailesi</a>
+                            <a href="{{ route('admin.goodssol') }}"><i class="ri-file-info-line"></i></i>Goodssol</a>
                         </li>
                         <li>
                             <a href="{{ route('admin.department.folder.index',Auth::user()->department) }}"><i class="ri-pages-line"></i>Dosyalar</a>
@@ -145,10 +145,13 @@
                             <a href="{{ route('admin.job.index') }}"><i class="ri-checkbox-multiple-line"></i></i>Görevler</a>
                         </li>
                         <li>
-                            <a href="{{ route('admin.project.index') }}"><i class="ri-checkbox-multiple-line"></i></i>Talepler</a>
+                            <a href="{{ route('admin.project.index') }}"><i class="ri-clipboard-line"></i>Talepler</a>
                         </li>
                         <li>
-                            <a href="{{ route('admin.user.dayoff.index',Auth::user()) }}"><i class="ri-checkbox-multiple-line"></i></i>İzinler</a>
+                            <a href="{{ route('admin.purchase.index') }}"><i class="ri-checkbox-multiple-line"></i></i>Satın Alma</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.user.dayoff.index',Auth::user()) }}"><i class="ri-calendar-line"></i>İzinler</a>
                         </li>
                         @if(Auth::user()->hasAnyPermission('Sistem Yönetimi'))
                         <li class="scroll dropdown">

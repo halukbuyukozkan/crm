@@ -75,4 +75,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Dayoff::class);
     }
+
+    public function purchases():HasMany
+    {
+        return $this->hasMany(Purchase::class);
+    }
 }
