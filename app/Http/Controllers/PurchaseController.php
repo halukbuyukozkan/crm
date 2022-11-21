@@ -110,5 +110,17 @@ class PurchaseController extends Controller
         return redirect()->route('admin.purchase.index')->with('success',__('Purchase approved successfully.'));
     }
 
+    public function complete(Purchase $purchase)
+    {
+        if($purchase->is_paid != 1){
+            $purchase->is_paid = 1;
+        }else { 
+            $purchase->is_paid = 0; 
+        }
+        $purchase->update();
+
+        return redirect()->route('admin.purchase.index')->with('success',__('Purchase approved successfully.'));
+    }
+
 
 }

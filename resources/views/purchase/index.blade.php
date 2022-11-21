@@ -34,7 +34,8 @@ Satın Alma
                                 <th>Başlık</th>
                                 <th>Oluşturan</th>
                                 <th>Fiyat</th>
-                                <th>Onay durumu</th>
+                                <th>Departman Onayı</th>
+                                <th>Üst Yönetim Onayı</th>
                                 <th>İşlemler</th>
                               </tr>
                             </thead>
@@ -45,13 +46,23 @@ Satın Alma
                                     <td>{{ $purchase->user->name }}</td>
                                     <td>{{ $purchase->price }}</td>
                                     <td>{{ $purchase->is_approved == 0 ? 'Beklemede' : 'Onaylandı' }}</td>
+                                    <td>{{ $purchase->is_paid == 0 ? 'Beklemede' : 'Onaylandı' }}</td>
                                     <td>
-                                        @if(Auth::user()->hasPermissionTo('Satın Alma'))
+                                        @if(Auth::user()->hasPermissionTo('Satın Alma') || $purchase->is_paid != 1)
                                         <form action="{{ route('admin.purchaseapprove',['purchase' => $purchase]) }}" method="POST"
                                             class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
                                             @csrf
                                                 <button type="submit" class="btn btn-sm btn-primary">
                                                     @if($purchase->is_approved != 1)<i class="ri-check-line"></i>@else<i class="ri-arrow-go-back-line"></i>@endif
+                                                </button>
+                                        </form>
+                                        @endif
+                                        @if(Auth::user()->hasPermissionTo('Satın Alma Gerçekleştirme'))
+                                        <form action="{{ route('admin.purchasecomplete',['purchase' => $purchase]) }}" method="POST"
+                                            class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
+                                            @csrf
+                                                <button type="submit" class="btn btn-sm btn-primary">
+                                                    @if($purchase->is_paid != 1)<i class="ri-check-double-line"></i></i>@else<i class="ri-arrow-go-back-line"></i>@endif
                                                 </button>
                                         </form>
                                         @endif
