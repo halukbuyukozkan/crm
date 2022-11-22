@@ -48,7 +48,7 @@ Satın Alma
                                     <td>{{ $purchase->is_approved == 0 ? 'Beklemede' : 'Onaylandı' }}</td>
                                     <td>{{ $purchase->is_paid == 0 ? 'Beklemede' : 'Onaylandı' }}</td>
                                     <td>
-                                        @if(Auth::user()->hasPermissionTo('Satın Alma') || $purchase->is_paid != 1)
+                                        @if(Auth::user()->hasPermissionTo('Satın Alma') && $purchase->is_paid != 1)
                                         <form action="{{ route('admin.purchaseapprove',['purchase' => $purchase]) }}" method="POST"
                                             class="d-inline-block" onsubmit="return confirm('Emin misiniz ?');">
                                             @csrf

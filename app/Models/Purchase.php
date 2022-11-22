@@ -28,14 +28,14 @@ class Purchase extends Model
 
     public function ScopeOfPermission(Builder $query)
     {
-        if(Auth::user()->hasAnyPermission('Satın Alma')) {
+        if(Auth::user()->hasPermissionTo('Satın Alma Gerçekleştirme')) {
+            return $query->where('is_approved',1);
+        }elseif(Auth::user()->hasAnyPermission('Satın Alma')){
             return $query->whereHas('user', function (Builder $query) {
                 $query->whereHas('department', function (Builder $query) {
                     $query->where('name', Auth::user()->department->name);
                 });
             }); 
-        }elseif(Auth::user()->hasPermissionTo('Satın Alma Gerçekleştirme')){
-            return $query->where('is_approved',1);
         }else{
             return $query->whereHas('user',function (Builder $query) {
                 $query->where('users.id',Auth::user()->id);
