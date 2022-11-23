@@ -69,9 +69,13 @@ class UserDayoffController extends Controller
 
         $start = new DateTime($dayoff->start_date);
         $end = new DateTime($dayoff->end_date);
-        $days = $start->diff($end)->d;
+        $day = $start->diff($end)->d;
+        
+        if($dayoff->is_allday != 1)
+            $day = $day / 2;
+
         if($dayoff->type == 'Ücretli İzin'){
-            $daysleft = $dayoff->user->dayoff - $days;
+            $daysleft = $dayoff->user->dayoff - $day;
             $dayoff->user->dayoff = $daysleft;
             $dayoff->user->update();
         }
@@ -103,7 +107,8 @@ class UserDayoffController extends Controller
     {
         $validated = $request->validate([
             'title' => 'required|string',
-            'type' => 'nullable'
+            'type' => 'nullable',
+            'is_allday' => 'nullable',
         ]);
 
         $dayoff = Dayoff::create([
@@ -111,6 +116,7 @@ class UserDayoffController extends Controller
             'title' => $request->title,
             'type' => $request->type,
             'is_approved' => 0,
+            'is_allday' => $request->is_allday,
             'color' => 'primary',
             'start_date' => $request->start_date,
             'end_date' => $request->end_date,

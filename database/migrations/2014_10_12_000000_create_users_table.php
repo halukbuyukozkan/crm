@@ -23,7 +23,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->timestamp('birthdate')->nullable();
             $table->integer('balance')->nullable()->default(0);
-            $table->integer('dayoff')->nullable();
+            $table->float('dayoff')->nullable();
             $table->string('password');
             $table->rememberToken();
 

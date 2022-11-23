@@ -35,7 +35,7 @@ class EventServiceProvider extends ServiceProvider
         ],
         DayoffApprove::class => [
             SendDayoffApprovedNotification::class,
-            SendDayoffApprovedMail::class,
+            //SendDayoffApprovedMail::class,
         ],
 
     ];
