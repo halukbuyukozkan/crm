@@ -144,11 +144,21 @@
                         <li>
                             <a href="{{ route('admin.job.index') }}"><i class="ri-checkbox-multiple-line"></i></i>Görevler</a>
                         </li>
-                        <li>
-                            <a href="{{ route('admin.project.index') }}"><i class="ri-clipboard-line"></i>Talepler</a>
-                        </li>
-                        <li>
-                            <a href="{{ route('admin.purchase.index') }}"><i class="ri-checkbox-multiple-line"></i></i>Satın Alma</a>
+                        
+                        
+                        <li class="scroll dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="ri-settings-2-fill"></i>İşlemler</a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="{{ route('admin.project.index') }}"><i class="ri-clipboard-line"></i>Talepler</a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('admin.purchase.index') }}"><i class="ri-checkbox-multiple-line"></i></i>Satın Alma</a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('admin.trip.index') }}"><i class="ri-checkbox-multiple-line"></i></i>Seyahat Formu</a>
+                                </li>
+                            </ul>
                         </li>
                         <li>
                             <a href="{{ route('admin.user.dayoff.index',Auth::user()) }}"><i class="ri-calendar-line"></i>İzinler</a>
