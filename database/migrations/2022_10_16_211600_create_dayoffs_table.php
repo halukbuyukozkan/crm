@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('color');
             $table->string('type');
             $table->boolean('is_approved');
+            $table->boolean('is_allday')->nullable();
             $table->dateTime('start_date');
             $table->dateTime('end_date');
 

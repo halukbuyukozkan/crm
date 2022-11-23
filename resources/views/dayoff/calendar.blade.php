@@ -31,6 +31,13 @@ Departmanlar
                         @endforeach
                     </select>
                 </div>
+                <div class="form-group mb-4">
+                    <label for="password_confirmation">{{ __('İzin Türü') }}</label>
+                    <select class="form-control" name="is_allday" id="is_allday">
+                            <option value="1">Tam gün</option>
+                            <option value="0">Yarım gün</option>
+                    </select>
+                </div>
             </div>
             <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
@@ -99,6 +106,7 @@ Departmanlar
                     $('#saveBtn').click(function() {
                         var title = $('#title').val();
                         var type = $('#type').val();
+                        var is_allday = $('#is_allday').val();
                         var start_date = moment(start).format('YYYY-MM-DD');
                         var end_date = moment(end).format('YYYY-MM-DD');
 
@@ -109,7 +117,7 @@ Departmanlar
                             url:"{{ route('admin.user.dayoff.store',$user) }}",
                             type:"POST",
                             dataType:'json',
-                            data:{ title, type, start_date, end_date },
+                            data:{ title, type, is_allday, start_date, end_date },
                             success:function(response)
                             {
                             $('#dayoffModal').modal('hide')
@@ -117,6 +125,7 @@ Departmanlar
                                 'id': response.id,
                                 'title': response.title,
                                 'type': response.type,
+                                'is_allday': response.is_allday,
                                 'start' : response.start_date,
                                 'color': response.color,
                                 'end'  : response.end_date,
@@ -133,11 +142,6 @@ Departmanlar
                         }else {
                             swal("Resmi Tatiller Seçilemez", "", "error");
                         }
-
-                        
-
-
-
                     });
                 },
                 editable: true,
