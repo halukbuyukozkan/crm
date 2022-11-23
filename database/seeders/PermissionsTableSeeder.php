@@ -127,6 +127,15 @@ class PermissionsTableSeeder extends Seeder
                 'created_at' => '2022-11-21 18:55:19',
                 'updated_at' => '2022-11-21 18:55:19',
             ),
+            12 => 
+            array (
+                'id' => 17,
+                'name' => 'Seyahat Yönetimi',
+                'guard_name' => 'web',
+                'order' => 12,
+                'created_at' => '2022-11-23 21:34:24',
+                'updated_at' => '2022-11-23 21:34:24',
+            ),
         ));
         
         

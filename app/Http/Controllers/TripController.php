@@ -15,7 +15,7 @@ class TripController extends Controller
      */
     public function index()
     {
-        $trips = Trip::paginate();
+        $trips = Trip::OfPermission()->get()->paginate(10);
 
         return view('trip.index',compact('trips'));
     }

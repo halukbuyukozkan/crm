@@ -87,89 +87,95 @@ class ModelHasPermissionsTableSeeder extends Seeder
             ),
             11 => 
             array (
+                'permission_id' => 17,
+                'model_type' => 'App\\Models\\User',
+                'model_id' => 5,
+            ),
+            12 => 
+            array (
                 'permission_id' => 9,
                 'model_type' => 'App\\Models\\User',
                 'model_id' => 9,
             ),
-            12 => 
+            13 => 
             array (
                 'permission_id' => 1,
                 'model_type' => 'App\\Models\\User',
                 'model_id' => 11,
             ),
-            13 => 
-            array (
-                'permission_id' => 3,
-                'model_type' => 'App\\Models\\User',
-                'model_id' => 11,
-            ),
             14 => 
             array (
-                'permission_id' => 7,
+                'permission_id' => 3,
                 'model_type' => 'App\\Models\\User',
                 'model_id' => 11,
             ),
             15 => 
             array (
-                'permission_id' => 12,
+                'permission_id' => 7,
                 'model_type' => 'App\\Models\\User',
                 'model_id' => 11,
             ),
             16 => 
             array (
-                'permission_id' => 13,
+                'permission_id' => 12,
                 'model_type' => 'App\\Models\\User',
                 'model_id' => 11,
             ),
             17 => 
             array (
-                'permission_id' => 14,
+                'permission_id' => 13,
                 'model_type' => 'App\\Models\\User',
                 'model_id' => 11,
             ),
             18 => 
             array (
-                'permission_id' => 15,
+                'permission_id' => 14,
                 'model_type' => 'App\\Models\\User',
                 'model_id' => 11,
             ),
             19 => 
             array (
-                'permission_id' => 16,
+                'permission_id' => 15,
                 'model_type' => 'App\\Models\\User',
                 'model_id' => 11,
             ),
             20 => 
             array (
+                'permission_id' => 16,
+                'model_type' => 'App\\Models\\User',
+                'model_id' => 11,
+            ),
+            21 => 
+            array (
                 'permission_id' => 10,
                 'model_type' => 'App\\Models\\User',
                 'model_id' => 15,
             ),
-            21 => 
+            22 => 
             array (
                 'permission_id' => 3,
                 'model_type' => 'App\\Models\\User',
                 'model_id' => 16,
             ),
-            22 => 
+            23 => 
             array (
                 'permission_id' => 5,
                 'model_type' => 'App\\Models\\User',
                 'model_id' => 16,
             ),
-            23 => 
+            24 => 
             array (
                 'permission_id' => 7,
                 'model_type' => 'App\\Models\\User',
                 'model_id' => 16,
             ),
-            24 => 
+            25 => 
             array (
                 'permission_id' => 13,
                 'model_type' => 'App\\Models\\User',
                 'model_id' => 16,
             ),
-            25 => 
+            26 => 
             array (
                 'permission_id' => 14,
                 'model_type' => 'App\\Models\\User',

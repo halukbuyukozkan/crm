@@ -3,9 +3,11 @@
 namespace App\Models;
 
 use App\Observers\TripObserver;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Trip extends Model
 {
@@ -22,5 +24,18 @@ class Trip extends Model
     public function user():BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function scopeOfPermission(Builder $query)
+    {
+        if(Auth::user()->hasPermissionTo('Seyahat Yönetimi')) {
+            return $query->whereHas('user',function(Builder $query){
+                $query->whereHas('department',function(Builder $query){
+                    $query->where('name',Auth::user()->department->name);
+                });
+            });
+        }else {
+            return $query->where('user_id',Auth::user()->id);
+        }
     }
 }
