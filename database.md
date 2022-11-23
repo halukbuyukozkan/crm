@@ -85,5 +85,11 @@
 - description
 - price
 
-
+# Trip
+- id
+- name
+- user_id
+- location
+- date
+- description
 
