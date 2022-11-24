@@ -12,7 +12,8 @@ class Dayoff extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id','title','type','color','is_approved','is_allday','start_date','end_date'];
+    protected $fillable = ['user_id','title','type','color','is_approved','is_allday'];
+    protected $dates = ['start_date','end_date'];
 
     public function user(): BelongsTo
     {

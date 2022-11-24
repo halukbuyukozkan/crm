@@ -45,8 +45,8 @@
                                     <td>{{ $dayoff->title }}</td>
                                     <td>{{ $dayoff->user->name }}</td>
                                     <td>@if($dayoff->is_approved==1) Onaylandı @else Beklemede @endif</td>
-                                    <td>{{ $dayoff->start_date }}</td>
-                                    <td>{{ $dayoff->end_date }}</td>
+                                    <td>{{ $dayoff->start_date->format('d/m/Y') }}</td>
+                                    <td>{{ $dayoff->end_date->format('d/m/Y') }}</td>
                                     <td>
                                         @if($dayoff->is_approved != 1)
                                         @if(Auth::user()->hasPermissionTo('İzin Yönetimi'))
