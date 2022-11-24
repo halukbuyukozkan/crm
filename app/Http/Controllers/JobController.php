@@ -9,11 +9,12 @@ use App\Models\Image;
 use App\Models\Status;
 use App\Models\JobItem;
 use App\Enum\StatusEnum;
-use App\Events\JobAssigned;
 use App\Models\Department;
+use App\Events\JobAssigned;
 use Illuminate\Http\Request;
 use App\Http\Requests\JobRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Illuminate\Database\Eloquent\Builder;
 
 class JobController extends Controller
@@ -203,9 +204,15 @@ class JobController extends Controller
      */
     public function destroy(Job $job)
     {
+        foreach($job->job_items as $item)
+        { 
+            if(File::exists(public_path('files/job/'. $item->filename))){
+                File::delete(public_path('files/job/'. $item->filename));
+            }
+        }
+
         $job->delete();
         
-
         return redirect()->route('admin.job.index')->with('success', __('Job deleted successfully.'));
     }
 }

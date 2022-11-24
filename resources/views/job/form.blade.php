@@ -59,26 +59,34 @@ Yeni Görev
                 <input type="text" class="form-control @error('description') is-invalid @enderror" id="description" name="description"
                     value="{{ old('description', $job->description) }}" required>
             </div>
-            <h6 class="card-subtitle"><strong>Bitiş Tarihi</strong></h6>
-            <div class="form-group mb-4">
-                <input type="date" class="form-control @error('deadline') is-invalid @enderror" id="deadline" name="deadline"
-                    value="{{ old('deadline', $job->deadline) }}">
+            <div class="row">
+                <div class="col-md-6">
+                    <h6 class="card-subtitle"><strong>Bitiş Tarihi</strong></h6>
+                    <div class="form-group mb-4">
+                        <input type="date" class="form-control @error('deadline') is-invalid @enderror" id="deadline" name="deadline"
+                            value="{{ old('deadline', $job->deadline) }}">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="filename">{{ __('Dosya Ekle') }}</label>
+                        <input id="filename" type="file" class="form-control" name="filename[]" value="{{ $job->filename }}" autocomplete="filename" multiple>
+        
+                        @if ($job->filename)
+                            @foreach ($job->filename as $file)
+                                <img src="{{ asset($file->name) }}" alt="{{ $file->name}}"
+                                class="mx-3 my-2" style="max-height: 100px">
+                            @endforeach
+                        @endif
+        
+                        @error('filename')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
+                    </div>
+                </div>
+                
             </div>
-            <div class="form-group">
-                <label for="filename">{{ __('Dosya Ekle') }}</label>
-                <input id="filename" type="file" class="form-control" name="filename[]" value="{{ $job->filename }}" autocomplete="filename" multiple>
-
-                @if ($job->filename)
-                    @foreach ($job->filename as $file)
-                        <img src="{{ asset($file->name) }}" alt="{{ $file->name}}"
-                        class="mx-3 my-2" style="max-height: 100px">
-                    @endforeach
-                @endif
-
-                @error('filename')
-                    <div class="alert alert-danger">{{ $message }}</div>
-                @enderror
-            </div>
+    
         </div>
         <div class="card-footer">
             <button type="submit" class="btn btn-primary">
