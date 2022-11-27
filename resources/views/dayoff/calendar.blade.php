@@ -1,5 +1,5 @@
 @section('title') 
-Departmanlar
+İzin Takvimi
 @endsection 
 @extends('layouts.main')
 @section('style')
@@ -99,6 +99,7 @@ Departmanlar
                 selectHelper: true,
                 displayEventTime: false,
                 weekends: false,
+                timezone:"local",
 
                 select: function(start, end, allDays) {
                     $('#dayoffModal').modal('toggle');
@@ -109,6 +110,8 @@ Departmanlar
                         var is_allday = $('#is_allday').val();
                         var start_date = moment(start).format('YYYY-MM-DD');
                         var end_date = moment(end).format('YYYY-MM-DD');
+
+                        console.log(moment(start),moment(end));
 
                         const result = holidays.filter(holiday => holiday.tarih === start_date);
 
@@ -153,11 +156,13 @@ Departmanlar
                         var start_date = moment(event.start).format('YYYY-MM-DD');
                         var end_date = moment(event.end).format('YYYY-MM-DD');
 
+                        console.log(event.end);
+
                         $.ajax({
                             url:"{{ route('admin.user.dayoff.update',['user' => $user, '' ]) }}" + '/'  + id,
                                 type:"PATCH",
                                 dataType:'json',
-                                data:{ start_date, end_date  },
+                                data:{ start_date, end_date },
                                 success:function(response)
                                 {
                                     if(event.color != 'green') {

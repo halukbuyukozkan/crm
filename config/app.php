@@ -76,7 +76,7 @@ return [
     |
     */
 
-    'timezone' => 'europe/istanbul',
+    'timezone' => 'Europe/Istanbul',
 
     /*
     |--------------------------------------------------------------------------
