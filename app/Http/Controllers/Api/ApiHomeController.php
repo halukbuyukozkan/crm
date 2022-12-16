@@ -26,8 +26,9 @@ class ApiHomeController extends Controller
         $data['user'] = Auth::user();      
 
         // JOBS
-        $jobs = Job::OfJob()->get();
-        $jobs['jobs'] = $this->permission($jobs);
+        $jobs = Job::OfJob()->with('users')->get();
+        $data['jobs'] = $this->permission($jobs);
+        
         // PROJECTS 
         $data['projects'] = $this->project();
         // DAYOFFS
@@ -73,6 +74,11 @@ class ApiHomeController extends Controller
         }
 
         return $projects;
+    }
+
+    public function dateFormat()
+    {
+        
     }
 
     /**
